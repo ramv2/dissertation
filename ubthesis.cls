@@ -44,7 +44,6 @@
 \cfoot{\thepage}
 \rfoot{}
 
-
 \pagestyle{fancy}
 
 
@@ -151,30 +150,29 @@ dissertation
 \renewcommand{\maketitle}
 {
 \begin{center}
-\par \LARGE \UBT@title
+\par \LARGE \textbf{\UBT@title}
 \end{center}
 
-\vspace{\stretch{1}}
+\vspace*{1cm}
 
 \begin{center}
 \par by
-\bigskip
-\par \Large \UBT@author
-\smallskip
+\vspace*{0.5cm}
+\par \Large \textbf{\UBT@author}
+\vspace*{0.2cm}
 \par \large \UBT@conferral
 \end{center}
-
-\vspace{\stretch{1}}
-
+\vspace*{1cm}
 \begin{center}
 \par A~\UBT@thesis{} submitted to the
-\par Faculty of the Graduate School of the
-\par State University of New York at Buffalo
-\par in partial fulfillment of the requirements for the degree of
-\bigskip
-\par \UBT@degree
-\bigskip
-\par \UBT@dept
+\par Faculty of the Graduate School of
+\par the University at Buffalo, State University of New York
+\par in partial fulfillment of the requirements for the 
+\par degree of
+\vspace*{1cm}
+\par \textbf{\UBT@degree}
+\vspace*{1cm}
+\par \emph{\UBT@dept}
 \end{center}
 \thispagestyle{empty}
 }
