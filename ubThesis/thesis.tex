@@ -1,0 +1,98 @@
+%%
+%% This is file `thesis.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ubthesis.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2007 by Justin Boffemmyer <jsb23@buffalo.edu>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\documentclass[a4paper,11pt,english,twoside]{ubthesis}
+\renewcommand{\contentsname}{Table of Contents}
+\usepackage{tocloft}
+\renewcommand{\cftdotsep}{1}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections,
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand\cftsecdotsep{\cftdot}
+\renewcommand\cftsubsecdotsep{\cftdot}
+\usepackage{setspace}
+\doublespacing
+
+%% You need to inclue this line or the hyperref package
+\providecommand\phantomsection{}
+
+\title{QUANTUM VIRIAL COEFFICIENTS VIA PATH INTEGRAL MONTE CARLO: THEORY AND DEVELOPMENT OF NOVEL ALGORITHMS}
+
+\author{Ramachandran Subramanian}
+
+\conferral{May 9, 2016}
+
+\dept{Chemical and Biological Engineering}
+
+\degree{phd}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+\begin{ubfrontmatter}
+\makecopyright
+\cleardoublepage
+\begin{acknowledgements}
+    ``Mata, Pita, Guru, Deivam" is a saying in Sanskrit which translates to ``Mother, Father, Teacher, God" and it is the conventionally prescribed order in India, for expressing one's feeling of gratitude, appreciation and respect. Based on personal experiences however, I intend to slightly deviate from this order while acknowledging the people who have helped me become the man I am today.\\
+
+    \noindent My mother (\emph{mummyji}): I wish to thank you for your unconditional love and relentless support throughout this endeavor. Your kindness and eagerness to help other people has always inspired me to become a better person.\\
+    
+    \noindent My father (\emph{subanna}): I wish to thank you for teaching and imparting me with strong moral values and discipline. Your constant criticism served as the perfect reality checks that I needed, when I was struggling for motivation.\\
+
+    \noindent Professor David A. Kofke: Words cannot express the amount of gratitude, respect and admiration that I have for you but still, seeing as I'm breaking rules anyway, I shall make an attempt. I feel extremely previleged to have worked under your guidance and also for being given this extraordinary opportunity to learn, interact and perform research with some of the best minds in the world. Your generosity, encouragement and ubiquitous smile always made me feel welcome whenever I approached you for any advice. Thanks to you, I feel that I am better at communicating my ideas and thoughts more clearly, a skill that means so much to me. Thank you also for inspiring and instilling in me, a passion towards quantum mechanics, which ultimately led to my research focus. The amount of freedom that I experienced in the group and the sense of independence that it equipped me with, are deeply appreciated. The hospitality and kindness that you show your graduate students is of the highest quality and you always go above and beyond to make sure that we are comfortable. Thank you for making us feel home away from home. Last but definitely not the least, I am eternally indebted to you for making this a truly humbling and enlightening experience.\\
+
+    \noindent Research Assistant Professor Andrew J. Schultz: I wish to thank you for being patient with me all these years as I kept ``bugging" you with the most silly questions. I've always admired your passion for problem solving and your committment towards helping graduate students. I've lost count of the number of times you have stayed late to help me understand something extremely fundamental, and for that, I tip my metaphorical hat to you. I am extremely grateful for introducing and helping me learn different software tools and applications. I thank you also for taking time outside of your office hours and teaching me the right way to watch Star Wars. I'll always cherish our movie-marathon-sessions in the lab.\\
+
+    \noindent My committee member Prof. Johannes Hachmann: I am truly grateful for your excellent career advice and guidance. Your efforts to provide graduate students with the opportunities to connect and interact with people from the industry are sincerely appreciated. Thank you for serving on my committee.\\
+
+    \noindent My committee member Prof. Jeffrey R. Errington: I wish to thank you for your valuable inputs and questions during group meetings, that have always motivated me to ask the right questions in research. I am sincerely grateful for the hospitality, kindness and respect with which you treat all students. Thank you for serving on my comittee.\\
+
+    \noindent Research collaborators: I would like to thank Dr. Allan H. Harvey(NIST) for insightful communications; Dr. Giovanni Garberoglio(Fondazione Bruno Kessler, Italy), Dr. Sergei Manzhos(University of Tokyo, Japan) and Dr. Massimiliano Bartolomei(IFF-CSIC, Spain) for helping me resolve issues regarding implementation of their computer codes.
+
+    \noindent My sister (\emph{pete}): I wish to thank you for helping me make some of the most important decisions of my life and also for continuously encouraging me no matter what.\\
+
+    
+\end{acknowledgements}
+\tableofcontents
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+\begin{abstract}
+This is my abstract
+\end{abstract}
+\end{ubfrontmatter}
+
+\chapter{Introduction}
+
+\begin{ubbackmatter}
+\references[Bibliography]{}
+\end{ubbackmatter}
+
+\end{document}
+\endinput
+%%
+%% End of file `thesis.tex'.
