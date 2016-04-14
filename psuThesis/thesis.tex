@@ -80,14 +80,15 @@
 % included with the ms, meng, and ma options.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Only one of the following lines should be used at a time.
-\documentclass[draft,phd,12pt]{psuthesis}
-%\documentclass[draft,phd,inlinechaptertoc]{psuthesis}
+%\documentclass[draft,phd,12pt]{psuthesis}
+\documentclass[draft,phd,12pt,inlinechaptertoc]{psuthesis}
 %\documentclass[draft,ms]{psuthesis}
 %\documentclass[draft,honorsdepthead,honors]{psuthesis}
 %\documentclass[draft,honors]{psuthesis}
 %\documentclass[draft,secondthesissupervisor,honors]{psuthesis}
 %\documentclass[draft,bs]{psuthesis}
-
+\renewcommand{\sfdefault}{ppl}
+\renewcommand{\familydefault}{\sfdefault}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages we like to use. %
@@ -122,7 +123,8 @@
   \setlength{\itemsep}{1pt}
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}}{\end{itemize}}
-
+\usepackage{geometry}
+\geometry{total={210mm,297mm},left=25mm,right=25mm,top=40mm,bottom=30mm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Setting for fncychap %
@@ -173,23 +175,23 @@
 % FRONT-MATTER %
 %%%%%%%%%%%%%%%%
 % Title
-\title{Politicizing War \\ \emph{Information, Democracy, and Public Opinion}}
+\title{QUANTUM VIRIAL COEFFICIENTS VIA PATH INTEGRAL MONTE CARLO: THEORY AND DEVELOPMENT OF NOVEL ALGORITHMS}
 
 % Author and Date of Degree Conferral or Defense
-\author{Nicholas P. Nicoletti}
+\author{Ramachandran Subramanian}
 % the degree will be conferred on this date
-\degreedate{May 2013}
-% year of your copyright. I have removed this from the cover page because UB's guidelines do not include it. 
-\copyrightyear{2013}
+\degreedate{May 9, 2016}
+% year of your copyright. I have removed this from the cover page because UB's guidelines do not include it.
+\copyrightyear{2016}
 
 % This is the document type. For example, this could also be:
 %     Comprehensive Document
 %     Thesis Proposal
 \documenttype{Disseration}
 %The department where you will be submitting the document%
-\dept{Department of Political Science}
+\dept{Department of Chemical and Biological Engineering}
 % This will generally be The Graduate School, though you can
-% put anything in here to suit your needs. This has also been removes from the cover page via the psuthesis.cls document because UB guidelines do not allow for it. 
+% put anything in here to suit your needs. This has also been removes from the cover page via the psuthesis.cls document because UB guidelines do not allow for it.
 \submittedto{The Graduate School}
 
 
@@ -206,20 +208,20 @@
 % Input reader information below. The optional argument, which
 % comes first, goes on the second line before the name.
 \advisor[Thesis Advisor, Chair of Committee]
-        {Phil Arena}
-        {Professor of Political Science}
+        {David A. Kofke}
+        {SUNY Distinguished Professor}
 
-\readerone[Committee Member, Department Chair]
-          {Harvey Palmer}
-          {Professor of Political Science}
+\readerone[Committee Member]
+          {Andrew J. Schultz}
+          {Research Assistant Professor}
 
-\readertwo[Committee Member]
-          {Michelle A. Benson}
-          {Professor of Political Science}
+\readertwo[Committee Member, Associate Dean for Undergraduate Education]
+          {Jeffrey R. Errington}
+          {Professor}
 
 \readerthree[Committee Member]
-            {Joshua Dyck}
-            {Professor of Political Science}
+            {Johannes Hachmann}
+            {Assistant Professor}
 
 \readerfour[Optional Title Here]
            {Reader Name}
@@ -356,13 +358,13 @@ Appendix-B/Appendix-B%
 % You can use BibTeX or other bibliography facility for your
 % bibliography. LaTeX's standard stuff is shown below. If you
 % bibtex, then this section should look something like:
-   \begin{singlespace}
-   \bibliographystyle{apsr}
-   \addcontentsline{toc}{chapter}{Bibliography}
-   \bibliography{Biblio-Database}
-   \end{singlespace}
 
-%\begin{singlespace}
+\bibliographystyle{apsr}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{dissertation}
+
+
+%
 %\begin{thebibliography}{99}
 %\addcontentsline{toc}{chapter}{Bibliography}
 %\frenchspacing
@@ -372,7 +374,7 @@ Appendix-B/Appendix-B%
 %\bibitem{G&H83} J. Guckenheimer and P. Holmes, \emph{Nonlinear Oscillations, Dynamical Systems, and Bifurcations of Vector Fields}, Springer-Verlag, New York, 1983.
 
 %\end{thebibliography}
-%\end{singlespace}
+%
 
 \backmatter
 

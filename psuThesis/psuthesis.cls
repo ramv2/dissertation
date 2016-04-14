@@ -177,7 +177,7 @@
 %\RequirePackage{fancyhdr}
 
 % Define the margins and other spacings.
-\setlength{\oddsidemargin}{0.6in}
+%\setlength{\oddsidemargin}{0.6in}
 \setlength{\topmargin}{0pt}
 \setlength{\headheight}{12pt}
 \setlength{\headsep}{1.8\baselineskip}
@@ -188,7 +188,7 @@
 % The LaTeX Companion claims that a \baselinestretch of
 % 1.24 gives one-and-a-half line spacing, which is allowed
 % by the PSU thesis office. FC likes 1.28 better. :-)
-\setstretch{1.28}
+\setstretch{1.5}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -204,7 +204,7 @@
 {%
 % Format chapter entries so that the chapter name goes on the same line
 % as "Chapter #".
-\renewcommand{\cftchappresnum}{Chapter }
+\renewcommand{\cftchappresnum}{}
 \settowidth{\mylength}{\bfseries\cftchappresnum\cftchapaftersnum}% extra space
 \addtolength{\cftchapnumwidth}{\mylength} % add the extra space
 %
@@ -213,7 +213,7 @@
 %
 }
 {%
-\renewcommand{\cftchappresnum}{Chapter }
+\renewcommand{\cftchappresnum}{}
 \renewcommand{\cftchapaftersnumb}{\\ \mbox{}\hspace{-\mylength}\hspace{-0.1em}}
 \settowidth{\mylength}{\bfseries\cftchappresnum\cftchapaftersnum} % extra space
 \addtolength{\cftchapnumwidth}{\mylength+0.1em} % add the extra space\renewcommand{\cftchapfont}{\bfseries}
@@ -228,23 +228,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Store the title of the thesis.
-\newcommand{\psu@title}{Theory of Everything}
+\newcommand{\psu@title}{QUANTUM VIRIAL COEFFICIENTS VIA PATH INTEGRAL MONTE CARLO: THEORY AND DEVELOPMENT OF NOVEL ALGORITHMS}
 \renewcommand{\title}[1]{\renewcommand{\psu@title}{#1}}
 
 % Store the author's name.
-\newcommand{\psu@author}{Richard Feynman}
+\newcommand{\psu@author}{Ramachandran Subramanian}
 \renewcommand{\author}[1]{\renewcommand{\psu@author}{#1}}
 
 % Store the department name.
-\newcommand{\psu@dept}{ESM}
+\newcommand{\psu@dept}{CBE}
 \providecommand{\dept}[1]{\renewcommand{\psu@dept}{#1}}
 
 % Store the date the degree will be conferred.
-\newcommand{\psu@degreedate}{May 1900}
+\newcommand{\psu@degreedate}{June 1, 2016}
 \providecommand{\degreedate}[1]{\renewcommand{\psu@degreedate}{#1}}
 
 % Store the year of the copyright.
-\newcommand{\psu@copyrightyear}{1900}
+\newcommand{\psu@copyrightyear}{2016}
 \providecommand{\copyrightyear}[1]{\renewcommand{\psu@copyrightyear}{#1}}
 
 % Store the document type.
@@ -309,7 +309,7 @@
 % input in the main file using the \numberofreaders command.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\psu@readers}{4}
+\newcommand{\psu@readers}{3}
 \providecommand{\numberofreaders}[1]{\renewcommand{\psu@readers}{#1}}
 
 
@@ -393,13 +393,13 @@
 % Here is the permission page.
 \newcommand{\psupermissionpage}{%
 \thispagestyle{empty}
-\begin{singlespace}
+
 \noindent
 I grant The Pennsylvania State University the non-exclusive right to use this work for the University's own purposes and to make single copies of the work available to the public on a not-for-profit basis if copies are not otherwise available. \\[0.6in]
 \mbox{} \hfill
 \parbox{3in}{\begin{center} \rule{3in}{0.4pt} \\ \psu@author
 \end{center}}
-\end{singlespace}
+
 \newpage
 \addtocounter{page}{-1}
 }
@@ -444,9 +444,7 @@ I grant The Pennsylvania State University the non-exclusive right to use this wo
 
 \newcommand{\copyrightpage}[1]{%
 \pagestyle{plain}
-\begin{singlespace}
-    \input{#1}
-\end{singlespace}
+\input{#1}
 }
 
 % Here is the signature page.
@@ -627,7 +625,7 @@ I grant The Pennsylvania State University the non-exclusive right to use this wo
     }
     \thispagestyle{plain}
     \vspace*{-0.5in}
-    \noindent {\normalsize The thesis of \psu@author\ was reviewed by the following:}\\[3\baselineskip]
+    \noindent {\normalsize The dissertation of \psu@author\ was reviewed by the following:}\\[3\baselineskip]
 %and approved$^{*}$ add this part in when it is reviewed and approved. Also uncomment the \parbox command below.
 \mbox{}\hfill
 \parbox{\textwidth - 0.5in}{
@@ -797,10 +795,8 @@ The following page is the Signature Page. The Signature Page needs to be given t
 
 \newcommand{\thesisabstract}[1]{%
 \pagestyle{plain}
-\chapter*{Abstract}
-    \begin{singlespace}
-        \input{#1}
-    \end{singlespace}
+\chapter{Abstract}
+\input{#1}
 \newpage
 }
 
@@ -809,7 +805,7 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \setcounter{secnumdepth}{10}
 \setcounter{tocdepth}{4}
 \newcommand{\thesistableofcontents}{%
-\begin{singlespace}
+
 \if@twocolumn
 \@restonecoltrue\onecolumn
 \else
@@ -820,69 +816,68 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
 \@starttoc{toc}%
 \if@restonecol\twocolumn\fi%
-\end{singlespace}
+
 \clearpage
 }
 
 \renewcommand{\listfigurename}{List of Figures}
 \newcommand{\thesislistoffigures}{%
-\begin{singlespace}
+
 \if@twocolumn
 \@restonecoltrue\onecolumn
 \else
 \@restonecolfalse
 \fi
-\chapter{\listfigurename
+\chapter*{\listfigurename
 \@mkboth{%
 \MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}}%
 \@starttoc{lof}%
 \if@restonecol\twocolumn\fi
-\end{singlespace}
+
 \clearpage
 }
 
 \renewcommand{\listtablename}{List of Tables}
 \newcommand{\thesislistoftables}{%
-\begin{singlespace}
+
 \if@twocolumn
 \@restonecoltrue\onecolumn
 \else
 \@restonecolfalse
 \fi
-\chapter{\listtablename
+\chapter*{\listtablename
 \@mkboth{%
 \MakeUppercase\listtablename}{\MakeUppercase\listtablename}}%
 \@starttoc{lot}%
 \if@restonecol\twocolumn\fi
-\end{singlespace}
+
 \clearpage
 }
 
 
-\newcommand{\thesislistofsymbols}[1]{%
-\chapter{List of Symbols}
+\newcommand{\thesislistofsymbols}[2]{%
+\chapter*{List of Symbols}
 %\addcontentsline{toc}{chapter}{List of Symbols}
-\begin{singlespace}
-    \input{#1}
-\end{singlespace}
+\input{#1}
 }
 
 
-
-\newcommand{\thesisacknowledgments}[1]{%
+\newcommand{\thesisacknowledgments}[2]{%
 \chapter{Acknowledgments}
 %\addcontentsline{toc}{chapter}{Acknowledgments}
-\begin{singlespace}
-    \input{#1}
-\end{singlespace}
+\input{#1}
 }
 
-
 \newcommand{\thesisdedication}[2]{%
+%\addcontentsline{toc}{chapter}{Dedication}
 \chapter*{#2}
-\begin{singlespace}
-    \input{#1}
-\end{singlespace}
+\input{#1}
+}
+
+\newcommand{\tocabstract}[2]{%
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{#2}
+\input{#1}
 }
 
 
@@ -909,20 +904,20 @@ The following page is the Signature Page. The Signature Page needs to be given t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength{\textheight}{8.5in}
 \mainmatter
-\pagestyle{empty}
-\renewcommand{\@oddhead}{\mbox{}\hfill\arabic{page}}
-\let\ps@plain = \ps@empty
+\pagestyle{plain}
+%\renewcommand{\@oddhead}{\mbox{}\hfill\arabic{page}}
+%\let\ps@plain = \ps@empty
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\vita}[1]{%
-\begin{singlespace}
+
 \thispagestyle{empty}
 \begin{center}
     \textbf{{\large Vita} \\[0.1in] \psu@author}
 \end{center}
 \input{#1}
-\end{singlespace}
+
 }
 
 
