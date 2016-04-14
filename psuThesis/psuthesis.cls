@@ -798,6 +798,7 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \chapter{Abstract}
 \input{#1}
 \newpage
+\pagenumbering{arabic}
 }
 
 
@@ -880,9 +881,6 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \input{#1}
 }
 
-
-
-
 \newcommand{\Appendix}[1]{%
 \ifthenelse{\value{chapter} = 0}
 {
@@ -902,7 +900,7 @@ The following page is the Signature Page. The Signature Page needs to be given t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareRobustCommand{\thesismainmatter}{%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setlength{\textheight}{8.5in}
+%\setlength{\textheight}{8.5in}
 \mainmatter
 \pagestyle{plain}
 %\renewcommand{\@oddhead}{\mbox{}\hfill\arabic{page}}
