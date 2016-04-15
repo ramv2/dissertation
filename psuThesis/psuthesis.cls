@@ -188,7 +188,8 @@
 % The LaTeX Companion claims that a \baselinestretch of
 % 1.24 gives one-and-a-half line spacing, which is allowed
 % by the PSU thesis office. FC likes 1.28 better. :-)
-\setstretch{1.5}
+%\setstretch{1.5}
+\doublespacing
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -871,7 +872,7 @@ The following page is the Signature Page. The Signature Page needs to be given t
 
 \newcommand{\thesisdedication}[2]{%
 %\addcontentsline{toc}{chapter}{Dedication}
-\chapter*{#2}
+%\chapter*{#2}
 \input{#1}
 }
 

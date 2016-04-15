@@ -1,25 +1,24 @@
-%SourceDoc ../YourName-Dissertation.tex
-\chapter{Declaration of Independence with a Really Long Title to See How it Looks When Really Long} \label{chapter1:introduction}
+%SourceDoc ../thesis.tex
+\chapter{Introduction} \label{chapter1:introduction}
+    \section{Virial Coefficients}
+        The virial equation of state, given as:
+        \begin{equation}
+          \frac{p}{\rho k_\textrm{B}T} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots,
+        \end{equation}
+        expresses the pressure $p$ as a power series in the number density $\rho$ of the system; $T$ is the temperature and $k_\textrm{B}$ is the Boltzmann constant. Through this formula, the temperature-dependent virial coefficients, $B_n(T)$, can be used to estimate a variety of physical properties in addition to the pressure, such as the Joule-Thomson coefficient,  critical properties, and others. The unique feature of the virial equation of state, in comparison to other thermodynamic models, is that it represents rigorously the effect of interactions among $N$ molecules, such that if given a molecular model, the virial coefficients for its equation of state can be determined without approximation. This can be clearly seen from the analytic expressions for the virial coefficients in terms of $N$-body configurational integrals \cite{Tester} which depend only on the interaction potential between $N$ molecules as:
+        \begin{equation}\label{eq: bn}
+            \begin{aligned}
+                B_2(T) &= - \frac{1}{2! {V}}  \Big[ Z_2^* - Z_1^{*2} \Big]\\
+                B_3(T) &= - \frac{1}{3! {V}^2}  \Big[ {V}  \big( Z_3^* - 3  Z_2^*  Z_1^* + 2  Z_1^{*3} \big) - 3  {\big( Z_2^* - Z_1^{*2} \big)}^2 \Big]
+            \end{aligned}
+        \end{equation}
+        where, $ Z_N^* \equiv N!  {\Big( \displaystyle\frac{{V}}{Q_1} \Big)}^N  Q_N ;$ is the $N$-body configurational integral, $Q_N$ is the $N$-body canonical partition function, and ${V}$ is the volume.
 
-\section{\sloppy Modeling Techniques for Nonlinear Wave Propagation}
-\citet{Gaubatz1999} developed an algorithm to investigate propagation of finite-am\-pli\-tude noise in pipes. His algorithm, based on weak shock theory, includes the effects of nonlinearity and tube wall boundary layer attenuation and dispersion. The hybrid time-frequency domain algorithm applies nonlinearity in the time domain, applies a fast Fourier transform (FFT), and then applies attenuation and dispersion in the frequency domain.  Then an inverse FFT is taken to return to the time domain to propagate to the next step.
-
-\subsection{This is a Subsection}
-
-We hold these truths to be self-evident, that all men are created equal,  that they are endowed by their Creator with certain unalienable Rights,  that among these are Life, Liberty and the pursuit of Happiness. --That to secure these  rights, Governments are instituted among Men, deriving their just powers  from the consent of the governed, --That whenever any Form of Government  becomes destructive of these ends, it is the Right of the People to alter  or to abolish it, and to institute new Government, laying its foundation on  such principles and organizing its powers in such form, as to them shall  seem most likely to effect their Safety and Happiness. Prudence, indeed, will dictate that Governments long established should not  be changed for light and transient causes; and accordingly all experience  hath shewn, that mankind are more disposed to suffer, while evils are  sufferable, than to right themselves by abolishing the forms to which they  are accustomed.\cite{DaviesMoon-1993-3-D-Spatial-Cha-0,Tonkin-1980-A-Basic-Attitud-0,Matsumoto-1984-A-Chaotic-Attra-0,MacKay-1988-A-Criterion-for-0,FreundNix-1996-A-Critical-Thic-0,MarsdenHolmes-1979-A-Horseshoe-in--0,Koiller-1984-A-Mechanical-Sy-0,TsiotrasLonguski-1995-A-New-Parameter-0,ShimadaNagashima-1979-A-Numerical-App-0,SmithDavenport-1988-A-Perturbation--0,Ketema-1992-A-Physical-Inte-0,GraesserCozzarelli-1994-A-Proposed-Thre-0,RichardsonMitchell-1999-A-Simplified-Va-0,MitchellRichardson-1999-A-Simplified-Va-0,Parks-1967-A-Stability-Cri-0,HsuLee-1971-A-Stability-Stu-0,BhattacharyaJames-1999-A-Theory-of-Thi-0,RimrottJanabi-Sharifi-1992-A-Torque-Free-F-0,Muller-PfeifferKranenburg-1992-A-Two-Dimension-0,HashinShtrikman-1963-A-Variational-A-0,Junkins-1997-Adventures-on-t-0}
-%%%
-\begin{figure}[htb]
-    \centering
-%    \includegraphics{\FigPath{FigureFileName}}
-    \caption{CaptionText.}
-    \label{ChX-figure: FigureLabel}
-\end{figure}
-%%%
-
-\subsubsection{This is a Subsubsection}
-
-We hold these truths to be self-evident, that all men are created equal,  that they are endowed by their Creator with certain unalienable Rights,  that among these are Life, Liberty and the pursuit of Happiness. --That to secure these  rights, Governments are instituted among Men, deriving their just powers  from the consent of the governed, --That whenever any Form of Government  becomes destructive of these ends, it is the Right of the People to alter  or to abolish it, and to institute new Government, laying its foundation on  such principles and organizing its powers in such form, as to them shall  seem most likely to effect their Safety and Happiness. Prudence, indeed, will dictate that Governments long established should not  be changed for light and transient causes; and accordingly all experience  hath shewn, that mankind are more disposed to suffer, while evils are  sufferable, than to right themselves by abolishing the forms to which they  are accustomed.
-
-\section{More Declaration}
-
-We hold these truths to be self-evident, that all men are created equal,  that they are endowed by their Creator with certain unalienable Rights,  that among these are Life, Liberty and the pursuit of Happiness. --That to secure these  rights, Governments are instituted among Men, deriving their just powers  from the consent of the governed, --That whenever any Form of Government  becomes destructive of these ends, it is the Right of the People to alter  or to abolish it, and to institute new Government, laying its foundation on  such principles and organizing its powers in such form, as to them shall  seem most likely to effect their Safety and Happiness. Prudence, indeed, will dictate that Governments long established should not  be changed for light and transient causes; and accordingly all experience  hath shewn, that mankind are more disposed to suffer, while evils are  sufferable, than to right themselves by abolishing the forms to which they  are accustomed. But when a long train of abuses and usurpations, pursuing invariably the same  Object evinces a design to reduce them under absolute Despotism, it is their  right, it is their duty, to throw off such Government, and to provide new Guards for their future security. --Such has been the patient sufferance of these Colonies; and such is now the  necessity which constrains them to alter their former Systems of Government.  The history of the present King of Great Britain [George III] is a history  of repeated injuries and usurpations, all having in direct object the  establishment of an absolute Tyranny over these States. To prove this, let Facts be submitted to a candid world. 
+        The $N$-body configurational integral, which depends on the $N$-body interaction potential, becomes exponentially more difficult to compute with increasing $N$. For extremely simple interaction potentials like hard spheres, up to fourth virial coefficients may be calculated analytically \cite{Masters2008}. Higher order virial coefficients using more complicated interaction potentials need to be evaluated numerically through quadrature or by using Monte Carlo (MC) simulations. Upon further simplification and assuming pairwise additivity of the potential, we can rewrite Eq.\eqref{eq: bn} using Mayer $f$-functions as \cite{Masters2008,Hansen}
+        \begin{equation} \label{eq: mayerfn}
+            \begin{aligned}
+                B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
+                B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
+            \end{aligned}
+        \end{equation}
+        where $f(0,1) = \Big( \exp \big[ -\beta U_2(\bm{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
