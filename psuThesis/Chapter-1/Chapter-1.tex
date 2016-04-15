@@ -22,7 +22,23 @@
             \end{aligned}
         \end{equation}
         where $f(0,1) = \Big( \exp \big[ -\beta U_2(\bm{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
-    \section{Interaction potentials}
-        \subsection{Empirical potentials and \emph{ab initio} potentials}
-        \subsection{Classification of virial coefficients}
+
+        Virial coefficients can be evaluated in two ways: a) computationally, using numerical methods to evaluate the configuration integrals given an input interaction potential, and b) experimentally, typically by collecting pressure-density data and regressing its behavior at the $\rho \to 0$ limit. By comparing the values determined using the above two methods, different models of the interaction potential between $N$ molecules can be ranked for their physical accuracy. 
+
+        Empirical potentials are fit to experimental data over a broad range of conditions, and therefore they tend to describe the interaction potential as the net result of a variety of physical phenomena taking place simultaneously (including, for example, multibody interactions and nuclear quantum effects). The way that these phenomena combine to give an effective potential will depend on the state condition as well as the experimental properties being fit. Consequently, unless fit directly to them, empirical potentials often perform poorly in comparison to experimental virial coefficients \cite{Benjamin2007}, which depend purely on the interaction of a specific number of molecules.
+
+        On the other hand, \emph{ab initio} potentials involve solving the Schr\"{o}dinger equation by using different basis functions and levels of theory and often can yield far more accurate interaction potentials as a result. Large computational resources are required to obtain coefficient with a useful level of accuracy, so the application of \emph{ab initio} method in this respect has been limited to low-order coefficients for small molecules. However, steady progress is being made \cite{Garberoglio2012,Shaul2012,Garberoglio2013,Hellmann2013,Garberoglio2014,Hellmann2014,Tat2015}. Almost all \emph{ab initio} potentials involve at the heart of their development, solving the electronic Schr\"{o}dinger equation using the Born-Oppenheimer approximation. Under this approximation, the kinetic energy of the nucleus is considered negligible when compared to the electrons, and therefore all the nuclei are assumed to be fixed at certain locations when solving the electronic structure. For the purpose of calculating really virial accurate coefficients using \emph{ab initio} potentials, one needs to account for nuclear quantum effects explicitly, especially at low temperatures or for light atoms, such as hydrogen. Based on the above, virial coefficients can be classified into the following three categories: 
+
+        \begin{description}
+            \item[Classical virial coefficients] \hfill \\
+                The virial coefficients that are calculated from an input interaction potential (empirical or \emph{ab initio} PES) without modification.
+            \item[Semi-classical virial coefficients] \hfill \\
+                The virial coefficients that are calculated using an effective potential such as the Quadratic Feynman-Hibbs (QFH) \cite{Feynman} that includes a quantum correction.
+            \item[Quantum virial coefficients] \hfill \\
+                The virial coefficients that are calculated using an empirical potential (quantum) or \emph{ab initio} PES (fully quantum) while explicitly including nuclear quantum effects.
+        \end{description}
     \section{Research goals}
+        The following are the primary goals of this work:
+        \begin{enumerate}
+            \item 
+        \end{enumerate}
