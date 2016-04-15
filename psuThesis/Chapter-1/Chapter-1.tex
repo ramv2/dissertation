@@ -1,6 +1,6 @@
 %SourceDoc ../thesis.tex
-\chapter{Introduction} \label{chapter1:introduction}
-    \section{Virial Coefficients}
+\chapter{Background \& Motivation} \label{chapter1:bgm}
+    \section{Virial coefficients}
         The virial equation of state, given as:
         \begin{equation}
           \frac{p}{\rho k_\textrm{B}T} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots,
@@ -14,7 +14,7 @@
         \end{equation}
         where, $ Z_N^* \equiv N!  {\Big( \displaystyle\frac{{V}}{Q_1} \Big)}^N  Q_N ;$ is the $N$-body configurational integral, $Q_N$ is the $N$-body canonical partition function, and ${V}$ is the volume.
 
-        The $N$-body configurational integral, which depends on the $N$-body interaction potential, becomes exponentially more difficult to compute with increasing $N$. For extremely simple interaction potentials like hard spheres, up to fourth virial coefficients may be calculated analytically \cite{Masters2008}. Higher order virial coefficients using more complicated interaction potentials need to be evaluated numerically through quadrature or by using Monte Carlo (MC) simulations. Upon further simplification and assuming pairwise additivity of the potential, we can rewrite Eq.\eqref{eq: bn} using Mayer $f$-functions as \cite{Masters2008,Hansen}
+        The $N$-body configurational integral, which depends on the $N$-body interaction potential, becomes exponentially more difficult to compute with increasing $N$ (\hl{include the exact numbers from Hansen}). For extremely simple interaction potentials like hard spheres, up to fourth virial coefficients may be calculated analytically \cite{Masters2008}. Higher order virial coefficients using more complicated interaction potentials need to be evaluated numerically through quadrature or by using Monte Carlo (MC) simulations. Upon further simplification and assuming pairwise additivity (\hl{may be include more detailed formulae}) of the potential, we can rewrite Eq.\eqref{eq: bn} using Mayer $f$-functions as \cite{Masters2008,Hansen}
         \begin{equation} \label{eq: mayerfn}
             \begin{aligned}
                 B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
@@ -22,3 +22,7 @@
             \end{aligned}
         \end{equation}
         where $f(0,1) = \Big( \exp \big[ -\beta U_2(\bm{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
+    \section{Interaction potentials}
+        \subsection{Empirical potentials and \emph{ab initio} potentials}
+        \subsection{Classification of virial coefficients}
+    \section{Research goals}
