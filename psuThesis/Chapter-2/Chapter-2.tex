@@ -1,26 +1,26 @@
-\chapter{Methods}
+\chapter{Methods}\label{chap:methods}
 \section{Mayer Sampling Monte Carlo}
 \section{Path intergals}
     \subsection{Path Integral Monte Carlo}
         The thermal density matrix $\rho$ plays a key role in Feynman's imaginary-time Path Integrals (PI) formalism and its application in Monte Carlo (MC) algorithms to compute physical properties of interest. In position space, it is given by \cite{Feynman,Ceperley1995,Cui1997}:
         \begin{equation} \label{rho}
-            \rho (R , R' ; \beta) = < R | e^{- \beta \mathcal{H} } | R' >
+            \rho (R , R' ; \beta) = < R | e^{- \beta \ham{H} } | R' >
         \end{equation}
         where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature. A key property of the density matrix is that the product of two density matrices is also a density matrix:
         \begin{equation} \label{dmProduct}
             \rho (R, R'; \beta_1) \times \rho (R, R'; \beta_2) = \rho (R, R'; \beta_1 + \beta_2)
         \end{equation}
-        This is because any operator (specifically the Hamiltonian operator $\mathcal{H}$ here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
+        This is because any operator (specifically the Hamiltonian operator \ham{H} here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
         \begin{equation} \label{convolution}
             \rho (R_0, R_P; \beta) = \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \tau) \rho (R_1, R_2; \tau) \ldots \rho (R_{P-1}, R_P; \tau)
         \end{equation}
-        where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator ($\mathcal{T}$) and the potential-energy operator ($\mathcal{V}$) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation" is given by:
+        where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator (\ham{T}) and the potential-energy operator (\ham{V}) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation" is given by:
         \begin{equation} \label{primitiveApprox}
-            e^{- \tau (\mathcal{T} + \mathcal{V})} \approx e^{- \tau \mathcal{T}} e^{- \tau \mathcal{V}}
+            e^{- \tau (\ham{T} + \ham{V})} \approx e^{- \tau \ham{T}} e^{- \tau \ham{V}}
         \end{equation}
         The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
         \begin{equation} \label{trotter}
-            e^{- \beta (\mathcal{T} + \mathcal{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \mathcal{T}} e^{- \tau \mathcal{V}} \Big]^P
+            e^{- \beta (\ham{T} + \ham{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \ham{T}} e^{- \tau \ham{V}} \Big]^P
         \end{equation}
 
         It is worth noting that within the PI implementation, we are mainly interested in evaluating the trace of the density matrix, as it is directly related to the partition function. Also when using the primitive approximation, we neglect terms that are of the order $\tau^2$. To improve the precision of results in MC simulations and to achieve faster convergence as $P$ increases, higher order corrections (or propagators of the density matrix) have been developed.
@@ -28,16 +28,16 @@
         The Takahashi-Imada (TI) propagator \cite{Takahashi1984} with error of the order $\tau^4$ uses:
         \begin{equation} \label{TI}
             \begin{aligned}
-                Tr \Big[ e^{- \beta ( \mathcal{T} + \mathcal{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \mathcal{T}} e^{-\frac{\beta}{P} \mathcal{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
-                \mathcal{V'} &= \mathcal{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\mathcal{V}, [\mathcal{T}, \mathcal{V}]].
+                Tr \Big[ e^{- \beta ( \ham{T} + \ham{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \ham{T}} e^{-\frac{\beta}{P} \mathcal{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
+                \mathcal{V'} &= \ham{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\ham{V}, [\ham{T}, \ham{V}]].
             \end{aligned}
         \end{equation}
-        Given a system with Hamiltonian $\mathcal{H}$ as:
+        Given a system with Hamiltonian \ham{H} as:
         \begin{equation} \label{h}
             \begin{aligned}
-                \mathcal{H} &= \mathcal{T} + \mathcal{V},\\
-                \mathcal{T} &= -\displaystyle\frac{\hbar^2}{2m} \sum\limits_{i=1}^N \frac{\partial^2}{\partial \bm{r}_i^2},\\
-                \mathcal{V} &= V (\bm{r}_1, \ldots , \bm{r}_N),
+                \ham{H} &= \ham{T} + \ham{V},\\
+                \ham{T} &= -\displaystyle\frac{\hbar^2}{2m} \sum\limits_{i=1}^N \frac{\partial^2}{\partial \bm{r}_i^2},\\
+                \ham{V} &= V (\bm{r}_1, \ldots , \bm{r}_N),
             \end{aligned}
         \end{equation}
         it can be easily shown that from Eqs. \eqref{TI} and \eqref{h}, we get the following:
@@ -95,4 +95,4 @@
                 \caption{Different levels of ``quantumness" of a $B_2$ calculation going from classical virial coefficients that are calculated assuming point masses to fully quantum virial coefficients with semi-classical beads. The different sphere sizes here are for illustrative purposes only and no quantitative inference should be made.} \label{quantumness}
             \end{figure}
 \section{Existing algorithms}
-\section{Novel algorithms}
+\section{Novel algorithms}\label{sec:novel algorithms}

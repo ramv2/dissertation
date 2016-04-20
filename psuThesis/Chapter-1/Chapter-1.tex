@@ -1,5 +1,4 @@
-%SourceDoc ../thesis.tex
-\chapter{Background \& Motivation} \label{chapter1:bgm}
+\chapter{Background and Motivation} \label{chap:background and motivation}
     \section{Virial coefficients}
         The virial equation of state, given as:
         \begin{equation}
@@ -27,17 +26,48 @@
 
         Empirical potentials are fit to experimental data over a broad range of conditions, and therefore they tend to describe the interaction potential as the net result of a variety of physical phenomena taking place simultaneously (including, for example, multibody interactions and nuclear quantum effects). The way that these phenomena combine to give an effective potential will depend on the state condition as well as the experimental properties being fit. Consequently, unless fit directly to them, empirical potentials often perform poorly in comparison to experimental virial coefficients \cite{Benjamin2007}, which depend purely on the interaction of a specific number of molecules.
 
-        On the other hand, \abInitio potentials involve solving the \Schrodinger equation by using different basis functions and levels of theory and often can yield far more accurate interaction potentials as a result. Large computational resources are required to obtain coefficient with a useful level of accuracy, so the application of \abInitio method in this respect has been limited to low-order coefficients for small molecules. However, steady progress is being made \cite{Boothroyd2003,Hodges2004,Garberoglio2012,Shaul2012,Garberoglio2013,Hellmann2013,Garberoglio2014,Garberoglio2014mix,Hellmann2014,Schultz2015,Tat2015}. Almost all \abInitio potentials involve at the heart of their development, solving the electronic \Schrodinger equation using the Born-Oppenheimer approximation. Under this approximation, the kinetic energy of the nucleus is considered negligible when compared to the electrons, and therefore all the nuclei are assumed to be fixed at certain locations when solving the electronic structure. For the purpose of calculating really virial accurate coefficients using \abInitio potentials, one needs to account for nuclear quantum effects explicitly, especially at low temperatures or for light atoms, such as hydrogen. Based on the above, virial coefficients can be classified into the following three categories: 
+        On the other hand, \abInitio{} potentials involve solving the \Schrodinger{} equation by using different basis functions and levels of theory and often can yield far more accurate interaction potentials as a result. Large computational resources are required to obtain coefficient with a useful level of accuracy, so the application of \abInitio{} method in this respect has been limited to low-order coefficients for small molecules. However, steady progress is being made \cite{Boothroyd2003,Hodges2004,Garberoglio2012,Shaul2012,Garberoglio2013,Hellmann2013,Garberoglio2014,Garberoglio2014mix,Hellmann2014,Schultz2015,Tat2015}. Almost all \abInitio{} potentials involve at the heart of their development, solving the electronic \Schrodinger{} equation using the Born-Oppenheimer approximation. Under this approximation, the kinetic energy of the nucleus is considered negligible when compared to the electrons, and therefore all the nuclei are assumed to be fixed at certain locations when solving the electronic structure. For the purpose of calculating really virial accurate coefficients using \abInitio{} potentials, one needs to account for nuclear quantum effects explicitly, especially at low temperatures or for light atoms, such as hydrogen. Based on the above, virial coefficients can be classified into the following three categories: 
 
         \begin{description}
             \item[Classical virial coefficients] \hfill \\
-                The virial coefficients that are calculated from an input interaction potential (empirical or \abInitio PES) without modification.
+                The virial coefficients that are calculated from an input interaction potential (empirical or \abInitio{} PES) without modification.
             \item[Semi-classical virial coefficients] \hfill \\
                 The virial coefficients that are calculated using an effective potential such as the Quadratic Feynman-Hibbs (QFH) \cite{Feynman} that includes a quantum correction.
             \item[Quantum virial coefficients] \hfill \\
-                The virial coefficients that are calculated using an empirical potential (quantum) or \abInitio PES (fully quantum) while explicitly including nuclear quantum effects.
+                The virial coefficients that are calculated using an empirical potential (quantum) or \abInitio{} PES (fully quantum) while explicitly including nuclear quantum effects.
         \end{description}
-    \section{\emph{Ab initio} Potentials}
-        In this section, different quantum chemistry methods and theories that are used in the development of the \emph{ab intio} PESs are briefly mentioned. This will help develop an idea of the amount of computational effort involved in such calculations, which will later be helpful in appreciating even the subtlest improvements in efficiency of algorithms that are used in conjunction with such PESs.
+    \section{\AbInitio{} Potentials}
+        In this section, different quantum chemistry methods and theories that are used in the development of the \abInitio{} \PESs are briefly mentioned. This will help develop an idea of the amount of computational effort involved in such calculations, which will later be called upon to serve as motivation for developing efficient algorithms in Chapter \ref{sec:novel algorithms}. Majority of what follows in this section are directly adapted from Cramer's \cite{Cramer} book and are only intended as a percursor to better understanding the rest of this dissertation work.\\
+
+        We begin by considering the \Schrodinger{} equation and the Hamiltonian operator, $H$ of a generic atom:
+        \begin{equation}\label{eq:Schrodinger}
+            \begin{aligned}
+                H~\Psi &= E~\Psi \\
+                H &= T_e + T_N + V_{ee} + V_{eN} + V_{NN}
+                %\ham{H}      &= -\displaystyle\sum_i \frac{\hbar^2}{2 m_e} \nabla^2_i -\displaystyle\sum_k \frac{\hbar^2}{2 m_k} \nabla^2_k + \displaystyle\sum_i \displaystyle\sum_k \frac{e^2 Z_k}{r_{ik}} + \displaystyle\sum_{i<j} \frac{e^2}{r_{ij}} +\displaystyle\sum_{k<l} \frac{e^2 Z_k Z_l}{r_{kl}}
+            \end{aligned}
+        \end{equation}
+        where $T$ and $V$ represent the kinetic and potential energy operators respectively; the subscripts $e$ and $N$ denote the elctron and the nucleus respectively.
+
+        The eigenfunctions of Eq. \eqref{eq:Schrodinger} are known as the wavefunctions of the atom and are denoted as $\Psi_i$. For ease of explanation, we only consider wavefunctions that are orthonormal, i.e., they satisfy the following the condition:
+        \begin{equation}\label{eq:orthonormality}
+            \int \Psi_i\, \Psi_j\, d\, \mathbf{r} = \delta_{ij}
+        \end{equation}
+        where $\delta_{ij}$ is the Kronecker delta.
+
+        Given a complete set of orthonormal wavefunctions, it is then possible to compute the expectation value of any physical property $A$, by expressing it in operator form $\hat{A}$, and evaluating:
+        \begin{equation}\label{eq:expectation value}
+            <\,A\,>\, =\, < \,\Psi_i\,|\,\hat{A}\,|\, \Psi_j\,>
+        \end{equation}
+        Knowing the wavefunction of a system exactly is therefore equivalent to possessing all information required about the system. Since there will always exist a ground state configuration of a system, the variational principle allows us to rank different sets of wavefunctions based on their energies w.r.t the ground state energy. According to the variational principle, the lower the energies, the better the set of wavefunctions. Therefore one can, in principle, devise a mechanism to construct and gradually improve the set of wavefunctions to find the best possible set of wavefunctions using various mathematical tools.
+
+        The \Schrodinger{} equation is inherently complicated due to the correlation of interactions of many particles with one another, as expressed in Eq. \eqref{eq:Schrodinger}. However, there are certain approximations and assumptions that reduce the complexity of the equation. For instance, the Born-Oppenheimer(BO) approximation assumes that under ambient conditions, the motion of the nuclei are much slower compared to that of the electrons, owing to heavier masses. This makes it possible to separate the electronic and nuclear motions within the Hamiltionian $H$ (Eq. \eqref{eq:Schrodinger}) by setting $T_N \to 0$ and $V_N$ to some constant value. Whereas previously $H$ was dependent on the nuclear coordinates and electronic coordinates explicitly, using the BO approximation $H_{BO}$ depends explicitly only on electronic coordinates and the nuclear coordinates become parameters:
+        \begin{equation}\label{eq:BO approximation}
+            (H_{BO} + V_N)~\Psi_{el} (\mathbf{q}_i;\mathbf{q}_k) = E_{BO} \Psi_{el} (\mathbf{q}_i;\mathbf{q}_k)
+        \end{equation}
+
+        Both the variational principle and the BO approximation have profound implications in quantum chemistry. Without the variational principle, it would not be possible to check and improve the mechanism of construction of orthonormal sets of wavefunctions. The PES, defined as $E_{BO}$ for different nuclear configurations ($\mathbf{q}_k$), would not exist if it were not for the BO approximation. Although the BO approximation significantly simplifies the \Schrodinger{} equation, the complexity due to the number of particles is still a challenge. The concept of constructing the set of orthonormal wavefunctions for many particle systems needs a starting point. Using the BO approximation for a one electron-one nuclues system like the hydrogen atom, analytical solutions for the orthonormal set of wavefunctions are possible. These then, become the perfect starting point for many electron wavefunctions by using what is known as the Linear Combination of Atomic Orbitals(LCAO) basis set approach. Within this approach, we construct different linear combinations of the atomic oribitals of hydrogen and use them as the set of orthonormal wavefunctions (also called the 'basis set') for many electron systems.
+
+        %where $i$ and $j$ run over electrons; $k$ and $l$ run over nuclei; $\hbar$ is reduced Planck's constant; $m_e, e$ is the mass and charge of the electron respectively; $m_k, Z_k$ is the mass and charge of the nucleus k respectively; $r_{ab}$ denotes the distance between particles $a$ and $b$.
 
         The rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system of choice (helium, hydrogen, nitrogen, oxygen and water respectively) and include background, computational details, quantum virial coefficient results and their discussion; Chapter 8 contains concluding remarks and future direction of work including suggestions for future projects. 
