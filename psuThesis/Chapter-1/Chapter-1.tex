@@ -132,7 +132,7 @@
             \end{equation}
             where $N$ is the total number of electrons and $\chi$ is a spin-orbital, i.e., a product of the spatial oribital and an electron spin eigenfunction.
 
-            Fock first proposed to extend the Hartree SCF method for Slater determinant wavefunctions giving rise to the Hartree-Fock(HF) SCF method to which Roothaan made valuable contributions later. The 'restricted Hartree-Fock' (RHF) formalism with closed-shell systems and wavefunctions represented as a single Slater determinant is the typical form of the HF SCF method. The procedure to be followed using this approach is outlined below:
+            Fock first proposed to extend the Hartree SCF method for Slater determinant wavefunctions giving rise to Slater Type Orbitals (STOs) and the Hartree-Fock(HF) SCF method$\allowbreak$, to which Roothaan \cite{Roothaan1951} made valuable contributions later. The 'restricted Hartree-Fock' (RHF) formalism with closed-shell systems and wavefunctions represented as a single Slater determinant is the typical form of the HF SCF method. The procedure to be followed using this approach is outlined below:
             \begin{enumerate}
                 \item Choose a basis set and a molecular geometry
                 \item Guess the intial density matrix $\mathbf{P}^{(0)}$ whose elements are given as:
@@ -148,11 +148,38 @@
                             (\mu \nu | \lambda \sigma) &= \displaystyle\int \int \phi_\mu (1) \phi_\nu(1) \frac{1}{r_{12}}\phi_\lambda (2) \phi_\sigma (2) d\,\mathbf{r}(1)\,d\,\mathbf{r}(2)
                         \end{aligned}                    
                     \end{equation}
-                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other. The exchange integrals $(\mu \nu | \lambda \sigma)$ are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins.
+                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other. The exchange integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals' and are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins.
                 \item Obtain new density matrix $\mathbf{P}^{(1)}$.
                 \item Repeat steps 3. and 4. until convergence.
             \end{enumerate}
             
+        \subsection{Basis Sets and MO Theory}
+       
+            HF SCF theory approximated the electron correlation effects as an average repulsive potential that each electron experiences and involved the use of different basis sets. The HF limit is defined as the case when the number of basis functions used in the basis set $\to \infty$. The amount of computational resources required for a practical calculation at the HF limit is extremely large. Therefore the choice of the basis set becomes important and there are three main guidelines to follow:
+            \begin{enumerate}
+               \item Computational complexity increases with increase in the number of basis functions and so, ideally this number should be as low as possible.
+               \item The type of functions used should be in such a way that they facilitate easy evaluation of the four index integrals (Eq. \eqref{eq:one electron Fock matrix elements}). Hence, a large number of easily integrable basis functions might be preferred over a small number of difficult-to-integrate basis functions.
+               \item The shape of the functions chosen should make some chemical sense, i.e., the amplitude of the function should be high in places where the probability density of finding the electron would be high and vice-versa.
+            \end{enumerate}
+
+
+            Considering the above mentioned factors, the STOs are rather unfavorable because they lead to four index integrals that are not easily integrable. To overcome this computational problem, Gaussian Type Orbitals(GTOs) were introduced that comprised of a quicker radial decay component than their STO counterparts. Although computationally convenient, because of the alterations to the shape brought about by using a different radial decay function, GTOs were seldom used directly as the basis functions in calculations. Also, since GTOs don't exhibit radial nodal behavior, using them one would not be able to mimic, for instance, the 2s orbital which should be negative near the origin and positive beyond a certain distance. To solve these problems, a linear combination of the GTOs were used to obtain basis functions that resembled the STOs as closely as possible. Such basis sets were known as 'contracted' basis sets and the original Gaussians used were known as the 'primitive' Gaussians. For instance:
+            \begin{equation}\label{eq:contracted}
+               \varphi(x, y, z; {\alpha}, i, j, k) = \displaystyle\sum_{a = 1}^M c_a \phi(x, y, z; \alpha_a, i , j, k)
+            \end{equation}
+            where $M$ is the number of Gaussians used in the linear combination, and the coefficients $c$ are chosen to optimize the shape of the basis function sum and ensure normalization.
+            
+            After performing various calculations, Hehre et al. \cite{Hehre1969} observed that using $M = 3$ primitive Gaussians was the optimum choice in terms of speed and accuracy when comparing to calculations using STOs. Since this is very small as compared to the HF limit, one way to add more flexibility to the basis set would be 'decontract' the basis functions. In other words, keeping the basis set same, we now construct more basis functions for each AO which would result in an increase in size of the secular equation (Eq. \eqref{eq:secular}). Accordingly, using only one basis function per AO is known as 'single-$\zeta$' basis, using two basis functions per AO is known as 'double-$\zeta$' basis and so on. The advantage of this scheme is that using larger and larger basis sets leads us to the HF limit. Since core orbitals tend to be less affected than the valence orbitals during chemical bonding, the 'decontracting' scheme is done more to the valence orbitals than to the core giving rise to 'split-valence' or 'valence-multiple-$\zeta$' basis sets.
+
+            All basis sets considered until now, have been comprised of functions that are centered on the atoms. The use of such atom centered AOs to describe a molecule with multiple nuclei located at different positions could lead to erroneous results calculated even at near HF limit (for instance, HF calculations predict that a planar structure for NH$_3$ has the lowest energy). To avoid this behavior and to allow more flexibility to the MOs, polarization functions were introduced in the basis sets. It was also observed that there is a rough equality between each decontraction step for the valence electrons and adding one new set of polarization functions, including a new set of higher angular momentum.
+
+            In addition to using polarization functions, diffuse functions are also used leading to what are known as 'augmented' basis sets. This is done so as to let the highest energy MOs, weakly bonded atoms and similar cases be more flexible. In practice, the names of basis sets contains information on what kinds of functions were used in their construction. For instance, the 'aug-cc-pVnZ' (read as 'augmented-coupled cluster- polarizable Valence n-$\zeta$') basis set uses diffuse functions on all atoms, uses coupled cluster theory (see Sec. \ref{sec:electron correlation} for more details) for electron correlation, uses polarizable functions with valence-multiple-$\zeta$ basis with Single(n = 1)-/Double(n = 2)-/Triple(n = 3)-/Qudaruple(n = 4)-/5-/6-$\zeta$ basis functions per AO. As it accounts for a variety of phenomena, one can confidently say that using such a basis set with increasing n would lead to the most accurate value at the HF limit for any desired property. To compute this value, one would simply evaluate the desired property for different n values and extrapolate it to the HF limit (n $\to \infty$).
+
+            The procedure of extrapolation, practical implementation issues, the convergence of the HF SCF method and various other computational issues are discussed in much more detail in Chapter 6 of Cramer's book \cite{Cramer} and so, we continue on to the next important topic of 'Electron Correlation' in the following section.
+
+        \subsection{Electron Correlation}\label{sec:electron correlation}
+
+
             \iffalse
             \begin{figure}
                 \centering
@@ -160,6 +187,5 @@
                 \caption{Flow chart of the HF SCF procedure}\label{fig:HF SCF flow chart}
             \end{figure}
             \fi
-            
 
-        The rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system of choice (helium, hydrogen, nitrogen, oxygen and water respectively) and include background, computational details, quantum virial coefficient results and their discussion; Chapter 8 contains concluding remarks and future direction of work including suggestions for future projects.
+        The rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system (helium, hydrogen, nitrogen, oxygen and water respectively) and include motivation, recent developments, computational details, quantum virial coefficient results and discussion; Chapter 8 contains concluding remarks and future direction of work including some of the interesting challenges that are yet to be tackled.
