@@ -59,7 +59,7 @@
             \begin{equation}\label{eq:expectation value}
                 <\,A\,>\, =\, < \,\Psi_i\,|\,\hat{A}\,|\, \Psi_j\,>
             \end{equation}
-            Knowing the wavefunction of a system exactly is therefore equivalent to possessing all information required about the system. Since there will always exist a ground state configuration of a system, the variational principle allows us to rank different sets of wavefunctions based on their energies w.r.t the ground state energy. According to the variational principle, the lower the energies, the better the set of wavefunctions. Therefore one can, in principle, devise a mechanism to construct and gradually improve the set of wavefunctions to find the best possible set of wavefunctions using various mathematical tools.
+            Knowing the wavefunction of a system exactly is therefore equivalent to possessing all information required about the system. Assuming we are given a complete set of orthonormal wavefunctions, we can express any generic wavefunction as a linear combination of the given set. It can be easily shown that resulting energy of such a generic wavefunctions is dependent on the linear combination coefficients and the energy eigenvalues corresponding to each wavefunction in the orthonormal set. Since this set of energy eigenvalues will always have a lower bound, the variational principle allows us to rank different starting sets of wavefunctions and their corresponding coefficients based on their resulting energies w.r.t this ground state energy. According to the variational principle, the lower the resulting energy, the better the starting set of wavefunctions. Therefore one can, in principle, devise a mechanism to construct and find the best possible set of wavefunctions using various mathematical tools.
 
             The \Schrodinger{} equation is inherently complicated due to the correlation of interactions of many particles with one another, as expressed in Eq. \eqref{eq:Schrodinger}. However, there are certain approximations and assumptions that reduce the complexity of the equation. For instance, the Born-Oppenheimer(BO) approximation assumes that under ambient conditions, the motion of the nuclei are much slower compared to that of the electrons, owing to heavier masses. This makes it possible to separate the electronic and nuclear motions within the Hamiltionian $H$ (Eq. \eqref{eq:Schrodinger}) by setting $T_N \to 0$ and $V_N$ to some constant value. Whereas previously $H$ was dependent on the nuclear coordinates and electronic coordinates explicitly, using the BO approximation $H_{BO}$ depends explicitly only on electronic coordinates and the nuclear coordinates become parameters:
             \begin{equation}\label{eq:BO approximation}
@@ -82,7 +82,7 @@
                             S_{ij} &= \displaystyle\int \psi_i\, \psi_j\, d\,\mathbf{r}
                         \end{aligned}
                     \end{equation}
-                    It should be noted that in practice, one would compute the values the matrix elements $H_{ij}$ from experimental data such as the ionization energy and rotational barriers. Also, we have assumed that the MO does not depend on the number of electrons present in the AO that form part of the basis set. Therefore, one might be tempted to say that the LCAO approach ignores the electron-electron repulsion. However, since we are deriving the matrix elements from experimental measurements, one might think of it as implicitly including the inter-electronic repulsion, albeit in a crude sense.
+                    It should be noted that in practice, one would compute the values of the matrix elements $H_{ij}$ from experimental data such as the ionization energy and rotational barriers. Also, we have assumed that the MOs do not depend on the number of electrons present in the AOs that form part of the basis set. Therefore, one might be tempted to say that the LCAO approach ignores the electron-electron repulsion. However, since we are deriving the matrix elements from experimental measurements, one might think of it as implicitly including the inter-electronic repulsion, albeit in a crude sense.
                 \item Determine the $N$ roots $E_j$ of the secular equation given by:
                     \begin{equation}\label{eq:secular}
                         \begin{vmatrix}
@@ -98,18 +98,21 @@
                         \displaystyle\sum_{i=1}^N a_i (H_{ki} - E S_{ki}) = 0 \:\:\:\:\: \forall k
                     \end{equation}
             \end{enumerate}
+            Thus, we would obtain $N$ MOs among which there would be one that correponds to the lowest energy which we would call the ground state MO. It should be noted that we have implicitly assumed that energy value for the MO is simply obtained as the sum of the energies of the one-electron occupied orbitals.
 
-            Upon careful observation Hartree noticed that if we set the term $V_{ee} \to 0$, the Hamiltonian in Eq. \eqref{eq:BO approximation} is separable into one-electron Hamiltonians which satisfy the one-electron \Schrodinger{} equation as defined below:
-            \begin{equation}\label{eq:one electron H}
-                \begin{aligned}
-                    H &= \displaystyle\sum_i^N h_i\\
-                    h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}}\\
-                    h_i\,\psi_i\, &= \epsilon_i \, \psi_i
-                \end{aligned}
-            \end{equation}
-            where $\psi_i$ are the corresponding one-electron wavefunctions.
+            Upon careful observation of the one-electron Hamiltonian, Hartree noticed that if we set the term $V_{ee} \to 0$ in Eq. \eqref{eq:BO approximation}, we could write down the following:
+            \begin{subequations}
+                \begin{align}
+                    \begin{split}
+                        H &= \displaystyle\sum_i^N h_i\\
+                        h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}} \label{eq:one electron H}\\
+                    \end{split}\\
+                    h_i\,\psi_i\, &= \epsilon_i \, \psi_i \label{eq:one electron SE}
+                \end{align}
+            \end{subequations}
+            where $\psi_i$ are the one-electron wavefunctions and $\epsilon_i$ are the corresponding eigenvalues.
 
-            Hartree then defined the many electron wavefunction as a product of these $\allowbreak$ one-electron wavefunctions. To account for the fact that one-electron Hamiltonians completely ignored the inter-electronic repulsion, Hartree approximated the net repulsion as an average potential and defined the correct Hamiltonian as shown below:
+            Since the overall Hamiltionian of Eq. \eqref{eq:BO approximation} is separable into one-electron Hamiltonians of Eq. \eqref{eq:one electron H}, the many electron wavefunction can simply be expressed as product of the one electron wavefunctions i.e., $\Psi_{HP} = \psi_1 \psi_2 \ldots \psi_N$. In order to minimize the energy given by $<\,\Psi_{HP}\, | H |\,\Psi_{HP}\,>$, it can be shown from variational calculus that each $\psi_i$ is an eigenfunction of its own operator defined as:
             \begin{equation}\label{eq:correct Hamiltonian}
                 \begin{aligned}
                     h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}} + V_i \{j\}\\
@@ -118,9 +121,9 @@
             \end{equation}
             where $V_i \{j\}$ represents the interaction potential with all the other electrons occupying orbitals $\{j\}$ and $\rho_j = |\psi_j|^2$; is the charge density associated with electron $j$.
 
-            From Eq. \eqref{eq:correct Hamiltonian} it can be easily seen that $\psi_j$ is needed as input to obtain the correct Hamiltonian which would ultimately result in the correct wavefunction. Therefore this posed a problem of computing a quantity that required itself as an input. Hartree proposed an iterative Self Consistent Field(SCF) method as a solution to this problem. At the first step of this method, we guess the values of all $\psi_j$ and use them to construct the correct Hamiltonian operators as per Eq. \eqref{eq:correct Hamiltonian}. Using these operators, the one-electron \Schrodinger{} equation (Eq. \eqref{eq:one electron H}) is solved multiple times to obtain a new guess for all $\psi_j$. The process is then repeated until the results have converged based on some threshold value for the electronic energy.
+            From Eq. \eqref{eq:correct Hamiltonian} it can be easily seen that $\psi_j$ is needed as input to obtain the correct Hamiltonian which would ultimately result in the correct wavefunction. Therefore this posed a problem of computing a quantity that required itself as an input. Hartree proposed an iterative Self Consistent Field(SCF) method as a solution to this problem. At the first step of this method, we guess the values of all $\psi_j$ and use them to construct the correct Hamiltonian operators as per Eq. \eqref{eq:correct Hamiltonian}. Using these operators, the one-electron \Schrodinger{} equation (Eq. \eqref{eq:one electron SE}) is solved multiple times to obtain a new guess for all $\psi_j$. The process is then repeated until the results have converged based on some threshold value for the electronic energy.
 
-            Since Hartree's product wavefunctions violated the property of indistinguishability of quantum particles and also ignored quantum mechanical exchange, a correlation effect unique to electrons of the same spin, Slater determinants provided an alternative route to incorporate these effects in the wavefunctions. By construction, Slater determinants accounted for the anti-symmetry and electronic spin (and hence exchange) which was crucial to MO wavefunctions. Expressed in determinant form as:
+            Since Hartree product wavefunctions violated the property of indistinguishability of quantum particles and also ignored quantum mechanical exchange, a correlation effect unique to electrons of the same spin, Slater determinants provided an alternative route to incorporate these effects in the wavefunctions. By construction, Slater determinants accounted for the anti-symmetry and electronic spin (and hence exchange) which was crucial to MO wavefunctions. Expressed in determinant form as:
             \begin{equation}\label{eq:Slater determinant}
                 \Psi_{SD} = \frac{1}{\sqrt{N!}}
                 \begin{vmatrix}
