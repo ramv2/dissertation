@@ -107,10 +107,10 @@
                         H &= \displaystyle\sum_i^N h_i\\
                         h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}} \label{eq:one electron H}\\
                     \end{split}\\
-                    h_i\,\psi_i\, &= \epsilon_i \, \psi_i \label{eq:one electron SE}
+                    h_i\,\psi_i\, &= \varepsilon_i \, \psi_i \label{eq:one electron SE}
                 \end{align}
             \end{subequations}
-            where $\psi_i$ are the one-electron wavefunctions and $\epsilon_i$ are the corresponding eigenvalues.
+            where $\psi_i$ are the one-electron wavefunctions and $\varepsilon_i$ are the corresponding eigenvalues.
 
             Since the overall Hamiltionian of Eq. \eqref{eq:BO approximation} is separable into one-electron Hamiltonians of Eq. \eqref{eq:one electron H}, the many electron wavefunction can simply be expressed as product of the one electron wavefunctions i.e., $\Psi_{HP} = \psi_1 \psi_2 \ldots \psi_N$. In order to minimize the energy given by $<\,\Psi_{HP}\, | H |\,\Psi_{HP}\,>$, it can be shown from variational calculus that each $\psi_i$ is an eigenfunction of its own operator defined as:
             \begin{equation}\label{eq:correct Hamiltonian}
@@ -122,6 +122,11 @@
             where $V_i \{j\}$ represents the interaction potential with all the other electrons occupying orbitals $\{j\}$ and $\rho_j = |\psi_j|^2$; is the charge density associated with electron $j$.
 
             From Eq. \eqref{eq:correct Hamiltonian} it can be easily seen that $\psi_j$ is needed as input to obtain the correct Hamiltonian which would ultimately result in the correct wavefunction. Therefore this posed a problem of computing a quantity that required itself as an input. Hartree proposed an iterative Self Consistent Field(SCF) method as a solution to this problem. At the first step of this method, we guess the values of all $\psi_j$ and use them to construct the correct Hamiltonian operators as per Eq. \eqref{eq:correct Hamiltonian}. Using these operators, the one-electron \Schrodinger{} equation (Eq. \eqref{eq:one electron SE}) is solved multiple times to obtain a new guess for all $\psi_j$. The process is then repeated until the results have converged based on some threshold value for the electronic energy.
+
+            To avoid doubly counting the electronic repulsion, the energy is not computed directly as the eigenvalue but rather using the following:
+            \begin{equation}\label{eq:Hartree Hamiltonian energy}
+                E = \displaystyle\sum_i \varepsilon_i - \frac{1}{2} \sum_{i \ne j} \int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mathbf{r}_i\, d\,\mathbf{r}_j
+            \end{equation}
 
             Since Hartree product wavefunctions violated the property of indistinguishability of quantum particles and also ignored quantum mechanical exchange, a correlation effect unique to electrons of the same spin, Slater determinants provided an alternative route to incorporate these effects in the wavefunctions. By construction, Slater determinants accounted for the anti-symmetry and electronic spin (and hence exchange) which was crucial to MO wavefunctions. Expressed in determinant form as:
             \begin{equation}\label{eq:Slater determinant}
@@ -147,17 +152,25 @@
                     \begin{equation}\label{eq:one electron Fock matrix elements}
                         \begin{aligned}
                             f_i &= -\frac{1}{2} \nabla^2_i - \displaystyle\sum_k^{nuclei} \frac{Z_k}{r_{ik}} + V_i^{HF} \{j\}\\
+                            V_i^{HF} \{j\} &= 2 J_i - K_i\\
                             F_{\mu \nu} &= \left< \mu \,\left| -\frac{1}{2} \nabla^2 \right|\,\nu \right> - \displaystyle\sum_k^{nuclei} Z_k \left< \mu \,\left| \frac{1}{r_k} \right| \, \nu \right> + \displaystyle\sum_{\lambda \sigma} P_{\lambda \sigma} \left[ (\mu \nu | \lambda \sigma) - \frac{1}{2} (\mu \lambda | \nu \sigma) \right]\\
                             (\mu \nu | \lambda \sigma) &= \displaystyle\int \int \phi_\mu (1) \phi_\nu(1) \frac{1}{r_{12}}\phi_\lambda (2) \phi_\sigma (2) d\,\mathbf{r}(1)\,d\,\mathbf{r}(2)
-                        \end{aligned}                    
+                        \end{aligned}
                     \end{equation}
-                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other. The exchange integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals' and are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins.
+                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other; the integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals'; $J_i$ and $K_i$ are opertors defined to compute $J_{ij}$ and $K_{ij}$ that are called the Coulomb and exchange integrals respectively. The exchange integrals are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins. The Coulomb and exchange integrals are given by:
+                    \begin{equation}\label{eq:Coulomb and exchange integrals}.
+                        \begin{aligned}
+                            J_{ij} = \displaystyle\int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mathbf{r}_i\, d\,\mathbf{r}_j\\
+                            K_{ij} = \displaystyle\int \int \psi_i \psi_j \frac{1}{r_{ij}} \psi_j \psi_i d\,\mathbf{r}_i\, d\,\mathbf{r}_j
+                        \end{aligned}
+                    \end{equation}
+                     
                 \item Obtain new density matrix $\mathbf{P}^{(1)}$.
                 \item Repeat steps 3. and 4. until convergence.
             \end{enumerate}
-            
+
         \subsection{Basis Sets and Molecular Orbital Theory}
-       
+
             HF SCF theory approximated the electron correlation effects as an average repulsive potential that each electron experiences and involved the use of different basis sets. The HF limit is defined as the case when the number of basis functions used in the basis set $\to \infty$. The amount of computational resources required for a practical calculation at the HF limit is extremely large. Therefore the choice of the basis set becomes important and there are three main guidelines to follow:
             \begin{enumerate}
                \item Computational complexity increases with increase in the number of basis functions and so, ideally this number should be as low as possible.
@@ -165,30 +178,59 @@
                \item The shape of the functions chosen should make some chemical sense, i.e., the amplitude of the function should be high in places where the probability density of finding the electron would be high and vice-versa.
             \end{enumerate}
 
-
             Considering the above mentioned factors, the STOs are rather unfavorable because they lead to four index integrals that are not easily integrable. To overcome this computational problem, Gaussian Type Orbitals(GTOs) were introduced that comprised of a quicker radial decay component than their STO counterparts. Although computationally convenient, because of the alterations to the shape brought about by using a different radial decay function, GTOs were seldom used directly as the basis functions in calculations. Also, since GTOs don't exhibit radial nodal behavior, using them one would not be able to mimic, for instance, the 2s orbital which should be negative near the origin and positive beyond a certain distance. To solve these problems, a linear combination of the GTOs were used to obtain basis functions that resembled the STOs as closely as possible. Such basis sets were known as 'contracted' basis sets and the original Gaussians used were known as the 'primitive' Gaussians. For instance:
             \begin{equation}\label{eq:contracted}
                \varphi(x, y, z; {\alpha}, i, j, k) = \displaystyle\sum_{a = 1}^M c_a \phi(x, y, z; \alpha_a, i , j, k)
             \end{equation}
             where $M$ is the number of Gaussians used in the linear combination, and the coefficients $c$ are chosen to optimize the shape of the basis function sum and ensure normalization.
-            
+
             After performing various calculations, Hehre et al. \cite{Hehre1969} observed that using $M = 3$ primitive Gaussians was the optimum choice in terms of speed and accuracy when comparing to calculations using STOs. Since this is very small as compared to the HF limit, one way to add more flexibility to the basis set would be 'decontract' the basis functions. In other words, keeping the basis set same, we now construct more basis functions for each AO which would result in an increase in size of the secular equation (Eq. \eqref{eq:secular}). Accordingly, using only one basis function per AO is known as 'single-$\zeta$' basis, using two basis functions per AO is known as 'double-$\zeta$' basis and so on. The advantage of this scheme is that using larger and larger basis sets leads us to the HF limit. Since core orbitals tend to be less affected than the valence orbitals during chemical bonding, the 'decontracting' scheme is done more to the valence orbitals than to the core giving rise to 'split-valence' or 'valence-multiple-$\zeta$' basis sets.
 
             All basis sets considered until now, have been comprised of functions that are centered on the atoms. The use of such atom centered AOs to describe a molecule with multiple nuclei located at different positions could lead to erroneous results calculated even at near HF limit (for instance, HF calculations predict that a planar structure for NH$_3$ has the lowest energy). To avoid this behavior and to allow more flexibility to the MOs, polarization functions were introduced in the basis sets. It was also observed that there is a rough equality between each decontraction step for the valence electrons and adding one new set of polarization functions, including a new set of higher angular momentum.
 
-            In addition to using polarization functions, diffuse functions are also used leading to what are known as 'augmented' basis sets. This is done so as to let the highest energy MOs, weakly bonded atoms and similar cases be more flexible. In practice, the names of basis sets contains information on what kinds of functions were used in their construction. For instance, the 'aug-cc-pVnZ' (read as 'augmented-coupled cluster- polarizable Valence n-$\zeta$') basis set uses diffuse functions on all atoms, uses coupled cluster theory (see Sec. \ref{sec:electron correlation} for more details) for electron correlation, uses polarizable functions with valence-multiple-$\zeta$ basis with Single(n = 1)-/Double(n = 2)-/Triple(n = 3)-/Qudaruple(n = 4)-/5-/6-$\zeta$ basis functions per AO. As it accounts for a variety of phenomena, one can confidently say that using such a basis set with increasing n would lead to the most accurate value at the HF limit for any desired property. To compute this value, one would simply evaluate the desired property for different n values and extrapolate it to the HF limit (n $\to \infty$).
+            In addition to using polarization functions, diffuse functions are also used leading to what are known as 'augmented' basis sets. This is done so as to let the highest energy MOs, weakly bonded atoms and similar cases be more flexible. In practice, the names of basis sets contains information on what kinds of functions were used in their construction. For instance, the 'aug-cc-pVnZ' (read as 'augmented-coupled-cluster- polarizable Valence n-$\zeta$') basis set uses diffuse functions on all atoms, uses coupled-cluster theory (see Sec. \ref{subsubsec:coupled-cluster theory} for more details) for electron correlation, uses polarizable functions with valence-multiple-$\zeta$ basis with Single(n = 1)-/Double(n = 2)-/Triple(n = 3)-/Qudaruple(n = 4)-/5-/6-$\zeta$ basis functions per AO. As it accounts for a variety of phenomena, one can confidently say that using such a basis set with increasing n would lead to the most accurate value at the HF limit for any desired property. To compute this value, one would simply evaluate the desired property for different n values and extrapolate it to the HF limit (n $\to \infty$).
 
             The procedure of extrapolation, practical implementation issues, the convergence of the HF SCF method and various other computational issues are discussed in much more detail in Chapter 6 of Cramer's book \cite{Cramer} and so, we continue on to the next important topic of 'Electron Correlation' in the following section.
 
-        \subsection{Electron Correlation}\label{sec:electron correlation}
+        \subsection{Electron Correlation}\label{subsec:electron correlation}
+            HF theory is intrinsically inflexible for some systems because of the use of single SD wavefunctions only. The logical next step would be to use a linear combination of SD wavefunctions. A 'configuration' or a 'Configuration State Function'(CSF) is defined as the molecular spin state and the occupation numbers of the orbitals. For closed-shell singlets CSFs can always be represented as single determinants. For open-shell systems we required two or more determinants to properly represnet the CSFs. Consider a system with two degenerate MO. Due to the nature of the SCF process, degenerate MOs that are not occupied do not contribute to the energy. If we perform two different HF SCF calculations using either of the degenerate orbitals, the resulting energies would expected to be near or exactly the same. This is known as non-dynamical correlation as opposed to the dynamical correlation which arises due to the dynamic character of electronic interactions. Therefore, it would be wise to include different combinations of configurations as part of the optimization process, thus leading to Multiconfiguration Self-Consistent Field(MCSCF) theory. The advantage offered by MCSCF theory is that it can handle both multiple configurations as well as the possbility of multiple determinant representation of each of the configurations.
 
+            Complete Active Space(CAS) of a system is defined as all possible arrangements of the valence electrons in the systems among the different permissible orbitals. As one might guess, the CASSCF calculation is computationally expensive due to the presence of multiple factorials even for the smallest of systems. Instead of using CAS, Restricted Active Space (RAS) methods have been suggested where one includes excited states (either singly, doubly, ... ), as an alternative approach to reduce computational effort.
 
-            \iffalse
-            \begin{figure}
-                \centering
-                \includegraphics[scale=0.1,keepaspectratio]{Chapter-1/Figures/HFSCF.jpg}
-                \caption{Flow chart of the HF SCF procedure}\label{fig:HF SCF flow chart}
-            \end{figure}
-            \fi
+            Full Configuration Interaction (FCI or just CI) involves the possibility of all electrons being arranged in all possible orbitals of the system. It is worth noting that, performing a FCI calculation with an infinite basis set will yield an exact solution to the \Schrodinger{} equation (time-independent, non-relativistic, BO approximation included). Since this is more computationally expensive than the CASSCF calculation even for the smallest systems, it is seldom performed. However, for larger systems we are limited by the use of small basis sets and hence, performing the FCI calculation is somewhat less interesting. Nevertheless, such a calculation can be used as a reference to compare other methods to include electron correlation using the same basis set. Just as in the RAS methods, one can restrict the excited states to when performing the CI calculation. Accordingly the acronyms CIS, CID and CISD mean CI calculations performed with only singly-, doubly and both singly- as well as doubly- excited states. In CI calculations, it is possible to start with either a single HF SD as a reference or a MCSCF determinant as a reference (in which case the calculation is called Multiple Reference Configuration Interaction (MRCI)).
 
-        The rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system (helium, hydrogen, nitrogen, oxygen and water respectively) and include motivation, recent developments, computational details, quantum virial coefficient results and discussion; Chapter 8 contains concluding remarks and future direction of work including some of the interesting challenges that are yet to be tackled.
+            \subsubsection{Perturbation Theory}
+                Since the calculation of eigenfunctions and eigenvalues for an operator may be complicated due to the presence of certain terms in it, it might be possible to compute exact eigenfunctions and eigenvalues for a simplified version of the same operator and use those to achieve the original operator's eigenfunctions and eigenvalues. This can be done by expanding the ground-state eigenfunctions and eigenvalues as Taylor series in $\lambda$ and evaluating the $n^{\rm th}$ order corrections to the original eigenfunctions and eigenvalues. Mathematically,
+                \begin{equation}\label{eq:perturbation theory}
+                    \mathbf{A} = \mathbf{A}^{(0)} + \lambda \mathbf{V}
+                \end{equation}
+                where $\mathbf{A}^{(0)}$ is the operator for which we can find eigenfunctions, $\mathbf{V}$ is the perturbing opertor and $\lambda$ is a dimensionless parameter that maps $\mathbf{A}^{(0)}$ onto $\mathbf{A}$ as it varies from 0 to 1.
+
+                M\o{}ller and Plesset \cite{Moller1934} applied the perturbation theory in which they considered $\mathbf{A}$ to be the Hamiltonian operator $\mathbf{H}$ and proposed choices for $\mathbf{A}^{(0)}$ and $\mathbf{V}$. This approached is widely known with the acronym MP$n$ where $n$ is the order of truncation of the perturbation theory. Within the MP approach $\mathbf{H}^{(0)}$ is taken to be the sum of one-electron Fock operators (Eq. \eqref{eq:one electron Fock matrix elements}). $\mathbf{H}^{(0)}$ and the perturbing operator $\mathbf{V}$ are given as:
+                \begin{equation}\label{eq:MP elements}
+                    \begin{aligned}
+                        \mathbf{H}^{(0)} &= \displaystyle\sum_{i=1}^N f_i\\
+                        \mathbf{V} &= \displaystyle\sum_{i=1}^{occ.} \displaystyle\sum_{j > i}^{occ.} \frac{1}{r_{ij}} - \displaystyle\sum_{i}^{occ.} \displaystyle\sum_{j}^{occ.} \left (J_{ij} - \frac{1}{2} K_{ij} \right)
+                    \end{aligned}
+                \end{equation}
+                where $J_{ij}$ and $K_{ij}$ are the same Coulomb and exchange integrals as described in Eq.\eqref{eq:Coulomb and exchange integrals}.
+
+                It should be noted that the perturbing operator $\mathbf{V}$ was designed in such a way that it avoids doubly-counting the electronic replusion and gives us the correct Hamiltonians for all values of $\lambda$. Also, since we are summing over the occupied orbitals, we must be working with the MO basis set rather than the AO one. MP$n$ applied with ground state HF wavefunction is known as single reference MP$n$ and with a ground state MCSCF wavefunction is known as multireference MP$n$.
+
+            \subsubsection{Coupled-Cluster Theory}\label{subsubsec:coupled-cluster theory}
+                A more mathematically elegant way of estimating the electron correlation energy is the coupled-cluster(CC) theory \cite{Cizek1966}. The central idea (skipping all the mathematical details) is that the FCI wavefunction can be described as:
+                \begin{equation}\label{eq:cc}
+                    \begin{aligned}
+                        \Psi &= e^\mathbf{T} \Psi_{HF}\\
+                        \mathbf{T} &= \mathbf{T}_1 + \mathbf{T}_2 + \mathbf{T}_3 + \ldots + \mathbf{T}_n
+                    \end{aligned}
+                \end{equation}
+                where $\mathbf{T}$ is the cluster operator; $n$ is the total number of electrons; $T_i$ operator generates all possible determinants having $i$ excitations from the reference.
+
+                The advantage of using CC theory is that we can express the exponential function as a Taylor series expansion. To explain this better consider CCD(CC theory with only double excitations):
+                \begin{equation}\label{eq:ccd}
+                    \Psi_{CCD} = \left( 1 + \mathbf{T}_2 + \frac{\mathbf{T}_2^2}{2!} + \frac{\mathbf{T}_2^3}{3!} + \ldots \right) \Psi_{HF}
+                \end{equation}
+                The term $1 + \mathbf{T}_2$ in the r.h.s is exactly the expression we would use for the CID method (described in Sec. \ref{subsec:electron correlation}). However the terms to the right of it enable us to include the possibility of quadruple, hextuple .. excitations just by using the double excitation operator $\mathbf{T_2}$. This would not have been possible in the CI method and hence CC theory is considered size consistent. Based on different cluster operators used, CCS, CCD, CCSD, CCSD(T) and many such calculations have been performed to obtain really accurate \PESs.
+
+                This concludes the introduction to \abInitio{} potentials and the different methodologies used to construct \PESs. It should be noted that a lot of mathematical details and technical insights have been skipped in the above sections, the understanding of which requires further reading than what is mentioned here. That being said, the rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system (helium, hydrogen, nitrogen, oxygen and water respectively) and include motivation, recent developments, computational details, quantum virial coefficient results and discussion; Chapter 8 contains concluding remarks and future direction of work including some of the interesting challenges that are yet to be tackled.
