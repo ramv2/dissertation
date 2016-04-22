@@ -37,7 +37,7 @@
                 The virial coefficients that are calculated using an empirical potential (quantum) or \abInitio{} PES (fully quantum) while explicitly including nuclear quantum effects.
         \end{description}
     \section{\AbInitio{} Potentials}
-        In this section, different quantum chemistry methods and theories that are used in the development of the \abInitio{} \PESs{} are briefly mentioned. This will help develop an idea of the amount of computational effort involved in such calculations, which will later be called upon to serve as motivation for developing efficient algorithms in Chapter \ref{sec:novel algorithms}. Majority of what follows in this section is directly adapted from Cramer's \cite{Cramer} book and are only intended as a precursor to better understanding the rest of this dissertation work. The interested reader may find a more comprehensive and mathematically detailed explanation is Cramer's book \cite{Cramer}.\\
+        In this section, different quantum chemistry methods and theories that are used in the development of the \abInitio{} \PESs{} are briefly mentioned. This will help develop an idea of the amount of computational effort involved in such calculations, which will later be called upon to serve as motivation for developing efficient algorithms in Chapter \ref{sec:novel algorithms}. Majority of what follows in this section is directly adapted from Chapter's 4, 6 and 7 of Cramer's book \cite{Cramer} (where the interested reader may also find more comprehensive and mathematically detailed explanations) and are only intended as a precursor to better understanding the rest of this dissertation work. \\
         \subsection{From \Schrodinger{} equation to Molecular Orbitals}
             We begin by considering the \Schrodinger{} equation and the Hamiltonian operator, $H$ of a generic atom:
             \begin{equation}\label{eq:Schrodinger}
@@ -153,7 +153,7 @@
                 \item Repeat steps 3. and 4. until convergence.
             \end{enumerate}
             
-        \subsection{Basis Sets and MO Theory}
+        \subsection{Basis Sets and Molecular Orbital Theory}
        
             HF SCF theory approximated the electron correlation effects as an average repulsive potential that each electron experiences and involved the use of different basis sets. The HF limit is defined as the case when the number of basis functions used in the basis set $\to \infty$. The amount of computational resources required for a practical calculation at the HF limit is extremely large. Therefore the choice of the basis set becomes important and there are three main guidelines to follow:
             \begin{enumerate}
