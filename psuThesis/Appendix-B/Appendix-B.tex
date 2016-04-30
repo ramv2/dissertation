@@ -1,1 +1,43 @@
-\Appendix{DOI Afterthoughts}
+\Appendix{Bond Length Move: Mathematical Details}
+\label{Appendix B}
+    To sample the bond lengths directly (albeit approximately), we approximate $y$ (eq. \eqref{eq:y}) with a second-order Taylor series about its minimum $b_m$ (Eq. \eqref{eq:bm}), and diagonalize the Hessian to yield a set of normal mode coordinates and associated eigenvalues, which can each be sampled as independent Gaussians. The elements of the Hessian matrix $M$ are given by:
+    \begin{equation}
+        \begin{aligned}
+            M_{ij} &= \begin{cases}
+            - k_{h}  \cos (\hat \theta) & \text{if} \: \: \: | i - j | = 1\\
+            0 & \text{if} \: \: \: | i - j | >= 2
+            \end{cases}\\
+            M_{ii} &= 2  k_{h} + \frac{2}{b_{m}^2} + \frac{\beta}{P}  {\frac{d^2 u}{d b_i^2} \Bigg|}_{b_i = b_{m}}\\
+        \end{aligned}
+    \end{equation}
+
+    where $\hat \theta$ is the nominal value of $\theta_{ij}$ as given by eq. \eqref{eq:thetaHat}.
+
+    \section{The uniform mode}
+        The mode which contributes equally to towards all the bond lengths is called the uniform mode. The actual distribution of the its normal mode coordinate $\eta_u$ is not Gaussian and hence choosing from a Gaussian distribution would be wrong. For the case of the normal mode, choosing its coordinate and summing up its contribution towards each bond length is equivalent to choosing the average bond length of the system itself. So, we collect histograms of the average bond length of the system right from the start of the simulation. We choose the normal mode coordinate from a Gaussian distribution at random, until 1000 bond length change moves have been performed. At this point, we have collected a significant enough histogram from which to choose the average bond length value from. Also, we adjust the histogram every 100 moves after the first 1000 moves as explained below. For all other modes, we choose their normal mode coordinate from their respective Gaussian distributions.
+
+    \subsection{Adjusting the histogram}
+        We start at the center of the histogram by identifying the bin that has the highest probability value. Let $n_{vis}$ denote the number of times a bin has been visited and $p_{10}$ denote the probability of a bin `p' with $n_{vis} = 10$. Let the total number of bins that were adjusted be $n_{adj}$. We move right and left from the center and increase the probability of visiting a bin to a certain value based on the following:
+        \begin{itemize}
+            \item If $n_{vis}$ is $0$ , set $n_{vis} = 10, \: \: \: p = p_{10}$ and $n_{adj}++$
+            \item If $0 < n_{vis} < 10$, set $n_{vis} = 10$ and $p = p_{10}$
+            \item Repeat left and right until $n_{adj} = 20$
+        \end{itemize}
+
+        It should be noted that these values were arrived at after considering different possible options and their combinations.
+
+    \subsection{Generating a configuration}
+        Let $A (P \times P)$ and $\lambda (P \times 1)$ denote the matrix of eigenvectors  and eigenvalues of $M$ respectively. Let $\eta_i$ and $\sigma_i$ denote the normal mode coordinate and the width of the Gaussian distribution of the $i^{th}$ mode respectively. Let $r_i$ be a random number from the $i^{th}$ Gaussian distribution. Let $b^{new}_j$ denote the new bond length generated for the $j^{th}$ image. We have the following relationships:
+        \begin{equation}
+            \begin{aligned}
+                \sigma_i &= \frac{1}{\sqrt \lambda_i}\\
+                \eta_i &= r_i  \sigma_i\\
+                b_j^{new} &= b_m + \displaystyle\sum\limits_{i=0}^P A_{ij}  \eta_i\\
+                \text{where,} \: \: \: {\frac{\partial y}{\partial b_i} \Bigg|}_{b_i = b_m} &= 0
+            \end{aligned}
+        \end{equation}
+
+        The probability $\tilde \pi({\mathbf b})$, of generating a configuration of $P$ new bond lengths based on the method described above is given by:-
+        \begin{equation}
+            \tilde \pi({\mathbf b}) = \exp \Bigg[ \displaystyle\sum\limits_{i=0}^{P-1} - \frac{1}{2}  r_i^2 \Bigg]
+        \end{equation}

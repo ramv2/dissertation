@@ -1,98 +1,345 @@
 \chapter{Methods}\label{chap:methods}
+\khExplicitPfalse
+\graphicspath{{/home/ram/Desktop/Acads/Phd/dissertation/psuThesis/Chapter-2/Figures/}}
 \section{Mayer Sampling Monte Carlo}
 \section{Path intergals}
+    
     \subsection{Path Integral Monte Carlo}
         The thermal density matrix $\rho$ plays a key role in Feynman's imaginary-time Path Integrals (PI) formalism and its application in Monte Carlo (MC) algorithms to compute physical properties of interest. In position space, it is given by \cite{Feynman,Ceperley1995,Cui1997}:
-        \begin{equation} \label{rho}
+        \begin{equation}\label{eq:rho}
             \rho (R , R' ; \beta) = < R | e^{- \beta \ham{H} } | R' >
         \end{equation}
         where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature. A key property of the density matrix is that the product of two density matrices is also a density matrix:
-        \begin{equation} \label{dmProduct}
+        \begin{equation}\label{eq:dmProduct}
             \rho (R, R'; \beta_1) \times \rho (R, R'; \beta_2) = \rho (R, R'; \beta_1 + \beta_2)
         \end{equation}
         This is because any operator (specifically the Hamiltonian operator \ham{H} here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
-        \begin{equation} \label{convolution}
+        \begin{equation}\label{eq:convolution}
             \rho (R_0, R_P; \beta) = \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \tau) \rho (R_1, R_2; \tau) \ldots \rho (R_{P-1}, R_P; \tau)
         \end{equation}
         where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator (\ham{T}) and the potential-energy operator (\ham{V}) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation" is given by:
-        \begin{equation} \label{primitiveApprox}
+        \begin{equation}\label{eq:primitiveApprox}
             e^{- \tau (\ham{T} + \ham{V})} \approx e^{- \tau \ham{T}} e^{- \tau \ham{V}}
         \end{equation}
         The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
-        \begin{equation} \label{trotter}
+        \begin{equation}\label{eq:trotter}
             e^{- \beta (\ham{T} + \ham{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \ham{T}} e^{- \tau \ham{V}} \Big]^P
         \end{equation}
 
         It is worth noting that within the PI implementation, we are mainly interested in evaluating the trace of the density matrix, as it is directly related to the partition function. Also when using the primitive approximation, we neglect terms that are of the order $\tau^2$. To improve the precision of results in MC simulations and to achieve faster convergence as $P$ increases, higher order corrections (or propagators of the density matrix) have been developed.
 
         The Takahashi-Imada (TI) propagator \cite{Takahashi1984} with error of the order $\tau^4$ uses:
-        \begin{equation} \label{TI}
+        \begin{equation}\label{eq:TI}
             \begin{aligned}
                 Tr \Big[ e^{- \beta ( \ham{T} + \ham{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \ham{T}} e^{-\frac{\beta}{P} \mathcal{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
                 \mathcal{V'} &= \ham{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\ham{V}, [\ham{T}, \ham{V}]].
             \end{aligned}
         \end{equation}
         Given a system with Hamiltonian \ham{H} as:
-        \begin{equation} \label{h}
+        \begin{equation}\label{eq:h}
             \begin{aligned}
                 \ham{H} &= \ham{T} + \ham{V},\\
                 \ham{T} &= -\displaystyle\frac{\hbar^2}{2m} \sum\limits_{i=1}^N \frac{\partial^2}{\partial \bm{r}_i^2},\\
                 \ham{V} &= V (\bm{r}_1, \ldots , \bm{r}_N),
             \end{aligned}
         \end{equation}
-        it can be easily shown that from Eqs. \eqref{TI} and \eqref{h}, we get the following:
-        \begin{equation} \label{TIworking}
+        it can be easily shown that from Eqs. \eqref{eq:TI} and \eqref{eq:h}, we get the following:
+        \begin{equation}\label{eq:TIworking}
             \mathcal{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2,
         \end{equation}
-        where $\hbar$ is the reduced Planck's constant and $\pmb{\nabla}_i$ denotes the gradient with respect to coordinates of the $i^{th}$ atom. Equations \eqref{TI} and \eqref{TIworking} constitute the working equations of the the TI propagator. Schenter \cite{Schenter2002} computed fully quantum virial coefficients using three different interaction potentials for water and found that using the semi-classical TI approximation (Eq. \eqref{TIworking} with $P = 1$) gave the best agreement to fully quantum statistical mechanical calculations, especially at low temperatures where conventional expressions (based on the primitive approximation) including first order quantum corrections failed.
+        where $\hbar$ is the reduced Planck's constant and $\pmb{\nabla}_i$ denotes the gradient with respect to coordinates of the $i^{th}$ atom. Equations \eqref{eq:TI} and \eqref{eq:TIworking} constitute the working equations of the the TI propagator. Schenter \cite{Schenter2002} computed fully quantum virial coefficients using three different interaction potentials for water and found that using the semi-classical TI approximation (Eq. \eqref{eq:TIworking} with $P = 1$) gave the best agreement to fully quantum statistical mechanical calculations, especially at low temperatures where conventional expressions (based on the primitive approximation) including first order quantum corrections failed.
 
-        Janke and Sauer~\cite{Janke1992} showed that by adopting a slightly modified version of the Trotter formula (Eq.~\eqref{trotter}), they could systematically decrease the variance of the propagator. By decomposing the Hamiltonian to include more and more components of the kinetic- and potential-energy operators, they observed that the variance of the propagator improved.
+        Janke and Sauer~\cite{Janke1992} showed that by adopting a slightly modified version of the Trotter formula (Eq.~\eqref{eq:trotter}), they could systematically decrease the variance of the propagator. By decomposing the Hamiltonian to include more and more components of the kinetic- and potential-energy operators, they observed that the variance of the propagator improved.
         Suzuki \cite{Suzuki1995} suggested new schemes for the exponential product formulae along with a basic theorem for a generalized decomposition that results in the propagator having error of the order $O(1/P^4)$. Yamamoto \cite{Yamamoto2005} showed that using a finite-difference based approach (instead of computing derivatives involved with the use of TI and Suzuki propagators) helped improve the variance further.
-        \subsection{Thermal density matrix and PIMC} \label{connections}
-            In this section, we will show how the thermal density matrix is used in PIMC to compute quantum virial coefficients. Consider the Hamiltonian of a monatomic molecule like helium with mass $m$ (Eq. \eqref{h}). Using the primitive approximation (Eq. \eqref{primitiveApprox}), Trotter formula (Eq. \eqref{trotter}), and following the procedure outlined in Ref. \cite{Garberoglio2009}, we can obtain the kinetic-energy operator matrix elements as:
-            \begin{equation} \label{kineticOperatorMatrix}
+        \subsection{PIMC With Semi-classical Beads}\label{connections}
+            In this section, we will show how the thermal density matrix is used in PIMC to compute quantum virial coefficients. Consider the Hamiltonian of a monatomic molecule like helium with mass $m$ (Eq. \eqref{eq:h}). Using the primitive approximation (Eq. \eqref{eq:primitiveApprox}), Trotter formula (Eq. \eqref{eq:trotter}), and following the procedure outlined in Ref. \cite{Garberoglio2009}, we can obtain the kinetic-energy operator matrix elements as:
+            \begin{equation}\label{eq:kineticOperatorMatrix}
                 \Bigg< \bm{r}_i \Bigg| \exp \Bigg(-\displaystyle\frac{\beta \hat{p}^2}{2 m P} \Bigg) \Bigg| \bm{r}_j \Bigg> = \displaystyle\frac{P^{3/2}}{\Lambda^3} \exp \Bigg(-\displaystyle\frac{K (\bm{r}_i - \bm{r}_j)^2}{2}\Bigg),
             \end{equation}
             where $K = \displaystyle\frac{2 \pi P}{\Lambda^2},\: \Lambda = \displaystyle\frac{h}{\sqrt{2\pi m k_B T}}$.
 
             The potential-energy operator matrix elements can similarly be written as \cite{Cui1997}:
-            \begin{equation} \label{potentialOperatorMatrix}
+            \begin{equation}\label{eq:potentialOperatorMatrix}
                 \Bigg< \bm{r}_i \Bigg| \exp \Bigg(-\displaystyle\frac{\beta V(\bm{r})}{P} \Bigg) \Bigg| \bm{r}_j \Bigg> = \exp \Bigg(-\displaystyle\frac{\beta V(\bm{r}_i)}{P} \Bigg) \delta (\bm{r}_i - \bm{r}_j).
             \end{equation}
 
             It can be easily shown \cite{Garberoglio2009} then that the expression for the fully quantum second virial coefficient can be written as:
-            \begin{equation} \label{B2}
+            \begin{equation}
                 B_2 (T) = -2 \pi \displaystyle\int dr\: r^2 (e^{-\beta V_{2,\rm{eff}} (r)} - 1),
             \end{equation}
             where
-            \begin{equation} \label{vEff}
+            \begin{equation}\label{eq:vEff}
                 e^{-\beta V_{2,\rm{eff}} (r)} = \displaystyle\int \: \prod\limits_{i=1}^{P-1} d^3 \Delta \bm{r}_i\: e^{-\beta \overline{U}_2 (r)}\: F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}}),
             \end{equation}
-            \begin{equation} \label{U2bar}
+            \begin{equation}\label{eq:U2bar}
                 \begin{aligned}
                     \overline{U}_2 (r) &= \displaystyle\frac{1}{P} \sum\limits_{i=1}^P U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}),\\
                     |r|^2 &= |\bm{r}^{cm}_1 - \bm{r}^{cm}_2|^2 ~~~, \bm{r}^{cm}_i \equiv \frac{1}{P} \displaystyle\sum\limits_{j=1}^P \bm{r}_{i,j}
                 \end{aligned}
             \end{equation}
-            \begin{equation} \label{fRing}
+            \begin{equation}\label{eq:fRing}
                 \begin{aligned}
                     F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}}) &= \Lambda^3 \Bigg( \displaystyle\frac{P^{3/2}}{\Lambda^3} \Bigg)^P \exp \Bigg[-\frac{K}{2} \sum\limits_{i=1}^P \Delta \bm{r}_i^2 \Bigg],\\
                     \Delta \bm{r}_i &= \bm{r_{i+1}} - \bm{r}_i \: \: ( i = 1, \ldots, P-1).
                 \end{aligned}
             \end{equation}
-            Here $F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}})$ represents the weight of a ring polymer configuration, $\allowbreak U_2 (\bm{r}_{1,i}, \bm{r}_{2,i})$ is the inter-molecular potential energy between the $i^{th}$ beads of rings 1 and 2, $V_{2,\rm{eff}} (r)$ is an effective inter-molecular potential defined by Eq. \eqref{vEff} and $r$ is the inter-molecular separation.
+            Here $F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}})$ represents the weight of a ring polymer configuration, $\allowbreak U_2 (\bm{r}_{1,i}, \bm{r}_{2,i})$ is the inter-molecular potential energy between the $i^{th}$ beads of rings 1 and 2, $V_{2,\rm{eff}} (r)$ is an effective inter-molecular potential defined by Eq. \eqref{eq:vEff} and $r$ is the inter-molecular separation.
 
-            The kinetic-energy operator in the Hamiltonian gives rise to the weight of the ring configuration, which depends on the harmonic energy of the system with $P$ beads. The potential-energy operator (and hence, the \emph{ab initio} PES) leads to the effective potential $V_{2,\rm{eff}} (r)$ in the expression for the quantum virial coefficient. Recall that we used the primitive approximation where the potential-energy operator was a simple function of the PES. If instead, we were to include higher order terms in the primitive approximation using the TI propagator, we would expect it to affect only $\overline{U}_2 (r)$. This would in turn lead to a change in the effective potential $V_{2,\rm{eff}} (r)$. From Eqs. \eqref{h} and \eqref{TIworking}, Eq. \eqref{U2bar} can be rewritten as follows:
-            \begin{equation} \label{U2barTI}
+            The kinetic-energy operator in the Hamiltonian gives rise to the weight of the ring configuration, which depends on the harmonic energy of the system with $P$ beads. The potential-energy operator (and hence, the \emph{ab initio} PES) leads to the effective potential $V_{2,\rm{eff}} (r)$ in the expression for the quantum virial coefficient. Recall that we used the primitive approximation where the potential-energy operator was a simple function of the PES. If instead, we were to include higher order terms in the primitive approximation using the TI propagator, we would expect it to affect only $\overline{U}_2 (r)$. This would in turn lead to a change in the effective potential $V_{2,\rm{eff}} (r)$. From Eqs. \eqref{eq:h} and \eqref{eq:TIworking}, Eq. \eqref{eq:U2bar} can be rewritten as follows:
+            \begin{equation}\label{eq:U2barTI}
                 \overline{U}_2 (r) = \displaystyle\frac{1}{P} \sum\limits_{i=1}^P \Bigg[ U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}) + \frac{\hbar^2}{24m} \bigg(\displaystyle\frac{\beta}{P} \bigg)^2 \big| \pmb{\nabla} U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}) \big|^2 \Bigg]
             \end{equation}
 
-            We can see that the argument within the sum on the right-hand side of the expression for $\overline{U}_2 (r)$ goes from being a quantity completely independent of $P$ and $\hbar$ as in Eq. \eqref{U2bar} to a quantity that is dependent on both $P$ and $\hbar$ as in Eq. \eqref{U2barTI}. The inter-molecular potential experienced by the beads of the ring changes from being classical to semi-classical (dependent on $P$ and $\hbar$). Therefore, the phrase `PIMC with \textbf{semi-classical beads}' along with Fig. \ref{quantumness} is an apt description of such a PIMC simulation. For a fixed $P$, we would expect to capture more quantum effects with the use of semi-classical beads than classical beads, that is, by using the primitive approximation with higher order terms than just the primitive approximation by itself.
+            We can see that the argument within the sum on the right-hand side of the expression for $\overline{U}_2 (r)$ goes from being a quantity completely independent of $P$ and $\hbar$ as in Eq. \eqref{eq:U2bar} to a quantity that is dependent on both $P$ and $\hbar$ as in Eq. \eqref{eq:U2barTI}. The inter-molecular potential experienced by the beads of the ring changes from being classical to semi-classical (dependent on $P$ and $\hbar$). Therefore, the phrase `PIMC with \textbf{semi-classical beads}' along with Fig. \ref{quantumness} is an apt description of such a PIMC simulation. For a fixed $P$, we would expect to capture more quantum effects with the use of semi-classical beads than classical beads, that is, by using the primitive approximation with higher order terms than just the primitive approximation by itself.
 
             \begin{figure}
                 \centering
-                \includegraphics[scale=0.087,keepaspectratio]{Chapter-2/Figures/quantumLevels.png}
+                \includegraphics[scale=0.087,keepaspectratio]{quantumLevels.png}
                 \caption{Different levels of ``quantumness" of a $B_2$ calculation going from classical virial coefficients that are calculated assuming point masses to fully quantum virial coefficients with semi-classical beads. The different sphere sizes here are for illustrative purposes only and no quantitative inference should be made.} \label{quantumness}
             \end{figure}
 \section{Existing algorithms}
 \section{Novel algorithms}\label{sec:novel algorithms}
+        Sampling of configurations in PIMC is made difficult by the different range of motions needed for rearrangements of the ring of beads, versus its translation as a whole. This can be alleviated by using Monte Carlo trials having different step sizes or collective moves, but still, the amount of sampling needed for ring arrangements to decorrelate limits the capabilities of these methods. Consequently, special methods have been introduced to speed up this sampling process. For monatomic molecules (e.g., He) only molecular positions are required to be sampled, and the algorithm \cite{Fosdick:1966vh,Patkowski2008,Shaul2012} to accomplish this efficiently is established. It is possible to solve analytically for the probability distribution of the location of each bead in a chain or ring of harmonically interacting beads, and this probability can be used to regrow the ring, or part of it, directly. The acceptance of proposed rearrangement generated this way depends only on the interaction of the beads with other bead-rings in the system. Each accepted trial then yields a new internal arrangement that is uncorrelated from the one that preceded it.
+
+        Going from monatomic to diatomic molecules, rotational and vibrational degrees of freedom add more complexity to the computation and the sampling problem. To start, one can treat the molecule as a quantum-mechanical rigid rotor. Within this approximation there are multiple ways to still accommodate the vibrational degree of freedom (if using a potential model that includes it), and how it is affected by temperature \cite{Garberoglio2012,Garberoglio2014}. Regardless, the monatomic path-integral framework is extended for the rigid rotor by adding an orientational degree of freedom to each bead, coupled to the orientations of adjacent beads in the chain in the manner first described by Cui et al. \cite{Cui1997}. Sampling of positions of the beads can be decoupled from their orientations, so extension of PIMC to the diatomic can focus on finding an efficient way to sample the chain of rotors.  The interactions are not harmonic, so the probability distribution of the chain cannot be determined exactly. Garberoglio and Johnson \cite{Garberoglio2010} introduced a method to sample the path-integral degrees of freedom, based on a hybrid MC method for path integrals that uses molecular dynamics with large time steps \cite{Tuckerman:1993hu}.  This method is used to generate a reservoir of ideal-gas configurations to be used as trials in a larger MC calculation of virial coefficients (or other quantities).
+
+        It is difficult to advance to a full path-integral treatment of rotation and vibration while remaining in the framework of rovibrational quantum states for the diatomic, and even if this were tractable, it does not provide a viable route to extending to multiatomic (more than 2-atom) molecules. A step toward overcoming this problem was made by Garberoglio et al. \cite{Garberoglio2014} in their path-integral treatment of the flexible diatomic. They describe the diatomic molecule by using two independent (albeit bonded) atoms instead of one quantum rigid rotor. This eliminates the need for evaluation of rotational and/or vibrational energy levels, and replaces it with a straightforward path-integral treatment of monatomic entities. In the case of $^4$He \cite{Shaul2012}, it was found that completely regrowing the ring for each MC move was more efficient than applying random displacements to each of the beads. One should expect this to be so \emph{a foritori} for the case of multiatomics. Garberoglio et al. \cite{Garberoglio2014} use the ideal-gas hybrid MC method to generate configurations for sampling in the MC calculation of the second virial coefficient.
+        
+        We begin by listing the key equations used for the calculation of the second virial coefficient. We assume throughout a homonuclear dimer, with each atom of mass $m$. The formulas presented here parallel those given by Garberoglio et al. \cite{Garberoglio2014}, who provide a much more detailed development than attempted here. While we follow closely the notation given in Ref. \cite{Garberoglio2014}, there are small differences in some of the definitions, resulting from our choice of a different coordinate system.
+
+        The path-integral formulation represents each atom with $P$ beads, arranged in a closed chain such that each bead interacts with the two beads adjacent to it in the chain, according to a harmonic potential that results from discretizing the kinetic energy term in the action \cite{Feynman}. We shall use the term `image' to denote the set of two beads that make up the diatomic molecule at any point in this chain. The beads may be joined in a Boltzmann (one $P$-bead ring for each atom) or exchange (one $2P$-bead ring encompassing both atoms) conformation.
+
+        The expression we evaluate for the second virial coefficient is \cite{Garberoglio2014}:
+        \begin{equation}
+        \label{eq:B2}
+            B_2(T) =  - \frac{1}{2}\sum\limits_{\sigma ,\sigma '} \int \,d {\mathbf Z}^{(1)} d\,{\mathbf Z}^{(2)} \Pi _\sigma ({\mathbf Z}^{(1)}) \Pi _{\sigma '}({\mathbf Z}^{(2)}) \left( e^{ - \beta \bar U({\mathbf Z}^{(1)} , {\mathbf Z}^{(2)}) - 1} \right).
+        \end{equation}
+        In this formula, ${\mathbf Z}^{(i)}$ represents the coordinates of the path-integral beads for the two atoms in molecule $i$, and
+        $\Pi_\sigma({\mathbf Z}^{(i)})$ is the ideal-gas weight for molecule $i$ in configuration ${\mathbf Z}^{(i)}$:
+        \begin{equation}
+        \label{eq:weight}
+            \Pi _\sigma ({\mathbf Z}) = \frac{\delta _{\sigma ,{\rm B}} Q_1^{({\rm B})} P_B ({\mathbf Z}) + \delta _{\sigma ,{\rm xc}} Q_1^{({\rm xc})} P_{\rm xc} ({\mathbf Z})} { Q_1^{({\rm B})} + Q_1^{({\rm xc})}}
+        \end{equation}
+        The subscript $\sigma$ indicates whether the beads are in a Boltzmann (``B'') or exchange (``xc'') conformation; intermolecular exchange is neglected. Whereas in Ref. \citenum{Garberoglio2014} the atom positions were represented by their respective Cartesian coordinates, in the present work we represent them in terms of their $P$ molecule centers ${\mathbf R}$ and $P$ atom-separation vectors ${\mathbf b}$, such that the positions of the two atoms on molecule $i$ are ${\mathbf R}_i+{\mathbf b}_i/2$ and ${\mathbf R}_i-{\mathbf b}_i/2$, respectively; thus, ${\mathbf Z} = ({\mathbf R},{\mathbf b})$.
+
+        The images are labeled sequentially from 0 to $P$, and we distinguish the Boltzmann versus exchange cases via the interpretation of the orientation of image $P$: for the Boltzmann case, ${\mathbf b}_P = {\mathbf b}_0$, while in the exchange case ${\mathbf b}_P = -{\mathbf b}_0$. By applying this interpretation throughout the development, we can present both cases using a common set of formulas and algorithms. We will use the notation ${\mathbf b}^{(\sigma)}$ to represent the set of ${\mathbf b}$ vectors where the distinction between Boltzmann and exchange is relevant; otherwise we will represent the set simply as ${\mathbf b}$.
+
+        In Eq.~\ref{eq:weight}, ${P_\sigma}({\mathbf Z})$ is the probability of configuration ${\mathbf Z}$ given that the ring is in a Boltzmann or exchange arrangement, respectively:
+        \begin{equation}
+        \label{eq:PIProb}
+            P_\sigma ({\mathbf Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F({\mathbf R};2m) F({\mathbf b}^{(\sigma)};m/2) e^{ - \beta \bar u({\mathbf b})}
+        \end{equation}
+        where $F$ is the path-integral weight, and $\bar u$ is the intramolecular potential energy averaged over all images:
+        \begin{equation}
+            \begin{aligned}
+                F({\mathbf x};m) &= \left( \frac{P^{3/2}} {\Lambda _m^3} \right)^P \exp \left[ - \frac{\pi P}{\Lambda _m^2}\sum\limits_{i = 0}^{P-1} \left| {\mathbf x}_{i + 1} - {\mathbf x}_i \right|^2 \right]\\
+                &\bar u({\mathbf b}) = \frac{1}{P}\sum\limits_{i=0}^{P-1} {u\left(b_i \right)} \nonumber\\
+                &\Lambda_m=\frac{h}{\sqrt{2\pi m k_{\rm B}T}}\nonumber
+            \end{aligned}
+        \end{equation}
+        where $b_i \equiv \left| {\mathbf b}_i \right|$. We also have in Eqs. \ref{eq:weight} and \ref{eq:PIProb} the 1-molecule partition function for the Boltzmann and exchange cases:
+        \begin{equation}
+        \label{eq:Q1}
+            \begin{aligned}
+                Q_1^{({\rm \sigma})} &= \int d{\mathbf Z} F({\mathbf R};2m)F({\mathbf b}^{(\sigma)};m/2) e^{ - \beta \bar u({\mathbf b})}\nonumber\\
+                &=\frac{1}{\Lambda_{2m}^3}\int d{\mathbf b}F({\mathbf b}^{(\sigma)};m/2) e^{ - \beta \bar u({\mathbf b})}
+            \end{aligned}
+        \end{equation}
+        As discussed in \cite{Garberoglio2014}, the integrals defining $Q_1$ are taken over all $2P$ atom bead coordinates except one, which is fixed at the origin. Likewise, the coordinates of one of the $4P$ atom bead coordinates in the integral for $B_2$ in Eq.~\ref{eq:B2} is fixed, and defines the origin. With these stipulations, terms proportional to the system volume $V$ cancel each other (assuming $V$ is large), and the coefficient $B_2$ is volume-independent.
+
+        Finally, in Eq.~\ref{eq:B2} there is $\bar U$, the intermolecular potential energy averaged over all $P$ interacting images:
+        \begin{equation}
+            \bar U\left( {\mathbf Z}^{(1)}, {\mathbf Z}^{(2)} \right) = \frac{1}{P}\sum\limits_{i = 0}^{P-1} U\left( {\mathbf Z}_i^{(1)},{\mathbf Z}_i^{(2)} \right)
+        \end{equation}
+
+        The general approach taken to the calculation of $B_2$ is to sample the position of molecule 2 using a Mayer-sampling scheme \cite{Singh2004}, while sampling of orientations and internal conformations of the path-integral rings of both molecules is accomplished through direct sampling of each dimer independently. With knowledge of the ratio $Q_1^{\rm (xc)}/Q_1^{\rm (B)}$ it is a simple matter to sample the exchange-versus-Boltzmann coordinate $\sigma$. For each case, the target distribution for the ring conformation, $P_\sigma({\mathbf Z})$, factors cleanly into a component that depends on only the molecule-center coordinates ${\mathbf R}$, and another depending only on the intramolecular coordinates ${\mathbf b}$. The molecule-center distribution is just a ring of Gaussians in 3D space, and these can be sampled directly. Specifically, with ${\mathbf R}_1$ at the origin, each image coordinate ${\mathbf R}_i$ is sampled in sequence from a Gaussian of standard deviation $\sigma_i$ in each dimension centered at a position ${\mathbf R}_i'$, such that \cite{Shaul2012}
+        \begin{equation}
+            \begin{aligned}
+                \sigma _i &= \left( \frac{\Lambda _{2m}^2}{2\pi P}\;\frac{P + 1 - i}{P + 2 - i} \right)^{1/2},\\
+                {\mathbf R}_i'  &= \frac{P + 1 - i}{P + 2 - i}{{\mathbf R}_{i - 1}};
+            \end{aligned}
+        \end{equation}
+        for molecule 2, the ring constructed in this manner is then translated to its position specified by the larger Mayer-sampling process.
+
+        This leaves sampling of the intramolecular coordinates ${\mathbf b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u({\mathbf b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma({\mathbf b})$, defined as the ${\mathbf b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tilde \pi_\sigma({\mathbf b})$, constructed so it can be sampled directly. We use a configuration sampled on this distribution to generate a Monte Carlo trial, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
+        \begin{equation}
+        \label{eq:Pacc}
+            P_{\rm acc} = \frac{\pi^{\rm new}/\pi^{\rm old}}{\tilde \pi^{\rm new}/\tilde \pi^{\rm old}}
+        \end{equation}
+        where the superscripts denote the old and new configurations respectively.
+
+        We next describe an algorithm to generate configurations according to an approximate distribution $\tilde\pi({\mathbf b}^{(\sigma)})$. We do this first for the case of a rigid diatomic, with atoms separated by a fixed bond length, and then develop the approach for the case of a fully flexible diatomic.
+    \subsection{Orientation Sampling Algorithm}
+    \label{subsec:orMove}
+        We employ a bisection approach to generate a chain or ring of image orientations with a probability distribution that approximates $\pi({\mathbf b}^{(\sigma)})$. At each step in the process, we are given orientations of two images, ${\mathbf b}_i$ and ${\mathbf b}_k$, and we aim to generate an orientation for another image ${\mathbf b}_j$, $j = (i+k)/2$, that is approximately consistent with $\pi({\mathbf b}^{(\sigma)})$ for the given image orientations. Then in the subsequent step we generate an orientation for an image halfway between $i$ and the new $j$ image, and again between $j$ and $k$. This process repeats until all images are assigned orientations. For the end case, where $j = i+1 = k-1$, we are able to select a ${\mathbf b}_j$ that is exactly as prescribed by $\pi({\mathbf b}^{(\sigma)})$ given the previously-assigned orientations. For the steps preceding this one, in which other images are to be subsequently inserted between $j$ and $i$ and between $j$ and $k$, we can do this only approximately. To facilitate this process, we work with numbers of images $P = 2^n$, where $n$ is an integer; then in this scheme, half of the images ($2^{n-1}$) are oriented to follow $\pi({\mathbf b}^{(\sigma)})$ exactly, and the other half are placed to follow it approximately.
+
+        Let us first examine the end case, in which an image orientation is selected, given the orientation of its two adjacent neighbors in the chain. Consider a sphere of \emph{diameter} equal to the molecule bond length $b$ (assumed to be the same for all images). One may think of the orientation vector ${\mathbf b}_j/2$ as locating an orientation bead on the surface of the sphere, which interacts with adjacent orientation beads---also on the sphere---with a harmonic potential defined in terms of their Euclidean distance, such that they contribute to the configuration weight by a factor
+        \ifkhExplicitP
+            \begin{equation}
+            \label{eq:piRigid}
+                \begin{aligned}
+                    \pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2/b^2\right)\\
+                    k_h &=\frac{\pi P b^2}{\Lambda^2_{m/2}}\nonumber
+                \end{aligned}
+            \end{equation}
+        \else
+            \begin{equation}
+            \label{eq:piRigid}
+                \begin{aligned}
+                    \pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2\right)\\
+                    k_h &=\frac{\pi P}{\Lambda^2_{m/2}}\nonumber
+                \end{aligned}
+            \end{equation}
+        \fi
+        so that, in accord with Eq.~\ref{eq:PIProb} with the rigid bond constraint imposed in lieu of the intramolecular energy term,
+        \begin{equation}
+        \label{eq:piTotal}
+            \pi({\mathbf b}^{(\sigma)}) = \prod_{i=0}^{P-1}\pi({\mathbf b}_i,{\mathbf b}_{i+1}).
+        \end{equation}
+        \ifkhExplicitP
+            We note that $k_h$ is dimensionless, and for H$_2$ is about xxx.
+        \else
+            We note that the unit of $k_h$ is \AA$^{-2}$. 
+        \fi
+
+        In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in terms of angles, consider the orientations of image $i$ and image $k$ as indicated by A and B respectively in Fig. \ref{fig:simple}, with $\angle AOB = \psi$. Let $\mathbf a$ be the vector bisecting ${\mathbf b}_i$ and  ${\mathbf b}_k$. By $\tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta)$ we denote the probability distribution centered around $\mathbf a$, of generating a configuration for orientation image $j$ (indicated by C, and the angles $\alpha$ and $\beta$ in Fig. \ref{fig:simple}).
+        \begin{figure}[!htbp]
+            \centering
+            \def\svgwidth{0.25\columnwidth}
+            \input{Chapter-2/Figures/distanceNew1.pdf_tex}
+            \caption{Simplified picture}
+            \label{fig:simple}
+        \end{figure}
+        Using basic coordinate geometry and trigonometric relations, the following expressions for the various distances can be easily obtained (see Appendix \ref{Appendix A} for complete mathematical details):
+        \begin{equation}
+        \label{eq:deltax}
+            \begin{aligned}
+                d_{AC}^2 &= \frac{b^2}{2} [1 - \cos(\psi/2) \cos(\alpha) + \sin(\psi/2) \sin(\alpha) \cos(\beta)]\\
+                d_{BC}^2 &= \frac{b^2}{2} [1 - \cos(\psi/2) \cos(\alpha) - \sin(\psi/2) \sin(\alpha) \cos(\beta)]
+            \end{aligned}
+        \end{equation}
+
+        The total weight for the orientation $j$ is then calculated as \footnote{Note that a factor of 4 appears in the exponent in Eq. \eqref{eq:Uh} because $|{\mathbf b}_i - {\mathbf b}_j|^2 + |{\mathbf b}_j - {\mathbf b}_k|^2 = 4 (d_{AC}^2 + d_{BC}^2)$}:
+        \ifkhExplicitP
+            \begin{equation}
+            \label{eq:Uh}
+                \begin{aligned}
+                    \tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                    &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
+                    &= \exp\left(-4 k_h [1 - \cos(\psi/2) \cos(\alpha)]\right)
+                \end{aligned}
+            \end{equation}
+        \else
+            \begin{equation}
+            \label{eq:Uh}
+                \begin{aligned}
+                    \tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                    &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
+                    &= \exp\left(-4k_h~b^2 [1 - \cos(\psi/2) \cos(\alpha)]\right)
+                \end{aligned}
+            \end{equation}
+        \fi
+
+        This expression is independent of $\beta$, so we can choose it at random, uniformly on $[0, 2\pi]$. For the special case of $\psi = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. To choose $\alpha$ for all other cases, we first normalize $\tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta) $ and evaluate a cumulative distribution function $C(\alpha)$ (Eq. \eqref{eq:cdf}), which we then invert to obtain an expression for $\alpha$ (see Appendix \ref{Appendix C} for mathematical details). Selection of $\alpha$ is then made by evaluating this expression with $C$ chosen at random, uniformly on [0,1] as :
+        \ifkhExplicitP
+            \begin{equation}
+            \label{eq:alpha}
+                \begin{aligned}
+                    \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
+                    \text{where}\:\:\: \kappa &= 4 \cos(\psi/2) k_h
+                \end{aligned}
+            \end{equation}
+        \else
+            \begin{equation}
+            \label{eq:alpha}
+                \begin{aligned}
+                    \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
+                    \text{where}\:\:\: \kappa &= 4 \cos(\psi/2) k_h~b^2
+                \end{aligned}
+            \end{equation}
+        \fi
+
+        We just explained how to choose an orientation for any image $j$ that is adjacent to images $i$ and $k$ (Note: $\tilde \pi ({\mathbf b})$ is always equal to $\pi ({\mathbf b})$ for this case). Before this step can be taken, $i$ and $k$ must have been placed in a similar fashion. These orientation images do not interact directly, but instead have an effective interaction that can be defined by integration over the $j$ orientation:
+        \ifkhExplicitP
+            \begin{equation}
+            \label{eq:piEff}
+                \begin{aligned}
+                    \pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi)\int d{\mathbf b}_j \: \: \tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta) \nonumber \\
+                    &=\frac{\pi b}{k_h}\left( e^{ - 8 k_h \sin^2 \left( \frac{\psi}{4}\right)} - e^{ - 8 k_h \cos^2 \left( \frac{\psi}{4} \right)} \right) \sin \left(\psi /2 \right)
+                \end{aligned}
+            \end{equation}
+        \else
+            \begin{equation}
+            \label{eq:piEff}
+                \begin{aligned}
+                    \pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi)\int d{\mathbf b}_j \: \: \tilde \pi({\mathbf b}_j: \mathbf{a}, \alpha, \beta) \nonumber \\
+                    &=\frac{\pi}{k_h~b}\left( e^{ - 8 k_h~b^2 \sin^2 \left( \frac{\psi}{4}\right)} - e^{ - 8 k_h~b^2 \cos^2 \left( \frac{\psi}{4} \right)} \right) \sin \left(\psi /2 \right)
+                \end{aligned}
+            \end{equation}
+        \fi
+        This effective interaction (as manifest via $\psi$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \pi^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi/2)$, to identify an effective harmonic interaction:
+        \begin{equation}
+            \begin{aligned}
+                k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
+                &\approx \frac{k_h}{2} \qquad (P \gg 1)\nonumber
+            \end{aligned}
+        \end{equation}
+        The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process. We summarize the bisection algorithm for choosing the image orientations as follows: (1) orient the first image by selecting a point randomly on a sphere; for the Boltzmann case, this represents the first and last image in the ring; for exchange, the last image would be directed opposite to this one; (2) using a value of $k_h$ for $P = 2$, place the next image by sampling as described by Eq.~\ref{eq:alpha} with $\psi = 0$ (Boltzmann) or $\psi = \pi$ (exchange); (3) double $k_h$ and place two more images between the ones set by steps (1) and (2), sampling according to Eq.~\ref{eq:alpha}; (4) repeat the process of doubling $k_h$ and inserting image orientations between the ones placed in the previous steps, until all image orientations are set. The resulting configuration is generated with probability density (see sec. \ref{Appendix C} for further details):
+        \begin{equation}
+        \label{eq:piTilde}
+            \begin{aligned}
+                \tilde \pi({\mathbf b}) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi({\mathbf b}_j: {\mathbf a}) \\
+                \tilde \pi({\mathbf b}_j: {\mathbf a})  &= 
+                \begin{cases}
+                    \displaystyle\frac{\kappa \times \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi \ne \pi\\
+                    \displaystyle\frac{1}{2 \pi b} & \text{if} \qquad \psi = \pi\\
+                \end{cases}
+            \end{aligned}
+        \end{equation}
+        It is straightforward to see that the ratio of the approximate and actual probability distribution of $\alpha$ will differ from unity the most for the first step, and gradually improve until the last step, where the two probabilities are equal (given the placement of the other orientations) . The overall percentage of moves accepted will be related to the product of such ratios. Hence, it can be clearly seen that the performance of the algorithm will decrease with increasing $P$ (the accuracy of the result is however unaffected by this).
+    \subsection{Bond Length Sampling Algorithm}
+    \label{subsec:blMove}
+        The method we use to generate configurations for flexible diatomics builds on the scheme described above for rigid molecules. In one type of MC trial, we generate the orientations of the images using the algorithm described above, leaving the bond lengths unchanged. However, that orientation-sampling method is developed assuming all bond lengths are equal, but in the case of flexible molecules, they of course differ. We examined different schemes to handle flexibility within the orientation move. The method we use is to average the bond lengths of images $i$ through $k$ before each orientation move and use this value for image $j$ when setting the new orientation. Although we generate orientations assuming a common bond length for images $i$ through $k$, none of the image bond-lengths are changed by the trial.
+
+        A separate MC trial is used to change the bond lengths, which is performed all at once for all images. With the orientations set, the distribution of bond lengths can be written
+        \begin{equation}
+            \begin{aligned}
+                \pi(\mathbf{b}) &= \displaystyle\prod\limits_{i=0}^{P-1} b_i^2 e^{-\beta u(b_i)/P} \pi(b_i,b_{i+1},\theta_{i,i+1}) \\
+                \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{ij}) \right)\right)\\
+            \end{aligned}
+        \end{equation}
+        where $\theta_{i,j}$ is the angle between orientations of images $i$ and $j$, with $\theta_{P-1,P}$ defined using the convention described above for Boltzmann versus exchange configurations.
+        We can clearly see that $\pi(\mathbf{b})$ is not Gaussian, and the $P$ $b$-values are coupled and hence not easy to sample directly. We formulate an approximate sampling scheme by introducing a Gaussian approximation, which through a normal-mode calculation we can sample directly (see Appendix \ref{Appendix B} for mathematical details). However, it would be unnecessarily expensive computationally to perform the normal-mode analysis before each bond length move, so instead we define the normal modes for a given $P$ using a single representative angle $\hat \theta$ for all $ij$ pairs. Then the normal-mode analysis need be performed only once, at the beginning of the simulation.
+
+        Let $\pi(\mathbf{b}) = $~$ \exp (-y)$, where $y$ can be defined as follows:-
+        \begin{equation}
+        \label{eq:y}
+            \begin{aligned}
+                y &= -\ln \pi(\mathbf{b})\\
+                y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ \frac{1}{2}  k_h  \Big( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}\\
+                &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}
+            \end{aligned}
+        \end{equation}
+
+        To compute a nominal value for this angle, we first assume that the orientations of all images are the same or in other words $\theta_{ij} = 0$. From eq. \eqref{eq:y}, we can see that there are two terms that are negative, the term containing $\cos (\theta_{ij})$ and the term containing $\log b_i$. Assuming we take the common negative sign out, since we are setting $\cos (\theta_{ij})$ to its maximum value 1 thereby increasing the first term, we need to reduce the second term to balance out this effect. In other words, the effect of different images having different orientations is accounted for, by using the term $b_i^{2/P}$ instead of $b_i^2$ in the expression for $y$. This gives us a new definition for $\tilde y$ as:
+        \begin{equation}
+        \label{eq:ytilde}
+            \begin{aligned}
+                \tilde y &\approx y\\
+                \tilde y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j \Big) - \frac{2  \log b_i}{P} + \frac{ \beta  u (b_i)}{P} \Bigg\}
+            \end{aligned}
+        \end{equation}
+
+        It should be noted that the term $b_i^{2/P}$ has no physical meaning whatsoever and it was artificially introduced solely to account for different images having different orientations (see sec. \ref{sec:blPerformance} for justification of this approach). We solve for the nominal $\cos (\hat \theta)$ value by setting the first derivatives of $y$ and $\tilde y$ equal and get:
+        \begin{equation}
+        \label{eq:thetaHat}
+            \cos (\hat \theta) = 1 - \frac{P-1}{P~k_h~b_i^2}
+        \end{equation}
+
+        Using this nominal value in Eq. \eqref{eq:y}, we find $b_m$ such that:
+        \begin{equation}
+        \label{eq:bm}                
+            \displaystyle\frac{\partial y}{\partial b_i} \bigg|_{b_i = b_m} = 0 \qquad \forall i
+        \end{equation}
+
+        We employ Newton-Raphson method to compute $b_m$ and use it to perform the normal mode analysis only once for a simulation. It is worth noting that here too, like the orientation move, we have used an approximate distribution function to choose the different bond lengths. Therefore, much like the orientation move, the performance of the algorithm is expected to decrease with increasing $P$.
