@@ -174,7 +174,7 @@
 % the subfigure option and comment out the next line.
 \RequirePackage{tocloft}[2003/09/26]
 %\RequirePackage[subfigure]{tocloft}[2003/09/26]
-%\RequirePackage{fancyhdr}
+\RequirePackage{fancyhdr}
 
 % Define the margins and other spacings.
 %\setlength{\oddsidemargin}{0.6in}

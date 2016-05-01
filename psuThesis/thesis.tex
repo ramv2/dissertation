@@ -114,8 +114,10 @@
 \usepackage{sgamevar}
 \usepackage{soul}
 \usepackage{egameps}
+\usepackage{notoccite}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{dirtytalk}
 %\def\citeapos#1{\citeauthor{#1}'s \citeyear{#1}}
 \newenvironment{my_enumerate}
 {\begin{enumerate}
@@ -147,10 +149,17 @@
 % who want to use it.
 %
 % To use the hyperref package, uncomment the following line:
-\usepackage[colorlinks]{hyperref}
+\usepackage[final]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linktoc=section,
+    pagebackref=true,
+    linkcolor=black,
+    citecolor=blue,
+}
 %
 % Note that you should also uncomment the following line:
-\renewcommand{\theHchapter}{\thepart.\thechapter}
+%\renewcommand{\theHchapter}{\thepart.\thechapter}
 %
 % to work around some problem hyperref has with the fact
 % the psuthesis class has unnumbered pages after which page

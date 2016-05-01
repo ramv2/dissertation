@@ -1,8 +1,9 @@
 \chapter{Background and Motivation} \label{chap:background and motivation}
     \section{Virial coefficients}
+    \label{sec:chap1VirialCoefficients}
         The virial equation of state, given as:
         \begin{equation}
-          \frac{p}{\rho k_\textrm{B}T} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots,
+          \frac{p}{\rho k_\text{B}T} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots,
         \end{equation}
         expresses the pressure $p$ as a power series in the number density $\rho$ of the system; $T$ is the temperature and $k_\textrm{B}$ is the Boltzmann constant. Through this formula, the temperature-dependent virial coefficients, $B_n(T)$, can be used to estimate a variety of physical properties in addition to the pressure, such as the Joule-Thomson coefficient,  critical properties, and others. The unique feature of the virial equation of state, in comparison to other thermodynamic models, is that it represents rigorously the effect of interactions among $N$ molecules, such that if given a molecular model, the virial coefficients for its equation of state can be determined without approximation. This can be clearly seen from the analytic expressions for the virial coefficients in terms of $N$-body configurational integrals \cite{Tester} which depend only on the interaction potential between $N$ molecules as:
         \begin{equation}\label{eq: bn}
@@ -20,38 +21,37 @@
                 B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
             \end{aligned}
         \end{equation}
-        where $f(0,1) = \Big( \exp \big[ -\beta U_2(\bm{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
+        where $f(0,1) = \Big( \exp \big[ -\beta U_2(\mbf{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
 
         Virial coefficients can be evaluated in two ways: a) computationally, using numerical methods to evaluate the configuration integrals given an input interaction potential, and b) experimentally, typically by collecting pressure-density data and regressing its behavior at the $\rho \to 0$ limit. By comparing the values determined using the above two methods, different models of the interaction potential between $N$ molecules can be ranked for their physical accuracy.
 
         Empirical potentials are fit to experimental data over a broad range of conditions, and therefore they tend to describe the interaction potential as the net result of a variety of physical phenomena taking place simultaneously (including, for example, multibody interactions and nuclear quantum effects). The way that these phenomena combine to give an effective potential will depend on the state condition as well as the experimental properties being fit. Consequently, unless fit directly to them, empirical potentials often perform poorly in comparison to experimental virial coefficients \cite{Benjamin2007}, which depend purely on the interaction of a specific number of molecules.
 
-        On the other hand, \abInitio{} potentials involve solving the \Schrodinger{} equation by using different basis functions and levels of theory and often can yield far more accurate interaction potentials as a result. Large computational resources are required to obtain coefficient with a useful level of accuracy, so the application of \abInitio{} method in this respect has been limited to low-order coefficients for small molecules. However, steady progress is being made \cite{Boothroyd2003,Hodges2004,Garberoglio2012,Shaul2012,Garberoglio2013,Hellmann2013,Garberoglio2014,Garberoglio2014mix,Hellmann2014,Schultz2015,Tat2015}. Almost all \abInitio{} potentials involve at the heart of their development, solving the electronic \Schrodinger{} equation using the Born-Oppenheimer approximation. Under this approximation, the kinetic energy of the nucleus is considered negligible when compared to the electrons, and therefore all the nuclei are assumed to be fixed at certain locations when solving the electronic structure. For the purpose of calculating really virial accurate coefficients using \abInitio{} potentials, one needs to account for nuclear quantum effects explicitly, especially at low temperatures or for light atoms, such as hydrogen. Based on the above, virial coefficients can be classified into the following three categories:
+        On the other hand, \abinitio{} potentials involve solving the \Schrodinger{} equation by using different basis functions and levels of theory and often can yield far more accurate interaction potentials as a result. Large computational resources are required to obtain coefficient with a useful level of accuracy, so the application of \abinitio{} method in this respect has been limited to low-order coefficients for small molecules. However, steady progress is being made \cite{Boothroyd2003,Hodges2004,Garberoglio2012,Shaul2012,Garberoglio2013,Hellmann2013,Garberoglio2014,Garberoglio2014mix,Hellmann2014,Schultz2015,Tat2015}. Almost all \abinitio{} potentials involve at the heart of their development, solving the electronic \Schrodinger{} equation using the Born-Oppenheimer approximation. Under this approximation, the kinetic energy of the nucleus is considered negligible when compared to the electrons, and therefore all the nuclei are assumed to be fixed at certain locations when solving the electronic structure. For the purpose of calculating really virial accurate coefficients using \abinitio{} potentials, one needs to account for nuclear quantum effects explicitly, especially at low temperatures or for light atoms, such as hydrogen. Based on the above, virial coefficients can be classified into the following three categories:
 
         \begin{description}
             \item[Classical virial coefficients] \hfill \\
-                The virial coefficients that are calculated from an input interaction potential (empirical or \abInitio{} PES) without modification.
+                The virial coefficients that are calculated from an input interaction potential (empirical or \abinitio{} PES) without modification.
             \item[Semi-classical virial coefficients] \hfill \\
                 The virial coefficients that are calculated using an effective potential such as the Quadratic Feynman-Hibbs (QFH) \cite{Feynman} that includes a quantum correction.
             \item[Quantum virial coefficients] \hfill \\
-                The virial coefficients that are calculated using an empirical potential (quantum) or \abInitio{} PES (fully quantum) while explicitly including nuclear quantum effects.
+                The virial coefficients that are calculated using an empirical potential (quantum) or \abinitio{} PES (fully quantum) while explicitly including nuclear quantum effects.
         \end{description}
-    \section{\AbInitio{} Potentials}
-        In this section, different quantum chemistry methods and theories that are used in the development of the \abInitio{} \PESs{} are briefly mentioned. This will help develop an idea of the amount of computational effort involved in such calculations, which will later be called upon to serve as motivation for developing efficient algorithms in Chapter \ref{sec:novel algorithms}. Majority of what follows in this section is directly adapted from Chapter's 4, 6 and 7 of Cramer's book \cite{Cramer} (where the interested reader may also find more comprehensive and mathematically detailed explanations) and are only intended as a precursor to better understanding the rest of this dissertation work. \\
+    \section{\Abinitio{} Potentials}
+        In this section, different quantum chemistry methods and theories that are used in the development of the \abinitio{} \PESs{} are briefly mentioned. This digression will help develop an idea of the amount of computational effort involved in such calculations, which will later be called upon to serve as motivation for developing efficient algorithms in Chapter \ref{sec:novel algorithms}. Majority of what follows in this section is directly adapted from Chapters 4, 6 and 7 of Cramer's book \cite{Cramer} (where the interested reader may also find more comprehensive and mathematically detailed explanations) and are only intended as a precursor to better understanding the rest of this dissertation work. \\
         \subsection{From \Schrodinger{} equation to Molecular Orbitals}
             We begin by considering the \Schrodinger{} equation and the Hamiltonian operator, $H$ of a generic atom:
             \begin{equation}\label{eq:Schrodinger}
                 \begin{aligned}
                     H~\Psi &= E~\Psi \\
                     H &= T_e + T_N + V_{ee} + V_{eN} + V_{NN}
-                    %\ham{H}      &= -\displaystyle\sum_i \frac{\hbar^2}{2 m_e} \nabla^2_i -\displaystyle\sum_k \frac{\hbar^2}{2 m_k} \nabla^2_k + \displaystyle\sum_i \displaystyle\sum_k \frac{e^2 Z_k}{r_{ik}} + \displaystyle\sum_{i<j} \frac{e^2}{r_{ij}} +\displaystyle\sum_{k<l} \frac{e^2 Z_k Z_l}{r_{kl}}
                 \end{aligned}
             \end{equation}
             where $T$ and $V$ represent the kinetic and potential energy operators respectively; the subscripts $e$ and $N$ denote the elctron and the nucleus respectively.
 
             The eigenfunctions of Eq. \eqref{eq:Schrodinger} are known as the wavefunctions of the atom and are denoted as $\Psi_i$. For ease of explanation, we only consider wavefunctions that are orthonormal, i.e., they satisfy the following the condition:
             \begin{equation}\label{eq:orthonormality}
-                \int \Psi_i\, \Psi_j\, d\, \mathbf{r} = \delta_{ij}
+                \int \Psi_i\, \Psi_j\, d\, \mbf{r} = \delta_{ij}
             \end{equation}
             where $\delta_{ij}$ is the Kronecker delta.
 
@@ -64,12 +64,12 @@
             The \Schrodinger{} equation is inherently complicated due to the correlation of interactions of many particles with one another, as expressed in Eq. \eqref{eq:Schrodinger}. However, there are certain approximations and assumptions that reduce the complexity of the equation. For instance, the Born-Oppenheimer(BO) approximation assumes that under ambient conditions, the motion of the nuclei are much slower compared to that of the electrons, owing to heavier masses. This makes it possible to separate the electronic and nuclear motions within the Hamiltionian $H$ (Eq. \eqref{eq:Schrodinger}) by setting $T_N \to 0$ and $V_N$ to some constant value. Whereas previously $H$ was dependent on the nuclear coordinates and electronic coordinates explicitly, using the BO approximation $H_{BO}$ depends explicitly only on electronic coordinates and the nuclear coordinates become parameters:
             \begin{equation}\label{eq:BO approximation}
                 \begin{aligned}
-                    (H_{BO} + V_N)~\Psi_{el} (\mathbf{q}_i;\mathbf{q}_k) &= E_{BO} \Psi_{el} (\mathbf{q}_i;\mathbf{q}_k)\\
+                    (H_{BO} + V_N)~\Psi_{el} (\mbf{q}_i;\mbf{q}_k) &= E_{BO} \Psi_{el} (\mbf{q}_i;\mbf{q}_k)\\
                     H_{BO} &= T_e + V_{eN} + V_{ee}
                 \end{aligned}
             \end{equation}
 
-            Both the variational principle and the BO approximation have profound implications in quantum chemistry. Without the variational principle, it would not be possible to check and improve the mechanism of construction of orthonormal sets of wavefunctions. The PES, defined as $E_{BO}$ for different nuclear configurations ($\mathbf{q}_k$), would not exist if it were not for the BO approximation. Although the BO approximation significantly simplifies the \Schrodinger{} equation, the complexity due to the number of particles is still a challenge.
+            Both the variational principle and the BO approximation have profound implications in quantum chemistry. Without the variational principle, it would not be possible to check and improve the mechanism of construction of orthonormal sets of wavefunctions. The PES, defined as $E_{BO}$ for different nuclear configurations ($\mbf{q}_k$), would not exist if it were not for the BO approximation. Although the BO approximation significantly simplifies the \Schrodinger{} equation, the complexity due to the number of particles is still a challenge.
 
             The concept of constructing the set of orthonormal wavefunctions for many particle systems needs a starting point. Using the BO approximation for a system like the hydrogen atom with just one electron and one nucleus, analytical solutions can be obtained for the orthonormal set of wavefunctions or Atomic Orbitals(AOs). These then, become the perfect starting point for more complicated wavefunctions (called Molecular Orbitals(MOs)) by using what is known as the Linear Combination of Atomic Orbitals(LCAO) basis set approach. Within this approach, we use AOs as basis sets and construct linear combinations of them with different weights to give rise to MO wavefunction for many electron systems. Naturally, the more the number of basis functions in the basis set, the better the description of the resulting MO.
 
@@ -78,8 +78,8 @@
                 \item Determine all $N^2$ values of $H_{ij}$ and $S_{ij}$ which are also known as the 'resonance integral' and 'overlap integral' respectively.
                     \begin{equation}\label{eq:resonance and overlap}
                         \begin{aligned}
-                            H_{ij} &= \displaystyle\int \psi_i\, H \,\psi_j\, d\,\mathbf{r}\\
-                            S_{ij} &= \displaystyle\int \psi_i\, \psi_j\, d\,\mathbf{r}
+                            H_{ij} &= \displaystyle\int \psi_i\, H \,\psi_j\, d\,\mbf{r}\\
+                            S_{ij} &= \displaystyle\int \psi_i\, \psi_j\, d\,\mbf{r}
                         \end{aligned}
                     \end{equation}
                     It should be noted that in practice, one would compute the values of the matrix elements $H_{ij}$ from experimental data such as the ionization energy and rotational barriers. Also, we have assumed that the MOs do not depend on the number of electrons present in the AOs that form part of the basis set. Therefore, one might be tempted to say that the LCAO approach ignores the electron-electron repulsion. However, since we are deriving the matrix elements from experimental measurements, one might think of it as implicitly including the inter-electronic repulsion, albeit in a crude sense.
@@ -116,7 +116,7 @@
             \begin{equation}\label{eq:correct Hamiltonian}
                 \begin{aligned}
                     h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}} + V_i \{j\}\\
-                    V_i \{j\} &= \displaystyle\sum_{j \ne i} \int \frac{\rho_j}{r_{ij}} d\,\mathbf{r}
+                    V_i \{j\} &= \displaystyle\sum_{j \ne i} \int \frac{\rho_j}{r_{ij}} d\,\mbf{r}
                 \end{aligned}
             \end{equation}
             where $V_i \{j\}$ represents the interaction potential with all the other electrons occupying orbitals $\{j\}$ and $\rho_j = |\psi_j|^2$; is the charge density associated with electron $j$.
@@ -125,7 +125,7 @@
 
             To avoid doubly counting the electronic repulsion, the energy is not computed directly as the eigenvalue but rather using the following:
             \begin{equation}\label{eq:Hartree Hamiltonian energy}
-                E = \displaystyle\sum_i \varepsilon_i - \frac{1}{2} \sum_{i \ne j} \int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mathbf{r}_i\, d\,\mathbf{r}_j
+                E = \displaystyle\sum_i \varepsilon_i - \frac{1}{2} \sum_{i \ne j} \int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mbf{r}_i\, d\,\mbf{r}_j
             \end{equation}
 
             Since Hartree product wavefunctions violated the property of indistinguishability of quantum particles and also ignored quantum mechanical exchange, a correlation effect unique to electrons of the same spin, Slater determinants provided an alternative route to incorporate these effects in the wavefunctions. By construction, Slater determinants accounted for the anti-symmetry and electronic spin (and hence exchange) which was crucial to MO wavefunctions. Expressed in determinant form as:
@@ -143,7 +143,7 @@
             Fock first proposed to extend the Hartree SCF method for Slater determinant wavefunctions giving rise to Slater Type Orbitals (STOs) and the Hartree-Fock(HF) SCF method$\allowbreak$, to which Roothaan \cite{Roothaan1951} made valuable contributions later. The 'restricted Hartree-Fock' (RHF) formalism with closed-shell systems and wavefunctions represented as a single Slater determinant is the typical form of the HF SCF method. The procedure to be followed using this approach is outlined below:
             \begin{enumerate}
                 \item Choose a basis set and a molecular geometry
-                \item Guess the intial density matrix $\mathbf{P}^{(0)}$ whose elements are given as:
+                \item Guess the intial density matrix $\mbf{P}^{(0)}$ whose elements are given as:
                     \begin{equation}\label{eq:density matrix elements}
                         P_{\lambda \sigma} = 2 \displaystyle\sum_i^{occupied MO} a_{\lambda i} a_{\sigma i}
                     \end{equation}
@@ -154,18 +154,18 @@
                             f_i &= -\frac{1}{2} \nabla^2_i - \displaystyle\sum_k^{nuclei} \frac{Z_k}{r_{ik}} + V_i^{HF} \{j\}\\
                             V_i^{HF} \{j\} &= 2 J_i - K_i\\
                             F_{\mu \nu} &= \left< \mu \,\left| -\frac{1}{2} \nabla^2 \right|\,\nu \right> - \displaystyle\sum_k^{nuclei} Z_k \left< \mu \,\left| \frac{1}{r_k} \right| \, \nu \right> + \displaystyle\sum_{\lambda \sigma} P_{\lambda \sigma} \left[ (\mu \nu | \lambda \sigma) - \frac{1}{2} (\mu \lambda | \nu \sigma) \right]\\
-                            (\mu \nu | \lambda \sigma) &= \displaystyle\int \int \phi_\mu (1) \phi_\nu(1) \frac{1}{r_{12}}\phi_\lambda (2) \phi_\sigma (2) d\,\mathbf{r}(1)\,d\,\mathbf{r}(2)
+                            (\mu \nu | \lambda \sigma) &= \displaystyle\int \int \phi_\mu (1) \phi_\nu(1) \frac{1}{r_{12}}\phi_\lambda (2) \phi_\sigma (2) d\,\mbf{r}(1)\,d\,\mbf{r}(2)
                         \end{aligned}
                     \end{equation}
                     where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other; the integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals'; $J_i$ and $K_i$ are opertors defined to compute $J_{ij}$ and $K_{ij}$ that are called the Coulomb and exchange integrals respectively. The exchange integrals are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins. The Coulomb and exchange integrals are given by:
                     \begin{equation}\label{eq:Coulomb and exchange integrals}.
                         \begin{aligned}
-                            J_{ij} = \displaystyle\int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mathbf{r}_i\, d\,\mathbf{r}_j\\
-                            K_{ij} = \displaystyle\int \int \psi_i \psi_j \frac{1}{r_{ij}} \psi_j \psi_i d\,\mathbf{r}_i\, d\,\mathbf{r}_j
+                            J_{ij} = \displaystyle\int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mbf{r}_i\, d\,\mbf{r}_j\\
+                            K_{ij} = \displaystyle\int \int \psi_i \psi_j \frac{1}{r_{ij}} \psi_j \psi_i d\,\mbf{r}_i\, d\,\mbf{r}_j
                         \end{aligned}
                     \end{equation}
                      
-                \item Obtain new density matrix $\mathbf{P}^{(1)}$.
+                \item Obtain new density matrix $\mbf{P}^{(1)}$.
                 \item Repeat steps 3. and 4. until convergence.
             \end{enumerate}
 
@@ -202,35 +202,35 @@
             \subsubsection{Perturbation Theory}
                 Since the calculation of eigenfunctions and eigenvalues for an operator may be complicated due to the presence of certain terms in it, it might be possible to compute exact eigenfunctions and eigenvalues for a simplified version of the same operator and use those to achieve the original operator's eigenfunctions and eigenvalues. This can be done by expanding the ground-state eigenfunctions and eigenvalues as Taylor series in $\lambda$ and evaluating the $n^{\rm th}$ order corrections to the original eigenfunctions and eigenvalues. Mathematically,
                 \begin{equation}\label{eq:perturbation theory}
-                    \mathbf{A} = \mathbf{A}^{(0)} + \lambda \mathbf{V}
+                    \mbf{A} = \mbf{A}^{(0)} + \lambda \mbf{V}
                 \end{equation}
-                where $\mathbf{A}^{(0)}$ is the operator for which we can find eigenfunctions, $\mathbf{V}$ is the perturbing opertor and $\lambda$ is a dimensionless parameter that maps $\mathbf{A}^{(0)}$ onto $\mathbf{A}$ as it varies from 0 to 1.
+                where $\mbf{A}^{(0)}$ is the operator for which we can find eigenfunctions, $\mbf{V}$ is the perturbing opertor and $\lambda$ is a dimensionless parameter that maps $\mbf{A}^{(0)}$ onto $\mbf{A}$ as it varies from 0 to 1.
 
-                M\o{}ller and Plesset \cite{Moller1934} applied the perturbation theory in which they considered $\mathbf{A}$ to be the Hamiltonian operator $\mathbf{H}$ and proposed choices for $\mathbf{A}^{(0)}$ and $\mathbf{V}$. This approached is widely known with the acronym MP$n$ where $n$ is the order of truncation of the perturbation theory. Within the MP approach $\mathbf{H}^{(0)}$ is taken to be the sum of one-electron Fock operators (Eq. \eqref{eq:one electron Fock matrix elements}). $\mathbf{H}^{(0)}$ and the perturbing operator $\mathbf{V}$ are given as:
+                M\o{}ller and Plesset \cite{Moller1934} applied the perturbation theory in which they considered $\mbf{A}$ to be the Hamiltonian operator $\mbf{H}$ and proposed choices for $\mbf{A}^{(0)}$ and $\mbf{V}$. This approached is widely known with the acronym MP$n$ where $n$ is the order of truncation of the perturbation theory. Within the MP approach $\mbf{H}^{(0)}$ is taken to be the sum of one-electron Fock operators (Eq. \eqref{eq:one electron Fock matrix elements}). $\mbf{H}^{(0)}$ and the perturbing operator $\mbf{V}$ are given as:
                 \begin{equation}\label{eq:MP elements}
                     \begin{aligned}
-                        \mathbf{H}^{(0)} &= \displaystyle\sum_{i=1}^N f_i\\
-                        \mathbf{V} &= \displaystyle\sum_{i=1}^{occ.} \displaystyle\sum_{j > i}^{occ.} \frac{1}{r_{ij}} - \displaystyle\sum_{i}^{occ.} \displaystyle\sum_{j}^{occ.} \left (J_{ij} - \frac{1}{2} K_{ij} \right)
+                        \mbf{H}^{(0)} &= \displaystyle\sum_{i=1}^N f_i\\
+                        \mbf{V} &= \displaystyle\sum_{i=1}^{occ.} \displaystyle\sum_{j > i}^{occ.} \frac{1}{r_{ij}} - \displaystyle\sum_{i}^{occ.} \displaystyle\sum_{j}^{occ.} \left (J_{ij} - \frac{1}{2} K_{ij} \right)
                     \end{aligned}
                 \end{equation}
                 where $J_{ij}$ and $K_{ij}$ are the same Coulomb and exchange integrals as described in Eq.\eqref{eq:Coulomb and exchange integrals}.
 
-                It should be noted that the perturbing operator $\mathbf{V}$ was designed in such a way that it avoids doubly-counting the electronic replusion and gives us the correct Hamiltonians for all values of $\lambda$. Also, since we are summing over the occupied orbitals, we must be working with the MO basis set rather than the AO one. MP$n$ applied with ground state HF wavefunction is known as single reference MP$n$ and with a ground state MCSCF wavefunction is known as multireference MP$n$.
+                It should be noted that the perturbing operator $\mbf{V}$ was designed in such a way that it avoids doubly-counting the electronic replusion and gives us the correct Hamiltonians for all values of $\lambda$. Also, since we are summing over the occupied orbitals, we must be working with the MO basis set rather than the AO one. MP$n$ applied with ground state HF wavefunction is known as single reference MP$n$ and with a ground state MCSCF wavefunction is known as multireference MP$n$.
 
             \subsubsection{Coupled-Cluster Theory}\label{subsubsec:coupled-cluster theory}
                 A more mathematically elegant way of estimating the electron correlation energy is the coupled-cluster(CC) theory \cite{Cizek1966}. The central idea (skipping all the mathematical details) is that the FCI wavefunction can be described as:
                 \begin{equation}\label{eq:cc}
                     \begin{aligned}
-                        \Psi &= e^\mathbf{T} \Psi_{HF}\\
-                        \mathbf{T} &= \mathbf{T}_1 + \mathbf{T}_2 + \mathbf{T}_3 + \ldots + \mathbf{T}_n
+                        \Psi &= e^\mbf{T} \Psi_{HF}\\
+                        \mbf{T} &= \mbf{T}_1 + \mbf{T}_2 + \mbf{T}_3 + \ldots + \mbf{T}_n
                     \end{aligned}
                 \end{equation}
-                where $\mathbf{T}$ is the cluster operator; $n$ is the total number of electrons; $T_i$ operator generates all possible determinants having $i$ excitations from the reference.
+                where $\mbf{T}$ is the cluster operator; $n$ is the total number of electrons; $T_i$ operator generates all possible determinants having $i$ excitations from the reference.
 
                 The advantage of using CC theory is that we can express the exponential function as a Taylor series expansion. To explain this better consider CCD(CC theory with only double excitations):
                 \begin{equation}\label{eq:ccd}
-                    \Psi_{CCD} = \left( 1 + \mathbf{T}_2 + \frac{\mathbf{T}_2^2}{2!} + \frac{\mathbf{T}_2^3}{3!} + \ldots \right) \Psi_{HF}
+                    \Psi_{CCD} = \left( 1 + \mbf{T}_2 + \frac{\mbf{T}_2^2}{2!} + \frac{\mbf{T}_2^3}{3!} + \ldots \right) \Psi_{HF}
                 \end{equation}
-                The term $1 + \mathbf{T}_2$ in the r.h.s is exactly the expression we would use for the CID method (described in Sec. \ref{subsec:electron correlation}). However the terms to the right of it enable us to include the possibility of quadruple, hextuple .. excitations just by using the double excitation operator $\mathbf{T_2}$. This would not have been possible in the CI method and hence CC theory is considered size consistent. Based on different cluster operators used, CCS, CCD, CCSD, CCSD(T) and many such calculations have been performed to obtain really accurate \PESs.
+                The term $1 + \mbf{T}_2$ in the r.h.s is exactly the expression we would use for the CID method (described in Sec. \ref{subsec:electron correlation}). However the terms to the right of it enable us to include the possibility of quadruple, hextuple .. excitations just by using the double excitation operator $\mbf{T}_2$. This would not have been possible in the CI method and hence CC theory is considered size consistent. Based on different cluster operators used, CCS, CCD, CCSD, CCSD(T) and many such calculations have been performed to obtain really accurate \PESs.
 
-                This concludes the introduction to \abInitio{} potentials and the different methodologies used to construct \PESs. It should be noted that a lot of mathematical details and technical insights have been skipped in the above sections, the understanding of which requires further reading than what is mentioned here. That being said, the rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system (helium, hydrogen, nitrogen, oxygen and water respectively) and include motivation, recent developments, computational details, quantum virial coefficient results and discussion; Chapter 8 contains concluding remarks and future direction of work including some of the interesting challenges that are yet to be tackled.
+                This concludes the introduction to \abinitio{} potentials and the different methodologies used to construct \PESs. It should be noted that a lot of mathematical details and technical insights have been skipped in the above sections, the understanding of which requires further reading than what is mentioned here. That being said, the rest of this dissertation is organized as follows: Chapter 2 provides detailed information of the existing as well as novel methods, algorithms and techniques to compute quantum virial coefficients; Chapters 3 through 7 are each dedicated for a particular system (helium, hydrogen, nitrogen, oxygen and water respectively) and include motivation, recent developments, computational details, quantum virial coefficient results and discussion; Chapter 8 contains concluding remarks and future direction of work including some of the interesting challenges that are yet to be tackled.
