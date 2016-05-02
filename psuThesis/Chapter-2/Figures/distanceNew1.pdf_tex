@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'distanceNew1.pdf' (pdf, eps, ps)
 %%
@@ -49,16 +49,9 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,1.03771332)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{distanceNew1.pdf}}%
-    \put(1.2325558,0.9066918){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(-0.30941807,1.21670493){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(-0.98318532,1.34726157){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(1.30068324,0.6591857){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0,0){\includegraphics[width=\unitlength]{distanceNew1.pdf}}%
     \put(0.12114894,0.93961935){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny{$A$}}}}%
     \put(0.11392787,0.56356802){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny{$C$}}}}%
-
-    \put(0.47305446,1.01709311){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
-    \put(0.49660732,1.00840109){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
     \put(0.44679592,1.01791891){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny{$a$}}}}%
     \put(0.815834,0.94957846){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny{$B$}}}}%
     \put(0.37693691,0.57310629){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny{$\alpha$}}}}%

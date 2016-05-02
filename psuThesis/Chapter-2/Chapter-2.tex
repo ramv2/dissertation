@@ -1,13 +1,14 @@
-\chapter{Methods}\label{chap:methods}
+\chapter{Methods}
+\label{chap:methods}
 \khExplicitPfalse
-\graphicspath{{/home/ram/Desktop/Acads/Phd/dissertation/psuThesis/Chapter-2/Figures/}}
+\graphicspath{{/home/ram/Desktop/Acads/Phd/dissertation/psuThesis/Chapter-2/Figures/}{/usr/users/rsubrama/Desktop/Acads/Phd/dissertation/psuThesis/Chapter-2/Figures/}}
     As mentioned in Sec. \ref{sec:chap1VirialCoefficients} the number of configuration integrals to be evaluated increases exponentially with the order of virial coefficient. In addition to that, the use of \abinitio{} potentials for quantum virial coefficient calculations involve siginificantly more computational effort than simple potential models. The need for such high quality virial coefficients, in order to predict accurate theromdynamic properties, should not be underestimated. Therefore efficient techniques are required in order to perform virial coefficient calculations. Graph theoretical methods were needed to represent the integrals as diagrams with a weight associated to it, especially for higher order coefficients, where writing out the integral would prove to be cumbersome. On the one hand, there have been theoretical methods \cite{Ree1964,Hellmann2011} developed to either reduce the number of these diagrams or combine them in a concise manner so as to improve the computational efficiency. On the other, computational techniques such as the VEGAS algorithm \cite{Lepage1972}, Mayer Sampling Monte Carlo (MSMC) \cite{Singh2004} and Wheatley's algorithm \cite{Wheatley2013} have also been developed to evaluate a given set of diagrams efficiently. The different theoretical methods and computational techniques complement each other very well and have made possible, for instance, the calculation of 16$^{\text{th}}$-order virial coefficents for the Lennard Jones model \cite{Feng2015}. Since the main aim of this work was to develop efficient methods, we shall restrict our attention to MSMC algorithm and the evaluation of second and third quantum virial coefficients for different systems. In that spirit, we present a brief summary of the MSMC algorithm in the following section.
 
 \section{Mayer Sampling Monte Carlo}
     \label{sec:MSMC}
     \subsection{Introduction}
     \label{subsec:MSMCintro}
-    MSMC is a free-energy perturbation technique which was developed by Singh and Kofke \cite{Singh2004} that involves avoiding the direct calculation of any desired integral (denoted as the `target') by computing its ratio to a known reference integral. The method uses importance sampling where the weight of a configuration is taken to be the absolute value of the integrand. Although it was developed originally using an umbrella-sampling \cite{Singh2004,Frenkel,Schultz2009} method, in its most recent form, the working equations of MSMC are cast using overlap-sampling methods as:
+    MSMC is a free-energy perturbation technique which was developed by Singh and Kofke \cite{Singh2004} that involves avoiding the direct calculation of any desired integral (denoted as the `target') by computing its ratio to a known reference integral. The method uses importance sampling where the weight of a configuration is taken to be the absolute value of the integrand. Although it was developed originally using an umbrella-sampling \cite{Singh2004,Frenkel,Schultz2009} method, in its most recent form, the working equations of MSMC are cast using overlap-sampling method as:
     \begin{equation}
         \label{eq:MSMCworking}
         \begin{aligned}
@@ -167,49 +168,69 @@
             e^{- \beta (\ham{T} + \ham{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \ham{T}} e^{- \tau \ham{V}} \Big]^P
         \end{equation}
 
-        \subsubsection{Monatomic Molecules}
-            Consider the Hamiltonian of a monatomic molecule like helium with mass $m$ (Eq. \eqref{eq:h}). Using the primitive approximation (Eq. \eqref{eq:primitiveApprox}), Trotter formula (Eq. \eqref{eq:trotter}), and following the procedure outlined in Ref. \cite{Garberoglio2009}, we can obtain the kinetic-energy operator matrix elements as:
-            \begin{equation}\label{eq:kineticOperatorMatrix}
-                \Bigg< \bm{r}_i \Bigg| \exp \Bigg(-\displaystyle\frac{\beta \hat{p}^2}{2 m P} \Bigg) \Bigg| \bm{r}_j \Bigg> = \displaystyle\frac{P^{3/2}}{\Lambda^3} \exp \Bigg(-\displaystyle\frac{K (\bm{r}_i - \bm{r}_j)^2}{2}\Bigg),
-            \end{equation}
-            where $K = \displaystyle\frac{2 \pi P}{\Lambda^2},\: \Lambda = \displaystyle\frac{h}{\sqrt{2\pi m k_B T}}$.
+        \subsubsection{Fully Quantum Second Virial Coefficients}
+            In this section we provide expressions (without going into too much mathematical detail, for further information see Refs. \cite{Cui1997,Patkowski2008,Garberoglio2009,Garberoglio2014}) for the fully quantum virial coefficients, first for the case of a diatomic rigid rotor. The expression for the monatomic molecule can then be obtained simply by ignoring the terms related to the orientational degrees of freedom in it.
 
-            The potential-energy operator matrix elements can similarly be written as \cite{Cui1997}:
-            \begin{equation}\label{eq:potentialOperatorMatrix}
-                \Bigg< \bm{r}_i \Bigg| \exp \Bigg(-\displaystyle\frac{\beta V(\bm{r})}{P} \Bigg) \Bigg| \bm{r}_j \Bigg> = \exp \Bigg(-\displaystyle\frac{\beta V(\bm{r}_i)}{P} \Bigg) \delta (\bm{r}_i - \bm{r}_j).
-            \end{equation}
-
-            It can be easily shown \cite{Garberoglio2009} then that the expression for the fully quantum second virial coefficient can be written as:
+            Let $m$ and $I$ denote the mass of the atom and moment of interia of the rigid rotor respectively with $\Lambda_m = h/\sqrt{2\pi m k_B T}$. Its Hamiltonian is given by:
             \begin{equation}
-                B_2 (T) = -2 \pi \displaystyle\int dr\: r^2 (e^{-\beta V_{2,\rm{eff}} (r)} - 1),
+            \label{eq:hDiatomic}
+                \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2)
             \end{equation}
-            where
-            \begin{equation}\label{eq:vEff}
-                e^{-\beta V_{2,\rm{eff}} (r)} = \displaystyle\int \: \prod\limits_{i=1}^{P-1} d^3 \Delta \bm{r}_i\: e^{-\beta \overline{U}_2 (r)}\: F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}}),
-            \end{equation}
-            \begin{equation}\label{eq:U2bar}
+            where $\hat{\mbf{p}}$ is the momentum operator conjugated to the COM separation, $\hat{\mbf{J}}_1$ and $\hat{\mbf{J}}_2$ are the angular momentum operators, $\hat{U}(r,\Omega_1,\Omega_2)$ is the intermolecular potential function in terms of the COM distance $r$ and the orientation vectors $\Omega_1$ and $\Omega_2$.
+
+            Note that because the momentum operator is conjugated to the COM separation, we can use the set of vectors $\mbf{x}^i,\mbf{\Omega}_1^i, \mbf{\Omega}_2^i$ to denote the configuration of the two $i^\text{th}$ rigid rotors. Employing the primitive approximation (Eq. \eqref{eq:primitiveApprox}) to the diatomic Hamiltonian and using the Trotter formula \ref{eq:trotter}, we get \cite{Cui1997}:
+            \begin{equation}
                 \begin{aligned}
-                    \overline{U}_2 (r) &= \displaystyle\frac{1}{P} \sum\limits_{i=1}^P U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}),\\
-                    |r|^2 &= |\bm{r}^{cm}_1 - \bm{r}^{cm}_2|^2 ~~~, \bm{r}^{cm}_i \equiv \frac{1}{P} \displaystyle\sum\limits_{j=1}^P \bm{r}_{i,j}
+                    \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \displaystyle\frac{P^{3/2}}{\Lambda^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right)\\
+                    \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))\nonumber \exp \left[-\beta j(j+1) \Upsilon/ P \right]
                 \end{aligned}
             \end{equation}
-            \begin{equation}\label{eq:fRing}
-                \begin{aligned}
-                    F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}}) &= \Lambda^3 \Bigg( \displaystyle\frac{P^{3/2}}{\Lambda^3} \Bigg)^P \exp \Bigg[-\frac{K}{2} \sum\limits_{i=1}^P \Delta \bm{r}_i^2 \Bigg],\\
-                    \Delta \bm{r}_i &= \bm{r_{i+1}} - \bm{r}_i \: \: ( i = 1, \ldots, P-1).
-                \end{aligned}
+            where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$ and $\mc{P}_j$ is the Legendre polynomial of order $j$.
+
+            Defining $\mbf{r} \equiv \mbf{x}^{(1)}, \mbf{\Delta}^{(i)} \equiv \mbf{x}^{(i+1)} - \mbf{x}^{(i)}$ and $\bar{U}$ as:
+            \begin{equation}
+                \label{eq:uBarDiatomic}
+                \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
             \end{equation}
-            Here $F_{\rm ring} (m; \Delta \bm{r}_1, \ldots , \Delta \bm{r_{P-1}})$ represents the weight of a ring polymer configuration, $\allowbreak U_2 (\bm{r}_{1,i}, \bm{r}_{2,i})$ is the inter-molecular potential energy between the $i^{th}$ beads of rings 1 and 2, $V_{2,\rm{eff}} (r)$ is an effective inter-molecular potential defined by Eq. \eqref{eq:vEff} and $r$ is the inter-molecular separation.
+            where $<\cdots>_{F,\varrho}$ denotes the ensemble average over ring polymer conformations $\mbf{\Delta}$ and rotor orientations $\mbf{\Omega}_1$ and $\mbf{\Omega}_2$ sampled according to the distributions $F$ and $\varrho$ defined below:
+            \begin{subequations}
+                \begin{align}
+                    F(\mbf{\Delta}) &= \Lambda_m^3 { \left( \frac{P^{3/2}}{\Lambda_m^3} \right)}^P \exp \left( - \frac{\pi P}{\Lambda_m^2} \displaystyle\sum\limits_{i=1}^P {|\mbf{\Delta}^{(i)}|}^2 \right)\label{eq:fRingDiatomic}\\
+                    \varrho(\mbf{\Omega}) &= \frac{1}{q_{rot}} \displaystyle\prod_{i=1}^P \sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1})) \exp \left[-\beta j(j+1) \Upsilon/ P \right],\label{eq:rhoDiatomic}\\
+                    q_{rot} &= \displaystyle\sum_{l} (2l + 1) \exp \left[-\beta \Upsilon l (l+1) \right],\nonumber\\
+                    \Upsilon &= \displaystyle\frac{\hbar^2}{2I}\nonumber.
+                \end{align}
+            \end{subequations}
 
-        \subsubsection{Diatomic Molecules}
+            The fully quantum second virial coefficient based on $\bar{U} (r)$ (Eq. \eqref{eq:uBarDiatomic}), for a diatomic molecule is given by:
+            \begin{equation}
+            \label{eq:b2Diatomic}
+                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+            \end{equation}
 
-    \subsection{PIMC With Semi-classical Beads}\label{connections}
+            To obtain the the expression for the case of the monatomic molecule, we simply ignore all the orientation related terms to obtain:
+            \begin{equation}
+                \label{eq:uBarMonatomic}
+                \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|) \right] \right>_F
+            \end{equation}
+            where $<\cdots>_F$ denotes the ensemble average over ring polymer conformations $\mbf{\Delta}$ sampled according to the distribution $F$ (Eq. \eqref{eq:fRingDiatomic}).
+            
+            The fully quantum second virial coefficient based on $\bar{U} (r)$ (Eq. \eqref{eq:uBarMonatomic}), for a monatomic molecule is given by:
+            \begin{equation}
+            \label{eq:b2Monatomic}
+                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+            \end{equation}
+
+            Note that the distribution $F$ (Eq. \eqref{eq:fRingDiatomic}) for sampling $\mbf{\Delta}$ conformations or equivalently the internal bead positions, is the same for both the diatomic as well as the monatomic cases.
+
+    \subsection{PIMC With Semi-classical Beads}
+    \label{chap:methods:subsec:PI SCB}
 
         It is worth noting that within the PI implementation, we are mainly interested in evaluating the trace of the density matrix, as it is directly related to the partition function. Also when using the primitive approximation, we neglect terms that are of the order $\tau^2$. To improve the precision of results in MC simulations and to achieve faster convergence as $P$ increases, higher order corrections (or propagators of the density matrix) have been developed. The Takahashi-Imada (TI) propagator \cite{Takahashi1984} with error of the order $\tau^4$ uses:
         \begin{equation}\label{eq:TI}
             \begin{aligned}
-                Tr \Big[ e^{- \beta ( \ham{T} + \ham{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \ham{T}} e^{-\frac{\beta}{P} \mathcal{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
-                \mathcal{V'} &= \ham{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\ham{V}, [\ham{T}, \ham{V}]].
+                Tr \Big[ e^{- \beta ( \ham{T} + \ham{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \ham{T}} e^{-\frac{\beta}{P} \mc{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
+                \mc{V'} &= \ham{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\ham{V}, [\ham{T}, \ham{V}]].
             \end{aligned}
         \end{equation}
         Given a system with Hamiltonian \ham{H} as:
@@ -222,26 +243,67 @@
         \end{equation}
         it can be easily shown that from Eqs. \eqref{eq:TI} and \eqref{eq:h}, we get the following:
         \begin{equation}\label{eq:TIworking}
-            \mathcal{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2,
+            \mc{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2,
         \end{equation}
         where $\hbar$ is the reduced Planck's constant and $\pmb{\nabla}_i$ denotes the gradient with respect to coordinates of the $i^{th}$ atom. Equations \eqref{eq:TI} and \eqref{eq:TIworking} constitute the working equations of the the TI propagator. Schenter \cite{Schenter2002} computed fully quantum virial coefficients using three different interaction potentials for water and found that using the semi-classical TI approximation (Eq. \eqref{eq:TIworking} with $P = 1$) gave the best agreement to fully quantum statistical mechanical calculations, especially at low temperatures where conventional expressions (based on the primitive approximation) including first order quantum corrections failed.
 
         Janke and Sauer~\cite{Janke1992} showed that by adopting a slightly modified version of the Trotter formula (Eq.~\eqref{eq:trotter}), they could systematically decrease the variance of the propagator. By decomposing the Hamiltonian to include more and more components of the kinetic- and potential-energy operators, they observed that the variance of the propagator improved.
+
         Suzuki \cite{Suzuki1995} suggested new schemes for the exponential product formulae along with a basic theorem for a generalized decomposition that results in the propagator having error of the order $O(1/P^4)$. Yamamoto \cite{Yamamoto2005} showed that using a finite-difference based approach (instead of computing derivatives involved with the use of TI and Suzuki propagators) helped improve the variance further.
-        The kinetic-energy operator in the Hamiltonian gives rise to the weight of the ring configuration, which depends on the harmonic energy of the system with $P$ beads. The potential-energy operator (and hence, the \emph{ab initio} PES) leads to the effective potential $V_{2,\rm{eff}} (r)$ in the expression for the quantum virial coefficient. Recall that we used the primitive approximation where the potential-energy operator was a simple function of the PES. If instead, we were to include higher order terms in the primitive approximation using the TI propagator, we would expect it to affect only $\overline{U}_2 (r)$. This would in turn lead to a change in the effective potential $V_{2,\rm{eff}} (r)$. From Eqs. \eqref{eq:h} and \eqref{eq:TIworking}, Eq. \eqref{eq:U2bar} can be rewritten as follows:
-        \begin{equation}\label{eq:U2barTI}
-            \overline{U}_2 (r) = \displaystyle\frac{1}{P} \sum\limits_{i=1}^P \Bigg[ U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}) + \frac{\hbar^2}{24m} \bigg(\displaystyle\frac{\beta}{P} \bigg)^2 \big| \pmb{\nabla} U_2 (\bm{r}_{1,i}, \bm{r}_{2,i}) \big|^2 \Bigg]
+        
+        Apart from the propagators mentioned above, statistical estimators of the total energy with low variances have also been developed. We mention them here in passing without going into too much detail. The Barker or the thermodynamic estimator\cite{Barker1979} ($\epsilon_T$) is obtained by the direct differentiation of the partition function with temperature. It can be easily derived starting from a Hamiltonian of the form given in Eq. \eqref{eq:h} and is given as:
+        \begin{equation}\label{eT}
+            \begin{aligned}
+                E(\beta) &= - \displaystyle\frac{1}{Z(\beta)} \frac{\partial Z(\beta)}{\partial \beta} \approx <\epsilon_T>\\
+                \epsilon_T &= \displaystyle\frac{3P}{2\beta} - \frac{mP}{2\hbar^2 \beta^2} \sum\limits_{s=1}^P (x_s - x_{s-1})^2 + \frac{1}{P} \sum\limits_{s=1}^P V(x_s)
+            \end{aligned}
         \end{equation}
 
-        We can see that the argument within the sum on the right-hand side of the expression for $\overline{U}_2 (r)$ goes from being a quantity completely independent of $P$ and $\hbar$ as in Eq. \eqref{eq:U2bar} to a quantity that is dependent on both $P$ and $\hbar$ as in Eq. \eqref{eq:U2barTI}. The inter-molecular potential experienced by the beads of the ring changes from being classical to semi-classical (dependent on $P$ and $\hbar$). Therefore, the phrase `PIMC with \textbf{semi-classical beads}' along with Fig. \ref{quantumness} is an apt description of such a PIMC simulation. For a fixed $P$, we would expect to capture more quantum effects with the use of semi-classical beads than classical beads, that is, by using the primitive approximation with higher order terms than just the primitive approximation by itself.
+        The Berne virial estimator\cite{Cao1989} ($\epsilon_V$) is a modification of the Barker estimator that eliminates ill-behaved terms  as $P \to \infty$. $\epsilon_V$ is given as:
+        \begin{equation}\label{eV}
+            \begin{aligned}
+                \epsilon_V &= \displaystyle\frac{3g}{2\beta} + \frac{1}{P} \sum\limits_{s=1}^P \bigg[ V(x_s) + \frac{1}{2} (x_s - x^*) \frac{\partial V(x_s)}{\partial x_s} \bigg]\\
+                x^* &= 0\: \: \text{or}\:\: x_P \: \:\text{or} \:\: x_C\\
+                g &= 0 ~\text{if}~ x^* = 0~ \text{else}~ g = 1
+            \end{aligned}
+        \end{equation}
+        where $\epsilon_V$ is called the origin-, bead- and centroid-reference virial estimator for $x^* = 0, x_P$ and $x_C$ respectively.
 
+        The variance of the centroid virial estimator is weakly dependent on $P$ whereas the variance of the Barker estimator is directly proportional to $P$\cite{Cao1989}. This leads to faster convergence and lower uncertainties as $P \to \infty$ and therefore the centroid virial estimator is generally considered better than the Barker estimator. Berne and Cao\cite{Cao1989} showed that the variance of the virial estimator is also affected by the MC algorithm that was being used, comparing the performance of the virial estimator for four different MC algorithms. Glaesemann and Fried\cite{Glaesemann2002} reported an improved thermodynamic estimator based on a free particle projection with variance similar to that of the virial estimator. One of the advantages of this estimator is that it requires one fewer derivative compared to its virial counterpart.
+
+        The kinetic-energy operator in the Hamiltonian gives rise to the weight of the ring configuration, which depends on the harmonic energy of the system with $P$ beads. The potential-energy operator (and hence, the \abinitio{} PES leads to the effective potential $\bar{U} (r)$ in the expressions for the quantum second virial coefficient (Eqs. \eqref{eq:b2Monatomic} and \eqref{eq:b2Diatomic} for the monatomic and diatomic cases respectively). Recall that we used the primitive approximation where the potential-energy operator was a simple function of the PES. If instead, we were to include higher order terms in the primitive approximation using the TI propagator, we would expect it to affect only $\bar{U} (r)$ (Eq. \eqref{eq:uBarMonatomic} and \eqref{eq:uBarDiatomic} for the monatomic and diatomic cases respectively). Thus using the TI propagator is equivalent to computing $\bar{U} (r)$ (Eq. \eqref{eq:uBarMonatomic} and \eqref{eq:uBarDiatomic} for the monatomic and diatomic cases respectively) using $\mc{V'}$ (Eq. \eqref{eq:TIworking}).
+
+        We can see that the argument within the sum on the right-hand side of the expression for $\bar{U} (r)$ (Eqs. \eqref{eq:uBarMonatomic} and \eqref{eq:uBarDiatomic}) goes from being a quantity completely independent of $P$ and $\hbar$ while using the primitive approximation, to a quantity that is dependent on both $P$ and $\hbar$ while using the TI propagator and Eq. \eqref{eq:TIworking}. The inter-molecular potential experienced by the beads of the ring changes from being classical to semi-classical (dependent on $P$ and $\hbar$). Therefore, the phrase `PIMC with \textbf{semi-classical beads}' along with Fig. \ref{quantumness} is an apt description of such a PIMC simulation. For a fixed $P$, we would expect to capture more quantum effects with the use of semi-classical beads than classical beads, that is, by using the primitive approximation with higher order terms than just the primitive approximation by itself.
         \begin{figure}
             \centering
             \includegraphics[scale=0.087,keepaspectratio]{quantumLevels.png}
             \caption{Different levels of ``quantumness'' of a $B_2$ calculation going from classical virial coefficients that are calculated assuming point masses to fully quantum virial coefficients with semi-classical beads. The different sphere sizes here are for illustrative purposes only and no quantitative inference should be made.} \label{quantumness}
         \end{figure}
-\section{Existing algorithms}
-\section{Novel algorithms}\label{sec:novel algorithms}
+        
+        We summarize here the equations pertaining to PIMC calculations with semi-classical beads (SCB) based approach using the TI propagator.
+        The fully quantum second virial coefficient expression using SCB-TI approach is given by:
+        \begin{equation}
+        \label{eq:b2SCBTI}
+            B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+        \end{equation}
+        where $\bar {U} (r)$ is defined for the monatomic case as:
+        \begin{equation}
+            \label{eq:uBarMonatomicSCBTI}
+            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|) \right] \right>_F
+        \end{equation}
+        and for the diatomic case as:
+        \begin{equation}
+            \label{eq:uBarDiatomicSCBTI}
+            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+        \end{equation}
+        where
+        \begin{equation}
+        \tag{\eqref{eq:TIworking} revisited}
+            \mc{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2,
+        \end{equation}
+
+    \section{Development of Novel Algorithms}
+    \label{sec:novel algorithms}
         Sampling of configurations in PIMC is made difficult by the different range of motions needed for rearrangements of the ring of beads, versus its translation as a whole. This can be alleviated by using Monte Carlo trials having different step sizes or collective moves, but still, the amount of sampling needed for ring arrangements to decorrelate limits the capabilities of these methods. Consequently, special methods have been introduced to speed up this sampling process. For monatomic molecules (e.g., He) only molecular positions are required to be sampled, and the algorithm \cite{Fosdick:1966vh,Patkowski2008,Shaul2012} to accomplish this efficiently is established. It is possible to solve analytically for the probability distribution of the location of each bead in a chain or ring of harmonically interacting beads, and this probability can be used to regrow the ring, or part of it, directly. The acceptance of proposed rearrangement generated this way depends only on the interaction of the beads with other bead-rings in the system. Each accepted trial then yields a new internal arrangement that is uncorrelated from the one that preceded it.
 
         Going from monatomic to diatomic molecules, rotational and vibrational degrees of freedom add more complexity to the computation and the sampling problem. To start, one can treat the molecule as a quantum-mechanical rigid rotor. Within this approximation there are multiple ways to still accommodate the vibrational degree of freedom (if using a potential model that includes it), and how it is affected by temperature \cite{Garberoglio2012,Garberoglio2014}. Regardless, the monatomic path-integral framework is extended for the rigid rotor by adding an orientational degree of freedom to each bead, coupled to the orientations of adjacent beads in the chain in the manner first described by Cui et al. \cite{Cui1997}. Sampling of positions of the beads can be decoupled from their orientations, so extension of PIMC to the diatomic can focus on finding an efficient way to sample the chain of rotors.  The interactions are not harmonic, so the probability distribution of the chain cannot be determined exactly. Garberoglio and Johnson \cite{Garberoglio2010} introduced a method to sample the path-integral degrees of freedom, based on a hybrid MC method for path integrals that uses molecular dynamics with large time steps \cite{Tuckerman:1993hu}.  This method is used to generate a reservoir of ideal-gas configurations to be used as trials in a larger MC calculation of virial coefficients (or other quantities).
