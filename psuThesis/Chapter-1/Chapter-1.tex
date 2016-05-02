@@ -48,7 +48,7 @@
                     H &= T_e + T_N + V_{ee} + V_{eN} + V_{NN}
                 \end{aligned}
             \end{equation}
-            where $T$ and $V$ represent the kinetic and potential energy operators respectively; the subscripts $e$ and $N$ denote the elctron and the nucleus respectively.
+            where $T$ and $V$ represent the kinetic and potential energy operators respectively; the subscripts $e$ and $N$ denote the electron and the nucleus respectively.
 
             The eigenfunctions of Eq. \eqref{eq:Schrodinger} are known as the wavefunctions of the atom and are denoted as $\Psi_i$. For ease of explanation, we only consider wavefunctions that are orthonormal, i.e., they satisfy the following the condition:
             \begin{equation}\label{eq:orthonormality}
@@ -62,7 +62,7 @@
             \end{equation}
             Knowing the wavefunction of a system exactly is therefore equivalent to possessing all information required about the system. Assuming we are given a complete set of orthonormal wavefunctions, we can express any generic wavefunction as a linear combination of the given set. It can be easily shown that resulting energy of such a generic wavefunctions is dependent on the linear combination coefficients and the energy eigenvalues corresponding to each wavefunction in the orthonormal set. Since this set of energy eigenvalues will always have a lower bound, the variational principle allows us to rank different starting sets of wavefunctions and their corresponding coefficients based on their resulting energies w.r.t this ground state energy. According to the variational principle, the lower the resulting energy, the better the starting set of wavefunctions. Therefore one can, in principle, devise a mechanism to construct and find the best possible set of wavefunctions using various mathematical tools.
 
-            The \Schrodinger{} equation is inherently complicated due to the correlation of interactions of many particles with one another, as expressed in Eq. \eqref{eq:Schrodinger}. However, there are certain approximations and assumptions that reduce the complexity of the equation. For instance, the Born-Oppenheimer(BO) approximation assumes that under ambient conditions, the motion of the nuclei are much slower compared to that of the electrons, owing to heavier masses. This makes it possible to separate the electronic and nuclear motions within the Hamiltionian $H$ (Eq. \eqref{eq:Schrodinger}) by setting $T_N \to 0$ and $V_N$ to some constant value. Whereas previously $H$ was dependent on the nuclear coordinates and electronic coordinates explicitly, using the BO approximation $H_{BO}$ depends explicitly only on electronic coordinates and the nuclear coordinates become parameters:
+            The \Schrodinger{} equation is inherently complicated due to the correlation of interactions of many particles with one another, as expressed in Eq. \eqref{eq:Schrodinger}. However, there are certain approximations and assumptions that reduce the complexity of the equation. For instance, the Born-Oppenheimer(BO) approximation assumes that under ambient conditions, the motion of the nuclei are much slower compared to that of the electrons, owing to heavier masses. This makes it possible to separate the electronic and nuclear motions within the Hamiltonian $H$ (Eq. \eqref{eq:Schrodinger}) by setting $T_N \to 0$ and $V_N$ to some constant value. Whereas previously $H$ was dependent on the nuclear coordinates and electronic coordinates explicitly, using the BO approximation $H_{BO}$ depends explicitly only on electronic coordinates and the nuclear coordinates become parameters:
             \begin{equation}\label{eq:BO approximation}
                 \begin{aligned}
                     (H_{BO} + V_N)~\Psi_{el} (\mbf{q}_i;\mbf{q}_k) &= E_{BO} \Psi_{el} (\mbf{q}_i;\mbf{q}_k)\\
@@ -72,7 +72,7 @@
 
             Both the variational principle and the BO approximation have profound implications in quantum chemistry. Without the variational principle, it would not be possible to check and improve the mechanism of construction of orthonormal sets of wavefunctions. The PES, defined as $E_{BO}$ for different nuclear configurations ($\mbf{q}_k$), would not exist if it were not for the BO approximation. Although the BO approximation significantly simplifies the \Schrodinger{} equation, the complexity due to the number of particles is still a challenge.
 
-            The concept of constructing the set of orthonormal wavefunctions for many particle systems needs a starting point. Using the BO approximation for a system like the hydrogen atom with just one electron and one nucleus, analytical solutions can be obtained for the orthonormal set of wavefunctions or Atomic Orbitals(AOs). These then, become the perfect starting point for more complicated wavefunctions (called Molecular Orbitals(MOs)) by using what is known as the Linear Combination of Atomic Orbitals(LCAO) basis set approach. Within this approach, we use AOs as basis sets and construct linear combinations of them with different weights to give rise to MO wavefunction for many electron systems. Naturally, the more the number of basis functions in the basis set, the better the description of the resulting MO.
+            The concept of constructing the set of orthonormal wavefunctions for many particle systems needs a starting point. Using the BO approximation for a system like the hydrogen atom with just one electron and one nucleus, analytic solutions can be obtained for the orthonormal set of wavefunctions or Atomic Orbitals(AOs). These then, become the perfect starting point for more complicated wavefunctions (called Molecular Orbitals(MOs)) by using what is known as the Linear Combination of Atomic Orbitals(LCAO) basis set approach. Within this approach, we use AOs as basis sets and construct linear combinations of them with different weights to give rise to MO wavefunction for many electron systems. Naturally, the more the number of basis functions in the basis set, the better the description of the resulting MO.
 
             Starting with $N$ wavefunctions $\{\psi_1, \psi_2, \ldots \psi_N\}$ as our basis set, we seek coefficients $a_{i}$ which will yield the minimum energy for the resulting MO wavefunction $\Psi = \displaystyle\sum_{i=1}^N a_{i} \psi_i$. The following is the procedure to obtain the MO wavefunction :
             \begin{enumerate}
@@ -99,7 +99,7 @@
                         \displaystyle\sum_{i=1}^N a_i (H_{ki} - E S_{ki}) = 0 \:\:\:\:\: \forall k
                     \end{equation}
             \end{enumerate}
-            Thus, we would obtain $N$ MOs among which there would be one that correponds to the lowest energy which we would call the ground state MO. It should be noted that we have implicitly assumed that energy value for the MO is simply obtained as the sum of the energies of the one-electron occupied orbitals.
+            Thus, we would obtain $N$ MOs among which there would be one that corresponds to the lowest energy which we would call the ground state MO. It should be noted that we have implicitly assumed that energy value for the MO is simply obtained as the sum of the energies of the one-electron occupied orbitals.
 
             Upon careful observation of the one-electron Hamiltonian, Hartree noticed that if we set the term $V_{ee} \to 0$ in Eq. \eqref{eq:BO approximation}, we could write down the following:
             \begin{subequations}
@@ -113,7 +113,7 @@
             \end{subequations}
             where $\psi_i$ are the one-electron wavefunctions and $\varepsilon_i$ are the corresponding eigenvalues.
 
-            Since the overall Hamiltionian of Eq. \eqref{eq:BO approximation} is separable into one-electron Hamiltonians of Eq. \eqref{eq:one electron H}, the many electron wavefunction can simply be expressed as product of the one electron wavefunctions i.e., $\Psi_{HP} = \psi_1 \psi_2 \ldots \psi_N$. In order to minimize the energy given by $<\,\Psi_{HP}\, | H |\,\Psi_{HP}\,>$, it can be shown from variational calculus that each $\psi_i$ is an eigenfunction of its own operator defined as:
+            Since the overall Hamiltonian of Eq. \eqref{eq:BO approximation} is separable into one-electron Hamiltonians of Eq. \eqref{eq:one electron H}, the many electron wavefunction can simply be expressed as product of the one electron wavefunctions i.e., $\Psi_{HP} = \psi_1 \psi_2 \ldots \psi_N$. In order to minimize the energy given by $<\,\Psi_{HP}\, | H |\,\Psi_{HP}\,>$, it can be shown from variational calculus that each $\psi_i$ is an eigenfunction of its own operator defined as:
             \begin{equation}\label{eq:correct Hamiltonian}
                 \begin{aligned}
                     h_i &= -\frac{1}{2} \nabla^2_i - \frac{Z_k}{r_{ik}} + V_i \{j\}\\
@@ -139,12 +139,12 @@
                     \chi_1 (N) & \chi_2 (N) & \ldots & \chi_N (N)\\
                 \end{vmatrix}
             \end{equation}
-            where $N$ is the total number of electrons and $\chi$ is a spin-orbital, i.e., a product of the spatial oribital and an electron spin eigenfunction.
+            where $N$ is the total number of electrons and $\chi$ is a spin-orbital, i.e., a product of the spatial orbital and an electron spin eigenfunction.
 
             Fock first proposed to extend the Hartree SCF method for Slater determinant wavefunctions giving rise to Slater Type Orbitals (STOs) and the Hartree-Fock(HF) SCF method$\allowbreak$, to which Roothaan \cite{Roothaan1951} made valuable contributions later. The 'restricted Hartree-Fock' (RHF) formalism with closed-shell systems and wavefunctions represented as a single Slater determinant is the typical form of the HF SCF method. The procedure to be followed using this approach is outlined below:
             \begin{enumerate}
                 \item Choose a basis set and a molecular geometry
-                \item Guess the intial density matrix $\mbf{P}^{(0)}$ whose elements are given as:
+                \item Guess the initial density matrix $\mbf{P}^{(0)}$ whose elements are given as:
                     \begin{equation}\label{eq:density matrix elements}
                         P_{\lambda \sigma} = 2 \displaystyle\sum_i^{occupied MO} a_{\lambda i} a_{\sigma i}
                     \end{equation}
@@ -158,7 +158,7 @@
                             (\mu \nu | \lambda \sigma) &= \displaystyle\int \int \phi_\mu (1) \phi_\nu(1) \frac{1}{r_{12}}\phi_\lambda (2) \phi_\sigma (2) d\,\mbf{r}(1)\,d\,\mbf{r}(2)
                         \end{aligned}
                     \end{equation}
-                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other; the integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals'; $J_i$ and $K_i$ are opertors defined to compute $J_{ij}$ and $K_{ij}$ that are called the Coulomb and exchange integrals respectively. The exchange integrals are preceeded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins. The Coulomb and exchange integrals are given by:
+                    where $\phi_\mu$ and $\phi_\nu$ represent the probability density of one electron and $\phi_\lambda$ and $\phi_\sigma$ the other; the integrals $(\mu \nu | \lambda \sigma)$ are also known as the 'four index integrals'; $J_i$ and $K_i$ are operators defined to compute $J_{ij}$ and $K_{ij}$ that are called the Coulomb and exchange integrals respectively. The exchange integrals are preceded by a factor of 1/2 because they are limited to electrons of the same spin while Coulomb interactions are present in any combination of spins. The Coulomb and exchange integrals are given by:
                     \begin{equation}\label{eq:Coulomb and exchange integrals}.
                         \begin{aligned}
                             J_{ij} = \displaystyle\int \int |\psi_i|^2 \frac{1}{r_{ij}} |\psi_j|^2 d\,\mbf{r}_i\, d\,\mbf{r}_j\\
@@ -194,7 +194,7 @@
             The procedure of extrapolation, practical implementation issues, the convergence of the HF SCF method and various other computational issues are discussed in much more detail in Chapter 6 of Cramer's book \cite{Cramer} and so, we continue on to the next important topic of 'Electron Correlation' in the following section.
 
         \subsection{Electron Correlation}\label{subsec:electron correlation}
-            HF theory is intrinsically inflexible for some systems because of the use of single SD wavefunctions only. The logical next step would be to use a linear combination of SD wavefunctions. A 'configuration' or a 'Configuration State Function'(CSF) is defined as the molecular spin state and the occupation numbers of the orbitals. For closed-shell singlets CSFs can always be represented as single determinants. For open-shell systems we required two or more determinants to properly represnet the CSFs. Consider a system with two degenerate MO. Due to the nature of the SCF process, degenerate MOs that are not occupied do not contribute to the energy. If we perform two different HF SCF calculations using either of the degenerate orbitals, the resulting energies would expected to be near or exactly the same. This is known as non-dynamical correlation as opposed to the dynamical correlation which arises due to the dynamic character of electronic interactions. Therefore, it would be wise to include different combinations of configurations as part of the optimization process, thus leading to Multiconfiguration Self-Consistent Field(MCSCF) theory. The advantage offered by MCSCF theory is that it can handle both multiple configurations as well as the possbility of multiple determinant representation of each of the configurations.
+            HF theory is intrinsically inflexible for some systems because of the use of single SD wavefunctions only. The logical next step would be to use a linear combination of SD wavefunctions. A 'configuration' or a 'Configuration State Function'(CSF) is defined as the molecular spin state and the occupation numbers of the orbitals. For closed-shell singlets CSFs can always be represented as single determinants. For open-shell systems we required two or more determinants to properly represent the CSFs. Consider a system with two degenerate MO. Due to the nature of the SCF process, degenerate MOs that are not occupied do not contribute to the energy. If we perform two different HF SCF calculations using either of the degenerate orbitals, the resulting energies would expected to be near or exactly the same. This is known as non-dynamical correlation as opposed to the dynamical correlation which arises due to the dynamic character of electronic interactions. Therefore, it would be wise to include different combinations of configurations as part of the optimization process, thus leading to Multiconfiguration Self-Consistent Field(MCSCF) theory. The advantage offered by MCSCF theory is that it can handle both multiple configurations as well as the possibility of multiple determinant representation of each of the configurations.
 
             Complete Active Space(CAS) of a system is defined as all possible arrangements of the valence electrons in the systems among the different permissible orbitals. As one might guess, the CASSCF calculation is computationally expensive due to the presence of multiple factorials even for the smallest of systems. Instead of using CAS, Restricted Active Space (RAS) methods have been suggested where one includes excited states (either singly, doubly, ... ), as an alternative approach to reduce computational effort.
 
@@ -205,7 +205,7 @@
                 \begin{equation}\label{eq:perturbation theory}
                     \mbf{A} = \mbf{A}^{(0)} + \lambda \mbf{V}
                 \end{equation}
-                where $\mbf{A}^{(0)}$ is the operator for which we can find eigenfunctions, $\mbf{V}$ is the perturbing opertor and $\lambda$ is a dimensionless parameter that maps $\mbf{A}^{(0)}$ onto $\mbf{A}$ as it varies from 0 to 1.
+                where $\mbf{A}^{(0)}$ is the operator for which we can find eigenfunctions, $\mbf{V}$ is the perturbing operator and $\lambda$ is a dimensionless parameter that maps $\mbf{A}^{(0)}$ onto $\mbf{A}$ as it varies from 0 to 1.
 
                 M\o{}ller and Plesset \cite{Moller1934} applied the perturbation theory in which they considered $\mbf{A}$ to be the Hamiltonian operator $\mbf{H}$ and proposed choices for $\mbf{A}^{(0)}$ and $\mbf{V}$. This approached is widely known with the acronym MP$n$ where $n$ is the order of truncation of the perturbation theory. Within the MP approach $\mbf{H}^{(0)}$ is taken to be the sum of one-electron Fock operators (Eq. \eqref{eq:one electron Fock matrix elements}). $\mbf{H}^{(0)}$ and the perturbing operator $\mbf{V}$ are given as:
                 \begin{equation}\label{eq:MP elements}
@@ -216,7 +216,7 @@
                 \end{equation}
                 where $J_{ij}$ and $K_{ij}$ are the same Coulomb and exchange integrals as described in Eq.\eqref{eq:Coulomb and exchange integrals}.
 
-                It should be noted that the perturbing operator $\mbf{V}$ was designed in such a way that it avoids doubly-counting the electronic replusion and gives us the correct Hamiltonians for all values of $\lambda$. Also, since we are summing over the occupied orbitals, we must be working with the MO basis set rather than the AO one. MP$n$ applied with ground state HF wavefunction is known as single reference MP$n$ and with a ground state MCSCF wavefunction is known as multireference MP$n$.
+                It should be noted that the perturbing operator $\mbf{V}$ was designed in such a way that it avoids doubly-counting the electronic repulsion and gives us the correct Hamiltonians for all values of $\lambda$. Also, since we are summing over the occupied orbitals, we must be working with the MO basis set rather than the AO one. MP$n$ applied with ground state HF wavefunction is known as single reference MP$n$ and with a ground state MCSCF wavefunction is known as multireference MP$n$.
 
             \subsubsection{Coupled-Cluster Theory}\label{subsubsec:coupled-cluster theory}
                 A more mathematically elegant way of estimating the electron correlation energy is the coupled-cluster(CC) theory \cite{Cizek1966}. The central idea (skipping all the mathematical details) is that the FCI wavefunction can be described as:
