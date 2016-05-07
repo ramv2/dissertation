@@ -352,9 +352,10 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \begin{frame}
             \frametitle{Orientation sampling}
             \begin{itemize}
-                \item Idea proposed by Garberoglio et al. \putCitation{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously)
-                \item Leads to possibility of avoiding quantum chemistry calculations
-                \item Look at the sampling more mathematically, without having to worry about the physics of the rigid rotor
+                \item Idea proposed by Garberoglio et al. \putCitation{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously).
+                \item Leads to possibility of avoiding quantum chemistry calculations.
+                \item Sampling problem can be analyzed more mathematically, without having to worry about the physics of the rigid rotor.
+                \item Straightforward but non-trivial extension to multiatomic systems.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -394,7 +395,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
-                    \item Image 0 $\parallel$ image P and the angle between them is 0 for Boltzmann type and $\pi$ for exchange type. The choice of orientation of image 0 is arbitrary
+                    \item Angle between image 0 and image P is 0 for Boltzmann type and $\pi$ for exchange type conformations. The choice of orientation of image 0 is arbitrary
                     \item At every stage, we are given two images $\mbf{b}_i, \mbf{b}_k$ and we choose the orientation of image $j = (i + k)/2$.
                     \item We note that $\tau (o \to n)$ is exact for the last step of the algorithm. 
                     \column{3.4cm}
@@ -468,6 +469,22 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \end{alertblock}
         \end{frame}
         \begin{frame}
+            \frametitle{Methods to handle flexibility}
+            \begin{itemize}
+                \justifying
+                \item Instead of using ground state bond length ($r_0$) use average bond length at each temperature ($< r >_T$)\putCitation{Garberoglio2012}
+                \item Average the entire intermolecular potential ($<U>_T$) over internal degrees of freedom of each monomer, weighted by the appropriate wave function\putCitation{Garberoglio2014}:
+                \begin{equation*}
+                    <r>_T = \displaystyle\sum\limits_{n,J} p(n,J:T) < \chi_{nJ} | r | \chi_{nJ} >
+                \end{equation*}
+                where $n$ and $J$ are rotational and vibrational quantum numbers respectively, while $\chi_{nJ}$ denotes the corresponding wave-function.
+                \begin{equation*}
+                    p(n,J:T) = \frac{(2J + 1) \exp(-E(n,J)/T)}{\displaystyle\sum\limits_{n',J'} (2J' + 1) \exp(-E(n',J')/T)}
+                \end{equation*}
+                where $E(n',J')$ is the energy of the $(n',J')$ state.
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
             \frametitle{Bond-length sampling}
             \begin{itemize}
                 \item Define $\pi$ in a similar fashion to the orientation sampling algorithm:
@@ -506,238 +523,62 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
 	\section{Results}
+        \begin{frame}
+            \frametitle{Computational details}
+            \begin{itemize}
+                \item A short equilibration simulation is performed at the beginning to determine $\alpha$ and to adjust MC move step sizes so that the acceptance of all the MC moves is 50\%.
+                \item Irrespective of their number, all MC moves are chosen with equal probability for both the systems within the simulation.
+                \item The total number of configuration samples is divided into blocks of 1000 samples each. We compute averages across all blocks for the four ratios and use standard error propagation formulas to arrive at the final result.
+                \item Error bars shown represent one standard deviation of the mean (68\% confidence interval).
+            \end{itemize}
+        \end{frame}
+        \subsection{Hydrogen}
+            \begin{frame}
+                \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$ - 10$^7$ configuration samples total}
+                \begin{figure}
+                    \centering
+                    \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
+                \end{figure}
+            \end{frame}
+            \begin{frame}
+                \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_T$ - 10$^7$ configuration samples total}
+                \begin{figure}
+                    \centering
+                    \includegraphics[scale=0.18,keepaspectratio]{s2GarberoglioAll.png}
+                \end{figure}
+            \end{frame}
+            \begin{frame}
+                \frametitle{Performance of the orientation move}
+                \begin{figure}
+                    \centering
+                    \includegraphics[scale=0.18,keepaspectratio]{s12orAcc.png}
+                \end{figure}
+            \end{frame}
+            \begin{frame}
+                \frametitle{Bond length\putCitation{Garberoglio2014}- flexible bond-length - 10$^7$ configuration samples total}
+                \begin{figure}
+                    \centering
+                    \includegraphics[scale=0.18,keepaspectratio]{s3GarberoglioAll.png}
+                \end{figure}
+            \end{frame}
+        \begin{frame}
+            \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$}
+            \begin{figure}
+                \centering
+                \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
+            \end{figure}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$}
+            \begin{figure}
+                \centering
+                \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
+            \end{figure}
+        \end{frame}
+
 	\section{Summary}
 	\section*{Acknowledgments}
     \iffalse
-	\begin{frame}
-	\frametitle{PIMC - diatomic molecule}
-	\begin{itemize}
-	\justifying
-	\item PIMC - provides a route to incorporate nuclear quantum effects
-	\item Kinetic energy effects of the molecule lead to harmonic spring-like interactions between adjacent ``beads"
-	\begin{figure}
-	\centering
-	\def\svgscale{0.3}
-	\input{monatomicPIMC.pdf_tex}
-	\end{figure}
-	\item Interaction energy is computed as: $U_{int} = \displaystyle\sum\limits_{i=1}^P \frac{U_i}{P}$
-	\begin{figure}
-	\centering
-	\def\svgscale{0.3}
-	\input{interactionEnergyMonatomic.pdf_tex}
-	\end{figure}
-	\item To form a closed ring of springs, the position of each bead needs to be chosen based on a Gaussian distribution. Hence, implementing PIMC is trivial for the monatomic case
-	\end{itemize}
-	\end{frame}
-	\fi
-	\begin{frame}
-	\frametitle{PIMC results for Helium-4\putCitation{Shaul2012}}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.2,keepaspectratio]{B4-Kate.png}
-	\end{figure}
-	\end{frame}
-    \iffalse
-	\begin{frame}
-	\frametitle{PIMC - rigid diatomic molecule}
-	\begin{itemize}
-	\item Probability distribution for choosing an orientation is not Gaussian
-	\item Probability of choosing adjacent orientation is exact and analytic but we can't form a ring if we choose from that distribution
-	\begin{figure}
-	\centering
-	\def\svgscale{0.2}
-	\input{orientationRD.pdf_tex}
-	\end{figure}
-	\item Entire difficulty lies in coming up with a probability distribution for non-adjacent monomer orientations which results in closed ring configurations
-	\begin{figure}
-	\centering
-	\def\svgscale{0.3}
-	\input{diatomicPIMC.pdf_tex}
-	\end{figure}
-	\end{itemize}
-	\end{frame}
-	\fi
-	\begin{frame}
-	%slide 8
-	\frametitle{A new orientational sampling algorithm}
-	\begin{itemize}%[<+->]
-	\item What if we don't model using the quantum rigid rotor approximation?
-	\item The only factor that affects the probability of any configuration is the \alert{harmonic spring-like interaction} between adjacent beads
-	\item $U_h = \displaystyle\sum\limits_{\# rings} \displaystyle\sum\limits_i k_h |\textbf{x}_i - \textbf{x}_{i-1}|^2 ,\text{with} \: k_h = \frac{\pi P}{\Lambda^2}$ where $\Lambda = \frac{h}{\sqrt{2 \pi m k_B T}}$ \: and $\textbf{x}_i$ denotes position of the bead $i$
-	\item The actual probability of any configuration is given by $P_{act} = exp(-U_h) $
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Growing the ring}
-	\begin{itemize}%[<+->]
-	\item Tight coupling between adjacent beads makes it difficult to sample orientations that are different, thus lowering the sampling efficiency
-	\item We always \alert{grow the complete ring each time} and  we do so \alert{non-sequentially}
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Non-sequential algorithm}
-	\begin{itemize}%[<+->]
-	\begin{columns}[c]
-	\column{6cm}
-	\item Image 0 and image P are one and the same. The choice of orientation of image 0 is arbitrary
-	\item Each image(child) has a set of two(parent) orientations which affect where it is placed
-	\item For each pass, we need a probability distribution of the child image that depends on the orientations of both the parent images
-
-	\column{3.4cm}
-	\vspace{0cm}
-	\begin{overlayarea}{3.5cm}{3.5cm}
-	\begin{figure}[H]
-	\only<1>{
-	\includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0.png}
-	\caption{Example for P = 8}
-	}
-	\only<2>{
-	\includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns04.png}
-	\caption{Example for P = 8}
-	}
-	\only<3>{
-	\includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0426.png}
-	\caption{Example for P = 8}
-	}
-	\only<4>{
-	\includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{nsall.png}
-	\caption{Example for P = 8}
-	}
-	\end{figure}
-	\end{overlayarea}
-	\end{columns}
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	%slide 10
-	\frametitle{Adjacent image probability $P_{01}$}
-	\begin{itemize}%[<+->]
-	\begin{columns}[t]
-	\column{6cm}
-	\item Consider a sphere with diameter $=$ bond length of the molecule i.e. $r = b/2$
-	\item Let image `0' be oriented along the z-axis and image `1', at angle \:$\phi_1$\: away from it
-	\item Distance `x' between beads of adjacent images is given by $x^2 = 2 r^2 ( 1 - cos \phi_1)$
-	\column{3.4cm}
-	\begin{figure}
-	\includegraphics[width=\textwidth,keepaspectratio]{degeneracyNew.png}
-	\caption{P = 2 case}
-	\end{figure}
-	\end{columns}
-	\item The harmonic interaction energy is given by, $U_h = 4 k_h r^2 (1 - cos \phi_1)$
-	\item $P_{01}$ is given by:
-	\begin{align}
-	P_{01} (\phi_1) = exp [-4k_h r^2 (1 - cos \phi_1)]
-	\end{align}
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	%slide 11
-	\frametitle{Comparison between algorithms\putCitation{Patkowski2008}}
-	Normalize these the two functions $P_{01}, \rho$ :
-	\begin{align*}
-	P_{01} (\phi_1) = &exp [ -4 k_h r^2 (1 - cos \phi_1) ] \\
-	\rho(\phi_1) = &\frac{1}{q_{rot}} \displaystyle\sum\limits_{j=0}^{100} \frac{2j+1}{4 \pi} P_j (cos \phi_1) \times exp[- \beta j (j+1)\Upsilon /P]
-	\end{align*}
-	\begin{center}
-	\begin{figure}
-	\includegraphics[width=5.5cm,keepaspectratio]{probabilityComparison.png}
-	\end{figure}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}
-	%slide 12
-	\frametitle{Parent $\to$ child}
-	\begin{itemize}%[<+->]
-	\item Given two parent images $I_1,I_2$, the harmonically most favorable orientation for the child image is the average of the their orientations
-	\item Let $c_n$ denote the average orientation of the two parents for image n and $P_{c_n,I_1 I_2}$ denote the probability distribution centered around $c_n$
-	\item For the case of $n = 1, P_{c_1,02}$ can be computed analytically
-	\begin{center}
-	\begin{figure}
-	\includegraphics[width=6cm,keepaspectratio]{yratio.png}
-	\end{figure}
-	\end{center}
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	%slide 13
-	\frametitle{Parent $\to$ child}
-	\begin{itemize}%[<+->]
-	\item We performed MC simulations and collected histograms of angles $\phi_2 , \phi_4, \phi_8 \ldots$ and observed that:
-	\begin{align*}
-	&P_{c_n,I_1 I_2} (\phi_n) \approx P_{01} (k_n^{eff},\phi_n) \\
-	&k_n^{eff} \propto k_h cos(\psi_n/2)
-	\end{align*}
-	where $\psi_n$ is the angle between the orientations of $I_1 , I_2$
-	\item For the first pass alone, set $I_1 = 0, I_2 = 0$ and subsequent passes will have different sets of parents
-	\item Cumulative distribution function:
-	\begin{align}
-	C(\alpha) = \frac{e^{2k_n^{eff}} - e^{k_n^{eff} (1 + cos \alpha)}}{e^{2k_n^{eff}} - 1}
-	\end{align}
-	\item Simple and \alert{computationally inexpensive}
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	%slide 14
-	\frametitle{Generating configurations}
-	\begin{itemize}
-	\item Difficult to generate configurations based on the actual distribution that we desire
-	\item Instead we can generate angles from an approximate distribution $C(\alpha)$ much easily
-	\item Need to account for it by computing the ratio of the actual and generating probabilities of a configuration
-	\item Our acceptance probability is given as: $P_{acc} = \frac{P_{act}^{new}/P_{act}^{old}}{P_{gen}^{new}/P_{gen}^{old}}$
-	\item Accept/reject based on $P_{acc}$ and we can sample the (desired) actual distribution more \alert{accurately and efficiently}
-	\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-	\frametitle{Bond length \putCitation{Garberoglio2014}- $r_0$}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.18,keepaspectratio]{8sfGResults.png}
-	\end{figure}
-	
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Bond length \putCitation{Garberoglio2014}- $r_0$}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.18,keepaspectratio]{8sfGResultsDiff.png}
-	\end{figure}
-	
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Methods to handle flexibility}
-	\begin{itemize}
-	\justifying
-	\item Instead of using ground state bond length ($r_0$) use average bond length at each temperature ($< r >_T$)
-	\item Average the bond length values over internal degrees of freedom of each monomer, weighted by the appropriate wave function\putCitation{Garberoglio2012}
-	\begin{equation*}
-	<r>_T = \displaystyle\sum\limits_{n,J} p(n,J:T) < \chi_{nJ} | r | \chi_{nJ} >
-	\end{equation*}
-	\noindent where $n$ and $J$ are quantum numbers that define the vibrational and rotational state of $H_2$,respectively, while $\chi_{nJ}$ denotes the corresponding wave-function and \\
-	\begin{equation*}
-	p(n,J:T) = \frac{(2J + 1) \exp(-E(n,J)/T)}{\displaystyle\sum\limits_{n',J'} (2J' + 1) \exp(-E(n',J')/T)}
-	\end{equation*}
-	\noindent where $E(n',J')$ is the energy of the $(n',J')$ state
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_T$}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.18,keepaspectratio]{8sfTAResults.png}
-	\end{figure}
-	
-	\end{frame}
 
 	\begin{frame}
 	\frametitle{Bond length\putCitation{Garberoglio2014} - $< r >_T$}
@@ -928,5 +769,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\item Compute $b_{min}$ using $\frac{\partial z_{act}}{\partial b_i} \Bigg|_{b_i = b_{min}} = \frac{\partial z_{act}^*}{\partial b_i} \Bigg|_{b_i = b_{min}} = 0$
 	\end{itemize}
 	\end{frame}
+    \fi
 	
 \end{document}
