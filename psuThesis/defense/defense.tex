@@ -4,12 +4,14 @@
 \usepackage{bm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{mathrsfs}
 \usepackage{ragged2e}
 \usepackage{calc}
 \usepackage{tikz}
+\usepackage[T1]{fontenc}
 \usepackage[firstinits=true,backend=bibtex,bibstyle=numeric-comp,citestyle=authoryear-comp]{biblatex}
 \DeclareCiteCommand{\putCitation}[\mkbibfootnote]
 	{\usebibmacro{prenote}}
@@ -22,21 +24,21 @@
 	{\multicitedelim}
 	{\usebibmacro{postnote}
 }
-\newcommand{\abinitio}[0]{\emph{ab initio}}
-\newcommand{\Abinitio}[0]{\emph{Ab initio}}
-\newcommand{\AbInitio}[0]{\emph{Ab Initio}} % for references
-\newcommand{\Schrodinger}[0]{Schr\"{o}dinger}
-\newcommand{\Sim}[0]{$\sim$}
-\newcommand{\PESs}[0]{PES\,s}
-\newcommand{\mc}[1]{\mathcal{#1}}
-\newcommand{\mbf}[1]{{\mathbf {#1}}}
+\DeclareRobustCommand{\abinitio}[0]{\emph{ab initio}}
+\DeclareRobustCommand{\Abinitio}[0]{\emph{Ab initio}}
+\DeclareRobustCommand{\AbInitio}[0]{\emph{Ab Initio}} % for references
+\DeclareRobustCommand{\Schrodinger}[0]{Schr\"{o}dinger}
+\DeclareRobustCommand{\Sim}[0]{$\sim$}
+\DeclareRobustCommand{\PESs}[0]{PES\,s}
+\DeclareRobustCommand{\mc}[1]{\mathcal{#1}}
+\DeclareRobustCommand{\mbf}[1]{{\boldsymbol {#1}}}
 \addbibresource{masterReferences.bib}
 \addtobeamertemplate{frame begin}{}{\justifying}
 \title{Quantum Virial Coefficients via Path Integral Monte Carlo: Theory and Development of Novel Algorithms}
-\author{PhD dissertation defense by: Ramachandran Subramanian\\}
+\author{PhD dissertation defense by: Ramachandran Subramanian}
 \institute[UB]{
-Advisor: Professor David A. Kofke\\
-Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
+    Committee: Prof. David A. Kofke (Chair),\\
+Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 }
 \date{May 9, 2016}
 
@@ -52,8 +54,8 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 
 \begin{document}
 	{
-	\setbeamertemplate{headline}{} 
-	\setbeamertemplate{footline}{} 
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{}
 	\begin{frame}
 		\titlepage
 	\end{frame}
@@ -70,23 +72,42 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\subsection{Viral coefficients}
 		\begin{frame}
 			\frametitle{Virial equation of state (VEOS)}
+                \begin{block}{}
+                    \color{blue}{
+                    \begin{equation*}
+                        \frac{P}{\rho kT} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots
+                    \end{equation*}}
+                \end{block}
 			\begin{itemize}
 				\justifying
-				\item Virial equation of state\putCitation{Tester} 
-				\begin{equation*}
-					\frac{P}{\rho kT} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots
-				\end{equation*}
-				\item $B_n$ - $n^{th}$ order virial coefficient represents the effect of interaction of $n$ molecules 
-				\item Depends only on temperature
-				\item Works well for systems with low density (typically gases)
+				\item $B_n$ - $n^{th}$ order virial coefficient represents the effect of interaction of $n$ molecules.
+				\item Depends only on temperature.
+				\item Works well for systems with low density (typically gases).
+			\end{itemize}
+		\end{frame}
+
+        \begin{frame}
+			\frametitle{Expressions for the virial coefficients}
+			\begin{itemize}
+				\justifying
+				\item Second and third order virial coefficients are given by:
+                \begin{equation}
+                    \begin{aligned}
+                        B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
+                        B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
+                    \end{aligned}
+                \end{equation}
+                where $f(0,1) = \Big( \exp \big[ -\beta U_2(\mbf{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
+            \item The number of such integrals to be summed\putCitation{Hansen} is: 3 for B$_4$, 10 for B$_5$, 56 for B$_6$, 468 for B$_7$.
 			\end{itemize}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{VEOS: $\frac{P}{\rho kT} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots$}
-			\begin{itemize} 
+            \frametitle{Main uses:}
+			\begin{itemize}
 				\justifying
-				\item Virial coefficients connect interactions at the molecular level to a macroscopic observable quantity, the pressure
+				\item To compute other thermodynamic properties like the joules-thomson coefficient, critical point etc.
+                \item To rank different potential models by comparing their virial coefficients to experimental results
 				\begin{figure}
 				\centering
 				\begin{tikzpicture}
@@ -100,104 +121,248 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 				\node[align=left] at (-4,1) {\alert<2->{Interaction}\\ \alert<2->{potential}};
 				\draw[->,blue] (-3,1) -- (-1,1) node[below,black] {Simulation} -- (1,1);
 				\draw[->,blue] (-2,2.5) -- (-2,1);
-				\end{tikzpicture}      
+				\end{tikzpicture}
 				\end{figure}
-				\item \visible<2->{Accuracy of potential models (empirical or \emph{ab initio}) to capture the nature of interactions can be gauged}
+            \item \visible<2->{To systematically tune and improve potentials as a result.}
 			\end{itemize}
 		\end{frame}
-
+		
 		\begin{frame}
-			\frametitle{Empirical vs. \emph{Ab initio} potential models}
-			\begin{itemize} 
+			\frametitle{Empirical potential models}
+			\begin{itemize}
 				\justifying
-				\item Empirical potential models - usually functions fitted to experimental data
-				\item Represent the net effect of a variety of phenomenon taking place including 2 body interactions, multi-body interactions, nuclear quantum effects etc.  
-				\item As a result, fail to accurately represent interaction potential
-				\item Interaction potentials that better represent condensed (high density) phase fail to predict accurate virial coefficients for the gas (low density) phase
+				\item Usually functions fitted to experimental data of bulk property measurement.
+				\item Represent the net effect of a variety of phenomenon taking place including 2 body interactions, multi-body interactions, nuclear quantum effects etc.
+				\item As a result, fail to accurately represent interaction potential.
+				\item Interaction potentials that better represent condensed (high density) phase fail to predict accurate virial coefficients for the gas (low density) phase.
 			\end{itemize}
 		\end{frame}
 		
 		\begin{frame}
 			\frametitle{Example - different empirical models of water}
-			\begin{itemize}
-				\justifying
-				\item Importance of the accuracy of interaction potential\putCitation{Benjamin2007}:
-				\begin{figure}
-				\centering
-				\includegraphics[scale=0.08,keepaspectratio]{ben2a.png}
-				\end{figure}
-			\end{itemize}
+            \begin{itemize}
+                \item Importance of the accuracy of interaction potential\putCitation{Benjamin2007}:
+            \end{itemize}
+            \begin{figure}
+            \centering
+            \includegraphics[scale=0.08,keepaspectratio]{ben2a.png}
+            \end{figure}
 		\end{frame}
-	\subsection{Ab initio potentials}
-	\section{Objectives}
+    \subsection{\Abinitio{} potentials}
+        \begin{frame}
+        \frametitle{\Abinitio{} potential models}
+            \begin{itemize}
+                \item Fundamentally different from empirical models as they focus only on two or three molecules at a time
+                \item Solve for the interaction energies starting with the \Schrodinger{} equation and involve many approximations:
+                \begin{equation*}
+                    \begin{aligned}
+                        \mc{H}~\Psi &= E~\Psi, \\
+                        \mc{H} &= \mc{T}_e + \mc{T}_N + \mc{V}_{ee} + \mc{V}_{eN} + \mc{V}_{NN}
+                    \end{aligned}
+                \end{equation*}
+                \item Account for electronic structure using different levels of theory and different basis sets
+                \item We use potentials fitted to \abinitio{} data rather than compute it on-the-fly (expensive)
+            \end{itemize}
+            \end{frame}
+
+        \begin{frame}
+            \frametitle{Nuclear quantum effects}
+            \begin{itemize}
+                \justifying
+                \item Consequence of uncertainty in the positions of atoms at low temperatures (Zero-point vibrational energy).
+                \item Have to be explicitly included in virial coefficient calculations as they are ignored in the development of \abinitio{} potentials.
+                \item Semi-classical routes to include quantum effects:
+                    \begin{enumerate}
+                        \item Computing first order quantum corrections.
+                        \item Using an effective potential like the Quadratic Feynman-Hibbs\putCitation{Feynman}.
+                    \end{enumerate}
+                \item Quantum route: path integral Monte Carlo (PIMC) (will be explained in detail later).
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Classification of virial coefficients}
+            \begin{itemize}
+                \item Different levels of ``quantumness'', using $B_2$ as an example:
+            \end{itemize}
+            \begin{figure}
+            \centering
+            \includegraphics[scale=0.05,keepaspectratio]{quantumLevels.png}
+            \end{figure}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Nuclear quantum effects}
+            \begin{itemize}
+                \item Importance of nuclear quantum effects\putCitation{Shaul2012}
+            \end{itemize}
+            \begin{figure}
+            \centering
+            \includegraphics[scale=0.17,keepaspectratio]{B2-Kate.png}
+            \end{figure}
+        \end{frame}
+	
+    \section{Objectives}
+        \begin{frame}
+            \frametitle{Objective}
+            \begin{block}{Diatomic molecules}
+                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials and PIMC method.
+            \end{block}
+        \end{frame}
 	\section{Methods}
-	\subsection{MSMC}
-	\subsection{PIMC}
-	\subsection{PIMC with semi-classical beads}
+	\subsection{Mayer Sampling Monte Carlo}
+        \begin{frame}
+            \frametitle{Mayer Sampling Monte Carlo}
+            \begin{itemize}
+            \justifying
+                \item Second and third order virial coefficients are given by:
+                \begin{equation*}
+                    \begin{aligned}
+                        B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
+                        B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
+                    \end{aligned}
+                \end{equation*}
+                \item MSMC\putCitation{Singh2004} is a free energy perturbation technique to evaluate the integrals in the above equations indirectly.
+                \begin{equation*}
+                    \label{eq:MSMCworking}
+                    \begin{aligned}
+                        \Gamma (T) &= \Gamma_o \frac{{<\gamma/\pi>}_\pi / {<\gamma_{os}/\pi>}_\pi}{{<\gamma_o/\pi>}_{\pi_o} / {<\gamma_{os}/\pi_o>}_{\pi_o}}\\
+                        \gamma_{os} &= \frac{|\gamma_o||\gamma|}{\alpha |\gamma_o| + |\gamma|}
+                    \end{aligned}
+                \end{equation*}
+            \end{itemize}
+        \end{frame}
+	\subsection{Path Integral Monte Carlo}
+        \begin{frame}
+            \frametitle{PIMC - thermal density matrix}
+            \begin{itemize}
+                \justifying
+                \item The paritition function is an important property in statistical mechanics:
+                \begin{equation*}
+                    \begin{aligned}
+                        P(x) &= \frac{1}{Z} \rho(x,x),\\
+                        Z &= \int \rho(x,x) dx \equiv \text{trace} \{\rho\}.
+                    \end{aligned}
+                \end{equation*}
+                where $\rho(x',x)$ is the statistical thermal density matrix at temperature T.
+                \item Richard Feynman\putCitation{Feynman} was able to connect it with quantum mechanics:
+                \begin{equation*}\label{eq:rho}
+                    \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
+                \end{equation*}
+                where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature.
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Important equations}
+            \begin{itemize}
+                \justifying
+                \item A key property of the density matrix is that the product of two density matrices is also a density matrix. Hence the convlution\putCitation{Ceperley1995}:
+                \begin{equation*}\label{eq:dmProduct}
+                    \rho (R_1, R_3 ; \beta_1 + \beta_2) = \displaystyle\int dR_2 \rho (R_1, R_2 ; \beta_1) \rho (R_2, R_3 ; \beta_2)
+                \end{equation*}
+                \visible<2->{\item As $\frac{\beta}{P} \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation'' is given by\putCitation{Cui1997}:
+                \begin{equation*}\label{eq:primitiveApprox}
+                    e^{- \frac{\beta}{P} (\mc{T} + \mc{V})} \approx e^{- \frac{\beta}{P} \mc{T}} e^{- \frac{\beta}{P} \mc{V}}
+                \end{equation*}
+                    }
+                \visible<3->{
+                \item The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
+                \begin{equation*}\label{eq:trotter}
+                    e^{- \beta (\mc{T} + \mc{V})} = \lim_{P \to \infty} \Big[ e^{- \frac{\beta}{P} \mc{T}} e^{- \frac{\beta}{P} \mc{V}} \Big]^P
+                \end{equation*}
+                    }
+            \end{itemize}
+        \end{frame}
+
+        \begin{frame}
+            \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
+            \begin{itemize}
+                \justifying
+                \item Let $m$ and $I$ denote the mass of the atom and moment of inertia of the rigid rotor respectively with $\Lambda_m = h/\sqrt{2\pi m k_B T}$. Its Hamiltonian is given by:
+                    \begin{equation*}
+                    \label{eq:hDiatomic}
+                        \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2)
+                    \end{equation*}
+                    where $\hat{\mbf{p}}$ is the momentum operator conjugated to the COM separation, $\hat{\mbf{J}}_1$ and $\hat{\mbf{J}}_2$ are the angular momentum operators, $\hat{U}(r,\Omega_1,\Omega_2)$ is the intermolecular potential function in terms of the COM distance $r$ and the orientation vectors $\Omega_1$ and $\Omega_2$.
+
+            \end{itemize}
+        \end{frame}
+
+        \begin{frame}
+            \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
+            \begin{itemize}
+                \item Use $\mbf{x}^i, \mbf{\Omega}_1^i, \mbf{\Omega}_2^i$ to denote the configuration of the $i^\text{th}$ rigid rotors,
+            \end{itemize}
+            \begin{block}{Matrix elements}
+                \begin{equation*}
+                    \begin{aligned}
+                        \mc{T}^{i,i+1}_{\text{tra}} = \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \alert<2>{\displaystyle\frac{P^{3/2}}{\Lambda_m^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right)}\\
+                        \mc{T}^{i,i+1}_{\text{rot}} = \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \alert<3>{\displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))}\\
+                        &\qquad \alert<3>{\times \exp \left[-\beta j(j+1) \Upsilon/ P \right]}
+                    \end{aligned}
+                \end{equation*}
+                where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$, $\mc{P}_j$ is the Legendre polynomial of order $j$ and $\Upsilon = \hbar^2/(2I)$.
+            \end{block}
+        \end{frame}
+
+        \begin{frame}
+            \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
+            \begin{itemize}
+                \justifying
+                \item Defining $\mbf{r} \equiv \mbf{x}^{(1)}, \mbf{\Delta}^{(i)} \equiv \mbf{x}^{(i+1)} - \mbf{x}^{(i)}$,
+                \begin{equation*}
+                    \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+                \end{equation*}
+                \item Probability distributions:
+                \begin{align*}
+                    \varrho(\mbf{\Omega}) &= \frac{1}{q_\text{rot}} \displaystyle\prod_{i=1}^P \mc{T}_\text{rot}^{i,i+1}, \qquad F(\mbf{\Delta}) = \Lambda_m^3 \displaystyle\prod_{i=1}^P \mc{T}_\text{tra}^{i,i+1}\\
+                    q_{rot} &= \displaystyle\sum_{j'} (2j' + 1) \exp \left[-\beta \Upsilon j' (j'+1) \right]
+                \end{align*}
+            \end{itemize}
+            \begin{block}{Fully quantum second virial coefficient}
+                \begin{equation*}
+                    \alert{B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)}
+                \end{equation*}
+            \end{block}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Objectives}
+            \begin{block}{Diatomic molecules}
+                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods.
+            \end{block}
+            \begin{alertblock}{Challenges}
+                Lack of efficient an sampling algorithm for orientations.
+            \end{alertblock}
+        \end{frame}
+
+        \begin{frame}
+            \frametitle{Objectives}
+            \begin{block}{Diatomic molecules}
+                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods for the rigid case.
+            \end{block}
+                \begin{alertblock}{Challenges}
+                    inability to include vibrational degrees of freedom under the assumption of rigid rotors.
+                \end{alertblock}
+        \end{frame}
+        \subsection{Novel algorithms}
+        \begin{frame}
+            \frametitle{Orientation sampling}
+            \begin{itemize}
+                \item Idea proposed by Garberoglio et al. \cite{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously)
+                \item Calculate the probability distribution as:
+
+            \end{itemize}
+        \end{frame}
+
 	\section{Results}
-	\subsection{Helium-4}
-	\subsection{Diatomic molecules}
-	\subsection{Water}
 	\section{Summary}
 	\section*{Ackowledgements}
 
 	\begin{frame}
-	\frametitle{\Abinitio{} potential models}
-	\begin{itemize} 
-		\item We use potentials fitted to \emph{ab initio} data rather than compute it on-the-fly (expensive)
-		\item \emph{Ab initio} potential models can help predict properties from first principles
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Nuclear quantum effects}
-	\begin{itemize}
-	\justifying
-	\item \emph{Ab initio} calculations account for electronic structure using different levels of theory
-	\item Nuclear quantum effects have to be explicitly included. Quantum effects become non-negligible at room temperature for gases like helium and hydrogen\putCitation{Garberoglio2009}
-	\item Uncertainty in the positions of atoms at low temperatures (Heisenberg's uncertainty principle)
-	\end{itemize}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.2,keepaspectratio]{uncertaintyPrinciple.jpg}\\
-	\tiny{Source: https://www.automationanywhere.com/blog/31-testing-anywhere/317-system-testing-sanity-smoke-and-mirrors}      
-	\end{figure}
-	
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Objectives}
-	\begin{itemize}
-	\justifying
-	\item Use VEOS as a means of testing accuracy of latest \emph{ab initio} potential models\putCitation{Szalewicz2009,Bartolomei2010}
-	\item Compute virial coefficients using the most accurate \emph{ab initio} potentials
-	\item Understand and develop sampling algorithms to handle rigid and flexible potential models        
-	\item Apply PIMC to include nuclear quantum effects in simpler systems e.g. monatomics, diatomics
-	\item Ultimate goal: to compute fully quantum virial coefficients for water
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Non PIMC approaches to handle nuclear quantum effects}
-	\begin{itemize}
-	\justifying
-	\item Adding a first order quantum correction to classical calculation
-	\item Using a more diffusive potential like the Quadratic Feynman-Hibbs\putCitation{Shaul2012}
-	\begin{figure}
-	\centering
-	\includegraphics[scale=0.03,keepaspectratio]{B2-Kate.png}
-	\end{figure}
-	\item At very low temperatures, we still need to use PIMC method to account for complete quantum behavior
-	\end{itemize}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{PIMC - monatomic molecule e.g. He}
+	\frametitle{PIMC - diatomic molecule}
 	\begin{itemize}
 	\justifying
 	\item PIMC - provides a route to incorporate nuclear quantum effects
 	\item Kinetic energy effects of the molecule lead to harmonic spring-like interactions between adjacent ``beads"
-	\begin{figure}          
+	\begin{figure}
 	\centering
 	\def\svgscale{0.3}
 	\input{monatomicPIMC.pdf_tex}
@@ -243,8 +408,8 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	%slide 8
 	\frametitle{A new orientational sampling algorithm}
 	\begin{itemize}%[<+->]
-	\item What if we don't model using the quantum rigid rotor approximation? 
-	\item The only factor that affects the probability of any configuration is the \alert{harmonic spring-like interaction} between adjacent beads 
+	\item What if we don't model using the quantum rigid rotor approximation?
+	\item The only factor that affects the probability of any configuration is the \alert{harmonic spring-like interaction} between adjacent beads
 	\item $U_h = \displaystyle\sum\limits_{\# rings} \displaystyle\sum\limits_i k_h |\textbf{x}_i - \textbf{x}_{i-1}|^2 ,\text{with} \: k_h = \frac{\pi P}{\Lambda^2}$ where $\Lambda = \frac{h}{\sqrt{2 \pi m k_B T}}$ \: and $\textbf{x}_i$ denotes position of the bead $i$
 	\item The actual probability of any configuration is given by $P_{act} = exp(-U_h) $
 	\end{itemize}
@@ -300,7 +465,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\begin{itemize}%[<+->]
 	\begin{columns}[t]
 	\column{6cm}
-	\item Consider a sphere with diameter $=$ bond length of the molecule i.e. $r = b/2$ 
+	\item Consider a sphere with diameter $=$ bond length of the molecule i.e. $r = b/2$
 	\item Let image `0' be oriented along the z-axis and image `1', at angle \:$\phi_1$\: away from it
 	\item Distance `x' between beads of adjacent images is given by $x^2 = 2 r^2 ( 1 - cos \phi_1)$
 	\column{3.4cm}
@@ -324,7 +489,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\begin{align*}
 	P_{01} (\phi_1) = &exp [ -4 k_h r^2 (1 - cos \phi_1) ] \\
 	\rho(\phi_1) = &\frac{1}{q_{rot}} \displaystyle\sum\limits_{j=0}^{100} \frac{2j+1}{4 \pi} P_j (cos \phi_1) \times exp[- \beta j (j+1)\Upsilon /P]
-	\end{align*}       
+	\end{align*}
 	\begin{center}
 	\begin{figure}
 	\includegraphics[width=5.5cm,keepaspectratio]{probabilityComparison.png}
@@ -337,7 +502,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\frametitle{Parent $\to$ child}
 	\begin{itemize}%[<+->]
 	\item Given two parent images $I_1,I_2$, the harmonically most favorable orientation for the child image is the average of the their orientations
-	\item Let $c_n$ denote the average orientation of the two parents for image n and $P_{c_n,I_1 I_2}$ denote the probability distribution centered around $c_n$ 
+	\item Let $c_n$ denote the average orientation of the two parents for image n and $P_{c_n,I_1 I_2}$ denote the probability distribution centered around $c_n$
 	\item For the case of $n = 1, P_{c_1,02}$ can be computed analytically
 	\begin{center}
 	\begin{figure}
@@ -457,7 +622,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\begin{itemize}
 	\justifying
 	\item Expression for $\mathcal{P}$ is almost exponential
-	\item Consider the argument of the exponential 
+	\item Consider the argument of the exponential
 	\begin{equation*}
 	- \log \mathcal{P} = \displaystyle\sum\limits_{i=0}^P \Bigg\{ k_h \cdot \Big( b_i^2 - b_i \cdot b_j \cdot \cos (\theta_{ij}) \Big) - 2 \cdot \log b_i + \frac{ \beta \cdot U_i (b_i)}{P} \Bigg\}
 	\end{equation*}
@@ -476,7 +641,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\item Consider the combined behavior of all bond lengths as separate modes
 	\item Construct matrix with second derivatives of $- \log \mathcal{P}$
 	\item Compute eigenvalues $\lambda_i$ and eigenvectors $\vec{A_i}$ to separate out independent modes
-	\item Evaluate new bond lengths simultaneously 
+	\item Evaluate new bond lengths simultaneously
 	\end{itemize}
 	\end{column}
 
@@ -512,7 +677,7 @@ Committee: Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Sc
 	\begin{itemize}
 	\justifying
 	\item We have developed a bond length sampling algorithm that can be used to compute virial coefficients for flexible diatomic molecules
-	\item We applied the algorithm for $H_2$ molecule and the resulting second virial coefficients are not in perfect agreement with literature data      
+	\item We applied the algorithm for $H_2$ molecule and the resulting second virial coefficients are not in perfect agreement with literature data
 	\item Fix remaining issues and improve efficiency of the move
 	\item Apply the algorithm for other diatomic systems like $N_2$
 	\item Extend the algorithm to other complicated systems like water

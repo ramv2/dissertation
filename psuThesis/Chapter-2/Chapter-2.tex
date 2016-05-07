@@ -149,23 +149,23 @@
     \subsection{Path Integral Monte Carlo}
         The thermal density matrix $\rho$ plays a key role in Feynman's imaginary-time PI formalism and its application in Monte Carlo (MC) algorithms to compute physical properties of interest. In position space, it is given by \cite{Feynman,Ceperley1995,Cui1997}:
         \begin{equation}\label{eq:rho}
-            \rho (R , R' ; \beta) = < R | e^{- \beta \ham{H} } | R' >
+            \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
         \end{equation}
         where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature. A key property of the density matrix is that the product of two density matrices is also a density matrix:
         \begin{equation}\label{eq:dmProduct}
             \rho (R, R'; \beta_1) \times \rho (R, R'; \beta_2) = \rho (R, R'; \beta_1 + \beta_2)
         \end{equation}
-        This is because any operator (specifically the Hamiltonian operator \ham{H} here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
+        This is because any operator (specifically the Hamiltonian operator $\mc{H}$ here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
         \begin{equation}\label{eq:convolution}
             \rho (R_0, R_P; \beta) = \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \tau) \rho (R_1, R_2; \tau) \ldots \rho (R_{P-1}, R_P; \tau)
         \end{equation}
-        where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator (\ham{T}) and the potential-energy operator (\ham{V}) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation'' is given by:
+        where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator ($\mc{T}$) and the potential-energy operator ($\mc{V}$) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation'' is given by:
         \begin{equation}\label{eq:primitiveApprox}
-            e^{- \tau (\ham{T} + \ham{V})} \approx e^{- \tau \ham{T}} e^{- \tau \ham{V}}
+            e^{- \tau (\mc{T} + \mc{V})} \approx e^{- \tau \mc{T}} e^{- \tau \mc{V}}
         \end{equation}
         The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
         \begin{equation}\label{eq:trotter}
-            e^{- \beta (\ham{T} + \ham{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \ham{T}} e^{- \tau \ham{V}} \Big]^P
+            e^{- \beta (\mc{T} + \mc{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \mc{T}} e^{- \tau \mc{V}} \Big]^P
         \end{equation}
 
         \subsubsection{Fully Quantum Second Virial Coefficients}
@@ -181,11 +181,11 @@
             Note that because the momentum operator is conjugated to the COM separation, we can use the set of vectors $\mbf{x}^i,\mbf{\Omega}_1^i, \mbf{\Omega}_2^i$ to denote the configuration of the two $i^\text{th}$ rigid rotors. Employing the primitive approximation (Eq. \eqref{eq:primitiveApprox}) to the diatomic Hamiltonian and using the Trotter formula \ref{eq:trotter}, we get \cite{Cui1997}:
             \begin{equation}
                 \begin{aligned}
-                    \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \displaystyle\frac{P^{3/2}}{\Lambda^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right)\\
-                    \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))\nonumber \exp \left[-\beta j(j+1) \Upsilon/ P \right]
+                    \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \displaystyle\frac{P^{3/2}}{\Lambda_m^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right)\\
+                    \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))\exp \left[-\beta j(j+1) \Upsilon/ P \right]
                 \end{aligned}
             \end{equation}
-            where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$ and $\mc{P}_j$ is the Legendre polynomial of order $j$.
+            where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$, $\mc{P}_j$ is the Legendre polynomial of order $j$ and $\Upsilon = \displaystyle\frac{\hbar^2}{2I}$.
 
             Defining $\mbf{r} \equiv \mbf{x}^{(1)}, \mbf{\Delta}^{(i)} \equiv \mbf{x}^{(i+1)} - \mbf{x}^{(i)}$ and $\bar{U}$ as:
             \begin{equation}
@@ -197,8 +197,7 @@
                 \begin{align}
                     F(\mbf{\Delta}) &= \Lambda_m^3 { \left( \frac{P^{3/2}}{\Lambda_m^3} \right)}^P \exp \left( - \frac{\pi P}{\Lambda_m^2} \displaystyle\sum\limits_{i=1}^P {|\mbf{\Delta}^{(i)}|}^2 \right)\label{eq:fRingDiatomic}\\
                     \varrho(\mbf{\Omega}) &= \frac{1}{q_{rot}} \displaystyle\prod_{i=1}^P \sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1})) \exp \left[-\beta j(j+1) \Upsilon/ P \right],\label{eq:rhoDiatomic}\\
-                    q_{rot} &= \displaystyle\sum_{l} (2l + 1) \exp \left[-\beta \Upsilon l (l+1) \right],\nonumber\\
-                    \Upsilon &= \displaystyle\frac{\hbar^2}{2I}\nonumber.
+                    q_{rot} &= \displaystyle\sum_{l} (2l + 1) \exp \left[-\beta \Upsilon l (l+1) \right],\nonumber
                 \end{align}
             \end{subequations}
 
@@ -229,16 +228,16 @@
         It is worth noting that within the PI implementation, we are mainly interested in evaluating the trace of the density matrix, as it is directly related to the partition function. Also when using the primitive approximation, we neglect terms that are of the order $\tau^2$. To improve the precision of results in MC simulations and to achieve faster convergence as $P$ increases, higher order corrections (or propagators of the density matrix) have been developed. The Takahashi-Imada (TI) propagator \cite{Takahashi1984} with error of the order $\tau^4$ uses:
         \begin{equation}\label{eq:TI}
             \begin{aligned}
-                Tr \Big[ e^{- \beta ( \ham{T} + \ham{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \ham{T}} e^{-\frac{\beta}{P} \mc{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
-                \mc{V'} &= \ham{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\ham{V}, [\ham{T}, \ham{V}]].
+                Tr \Big[ e^{- \beta ( \mc{T} + \mc{V} )} \Big] &= Tr \Big[ e^{ -\frac{\beta}{P} \mc{T}} e^{-\frac{\beta}{P} \mc{V'}} \Big]^P + O (\beta^5 P^{-4}),\\
+                \mc{V'} &= \mc{V} + \frac{1}{24} \bigg( \frac{\beta}{P} \bigg)^2 [\mc{V}, [\mc{T}, \mc{V}]].
             \end{aligned}
         \end{equation}
-        Given a system with Hamiltonian \ham{H} as:
+        Given a system with Hamiltonian $\mc{H}$ as:
         \begin{equation}\label{eq:h}
             \begin{aligned}
-                \ham{H} &= \ham{T} + \ham{V},\\
-                \ham{T} &= -\displaystyle\frac{\hbar^2}{2m} \sum\limits_{i=1}^N \frac{\partial^2}{\partial \bm{r}_i^2},\\
-                \ham{V} &= V (\bm{r}_1, \ldots , \bm{r}_N),
+                \mc{H} &= \mc{T} + \mc{V},\\
+                \mc{T} &= -\displaystyle\frac{\hbar^2}{2m} \sum\limits_{i=1}^N \frac{\partial^2}{\partial \bm{r}_i^2},\\
+                \mc{V} &= V (\bm{r}_1, \ldots , \bm{r}_N),
             \end{aligned}
         \end{equation}
         it can be easily shown that from Eqs. \eqref{eq:TI} and \eqref{eq:h}, we get the following:
@@ -366,142 +365,144 @@
         \end{equation}
         for molecule 2, the ring constructed in this manner is then translated to its position specified by the larger Mayer-sampling process.
 
-        This leaves sampling of the intramolecular coordinates $\mbf{b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u(\mbf{b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma(\mbf{b})$, defined as the $\mbf{b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tilde \pi_\sigma(\mbf{b})$, constructed so it can be sampled directly. We use a configuration sampled on this distribution to generate a Monte Carlo trial, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
+        This leaves sampling of the intramolecular coordinates ${\mathbf b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u({\mathbf b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma({\mathbf b})$, defined as the ${\mathbf b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tau_\sigma({\mathbf b})$, constructed so it can be sampled directly. We use a configuration sampled on this distribution to generate a Monte Carlo trial, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
         \begin{equation}
-        \label{eq:Pacc}
-            P_{\rm acc} = \frac{\pi^{\rm new}/\pi^{\rm old}}{\tilde \pi^{\rm new}/\tilde \pi^{\rm old}}
+            \label{eq:Pacc}
+            P_{\rm acc} = \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)}
         \end{equation}
-        where the superscripts denote the old and new configurations respectively.
+        where `$o$' and `$n$' denote the old and new configurations respectively.
+
+        Notice that the above equation follows directly from detailed balance. The target distribution $\pi$ can be imagined to be a state function, dependent only on the initial($o$) and final($n$) states(configurations) of the system. The approximate distribution $\tau$, used to generate a configuration, can be imagined to be a path function, dependent on the algorithm of choice. Although one might be tempted to consider it as a state function for a stand-alone MC trial, $\tau$ is more appropriately, the transition probability of the system for the old and new configurations. Finally, this subtle difference is the reason why we need not worry about normalizing $\pi$ but much care should be taken for the proper normalization of $\tau$ for efficient sampling. This will be particularly important for the fully flexible calculations where both the orientation and bond length trials are allowed. 
 
         We next describe an algorithm to generate configurations according to an approximate distribution $\tilde\pi(\mbf{b}^{(\sigma)})$. We do this first for the case of a rigid diatomic, with atoms separated by a fixed bond length, and then develop the approach for the case of a fully flexible diatomic.
     \subsection{Orientation Sampling Algorithm}
     \label{subsec:orMove}
-        We employ a bisection approach to generate a chain or ring of image orientations with a probability distribution that approximates $\pi(\mbf{b}^{(\sigma)})$. At each step in the process, we are given orientations of two images, $\mbf{b}_i$ and $\mbf{b}_k$, and we aim to generate an orientation for another image $\mbf{b}_j$, $j = (i+k)/2$, that is approximately consistent with $\pi(\mbf{b}^{(\sigma)})$ for the given image orientations. Then in the subsequent step we generate an orientation for an image halfway between $i$ and the new $j$ image, and again between $j$ and $k$. This process repeats until all images are assigned orientations. For the end case, where $j = i+1 = k-1$, we are able to select a $\mbf{b}_j$ that is exactly as prescribed by $\pi(\mbf{b}^{(\sigma)})$ given the previously-assigned orientations. For the steps preceding this one, in which other images are to be subsequently inserted between $j$ and $i$ and between $j$ and $k$, we can do this only approximately. To facilitate this process, we work with numbers of images $P = 2^n$, where $n$ is an integer; then in this scheme, half of the images ($2^{n-1}$) are oriented to follow $\pi(\mbf{b}^{(\sigma)})$ exactly, and the other half are placed to follow it approximately.
+    We employ a bisection approach to generate a chain or ring of image orientations with a probability distribution that approximates $\pi({\mathbf b}^{(\sigma)})$. At each step in the process, we are given orientations of two images, ${\mathbf b}_i$ and ${\mathbf b}_k$, and we aim to generate an orientation for another image ${\mathbf b}_j$, $j = (i+k)/2$, that is approximately consistent with $\pi({\mathbf b}^{(\sigma)})$ for the given image orientations. Then in the subsequent step we generate an orientation for an image halfway between $i$ and the new $j$ image, and again between $j$ and $k$. This process repeats until all images are assigned orientations. For the end case, where $j = i+1 = k-1$, we are able to select a ${\mathbf b}_j$ that is exactly as prescribed by $\pi({\mathbf b}^{(\sigma)})$ given the previously-assigned orientations. For the steps preceding this one, in which other images are to be subsequently inserted between $j$ and $i$ and between $j$ and $k$, we can do this only approximately. To facilitate this process, we work with numbers of images $P = 2^n$, where $n$ is an integer; then in this scheme, half of the images ($2^{n-1}$) are oriented to follow $\pi({\mathbf b}^{(\sigma)})$ exactly, and the other half are placed to follow it approximately.
 
-        Let us first examine the end case, in which an image orientation is selected, given the orientation of its two adjacent neighbors in the chain. Consider a sphere of \emph{diameter} equal to the molecule bond length $b$ (assumed to be the same for all images). One may think of the orientation vector $\mbf{b}_j/2$ as locating an orientation bead on the surface of the sphere, which interacts with adjacent orientation beads---also on the sphere---with a harmonic potential defined in terms of their Euclidean distance, such that they contribute to the configuration weight by a factor
-        \ifkhExplicitP
-            \begin{equation}
-            \label{eq:piRigid}
-                \begin{aligned}
-                    \pi(\mbf{b}_i,\mbf{b}_j) &= \exp\left(-k_h |\mbf{b}_i - \mbf{b}_j|^2/b^2\right)\\
-                    k_h &=\frac{\pi P b^2}{\Lambda^2_{m/2}}\nonumber
-                \end{aligned}
-            \end{equation}
-        \else
-            \begin{equation}
-            \label{eq:piRigid}
-                \begin{aligned}
-                    \pi(\mbf{b}_i,\mbf{b}_j) &= \exp\left(-k_h |\mbf{b}_i - \mbf{b}_j|^2\right)\\
-                    k_h &=\frac{\pi P}{\Lambda^2_{m/2}}\nonumber
-                \end{aligned}
-            \end{equation}
-        \fi
-        so that, in accord with Eq.~\ref{eq:PIProb} with the rigid bond constraint imposed in lieu of the intramolecular energy term,
-        \begin{equation}
-        \label{eq:piTotal}
-            \pi(\mbf{b}^{(\sigma)}) = \prod_{i=0}^{P-1}\pi(\mbf{b}_i,\mbf{b}_{i+1}).
-        \end{equation}
-        \ifkhExplicitP
-            We note that $k_h$ is dimensionless, and for H$_2$ is about xxx.
-        \else
-            We note that the unit of $k_h$ is \AA$^{-2}$.
-        \fi
+Let us first examine the end case, in which an image orientation is selected, given the orientation of its two adjacent neighbors in the chain. Consider a sphere of \emph{diameter} equal to the molecule bond length $b$ (assumed to be the same for all images). One may think of the orientation vector ${\mathbf b}_j/2$ as locating an orientation bead on the surface of the sphere, which interacts with adjacent orientation beads---also on the sphere---with a harmonic potential defined in terms of their Euclidean distance, such that they contribute to the configuration weight by a factor
+\ifkhExplicitP
+\begin{equation}
+\begin{aligned}
+\label{eq:piRigid}
+\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2/b^2\right)\\
+k_h &=\frac{\pi P b^2}{\Lambda^2_{m/2}}\nonumber
+\end{aligned}
+\end{equation}
+\else
+\begin{equation}
+\begin{aligned}
+\label{eq:piRigid}
+\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2\right)\\
+k_h &=\frac{\pi P}{\Lambda^2_{m/2}}\nonumber
+\end{aligned}
+\end{equation}
+\fi
+so that, in accord with Eq.~\ref{eq:PIProb} with the rigid bond constraint imposed in lieu of the intramolecular energy term,
+\begin{equation}
+\label{eq:piTotal}
+\pi({\mathbf b}^{(\sigma)}) = \prod_{i=0}^{P-1}\pi({\mathbf b}_i,{\mathbf b}_{i+1}).
+\end{equation}
 
-        In order to express $b^2_{ij} \equiv |\mbf{b}_i - \mbf{b}_{j}|^2$ in terms of angles, consider the orientations of image $i$ and image $k$ as indicated by A and B respectively in Fig. \ref{fig:simple}, with $\angle AOB = \psi$. Let $\mathbf a$ be the vector bisecting $\mbf{b}_i$ and  $\mbf{b}_k$. By $\tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta)$ we denote the probability distribution centered around $\mathbf a$, of generating a configuration for orientation image $j$ (indicated by C, and the angles $\alpha$ and $\beta$ in Fig. \ref{fig:simple}).
-        \begin{figure}[!htbp]
-            \centering
-            \def\svgwidth{0.25\columnwidth}
-            \input{Chapter-2/Figures/distanceNew1.pdf_tex}
-            \caption{Simplified picture}
-            \label{fig:simple}
-        \end{figure}
-        Using basic coordinate geometry and trigonometric relations, the following expressions for the various distances can be easily obtained (see Appendix \ref{Appendix A} for complete mathematical details):
-        \begin{equation}
-        \label{eq:deltax}
-            \begin{aligned}
-                d_{AC}^2 &= \frac{b^2}{2} [1 - \cos(\psi/2) \cos(\alpha) + \sin(\psi/2) \sin(\alpha) \cos(\beta)]\\
-                d_{BC}^2 &= \frac{b^2}{2} [1 - \cos(\psi/2) \cos(\alpha) - \sin(\psi/2) \sin(\alpha) \cos(\beta)]
-            \end{aligned}
-        \end{equation}
+In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in terms of angles, consider the orientations of image $i$ and image $k$ as indicated by A and B respectively in Fig. \ref{fig:simple}, with $\angle \text{AOB} = \psi_{ik}$. Let ${\mathbf a}_j$ be the vector bisecting ${\mathbf b}_i$ and  ${\mathbf b}_k$. By $\tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{ik} \right)$ we denote the probability distribution centered around ${\mathbf a}_j$, of generating a configuration for orientation image $j$ which is adjacent to both $i$ and $k$ (indicated by C, and the angles $\alpha$ and $\beta$ in Fig. \ref{fig:simple}). Note that $\mathbf{a}_j$ and $\psi_{ik}$ are parameters whereas $\alpha$ and $\beta$ are the independent variables of the distribution $\tau^\text{adj}$.
+            \begin{figure}[!htbp]
+                \centering
+                \def\svgwidth{0.25\columnwidth}
+                \input{Chapter-2/Figures/distanceNew1.pdf_tex}
+                \caption{Simplified picture}
+                \label{fig:simple}
+            \end{figure}
+            Using basic coordinate geometry and trigonometric relations, the following expressions for the various distances can be easily obtained (see Appendix \ref{Appendix A} for complete mathematical details):
+            \begin{equation}
+            \label{eq:deltax}
+                \begin{aligned}
+                    d_{AC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) + \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)]\\
+                    d_{BC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) - \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)]
+                \end{aligned}
+            \end{equation}
 
-        The total weight for the orientation $j$ is then calculated as \footnote{Note that in Eq. \eqref{eq:Uh} $|\mbf{b}_i - \mbf{b}_j|^2 + |\mbf{b}_j - \mbf{b}_k|^2 = 4 (d_{AC}^2 + d_{BC}^2)$}:
-        \ifkhExplicitP
-            \begin{equation}
-            \label{eq:Uh}
-                \begin{aligned}
-                    \tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta)  &= \pi(\mbf{b}_i,\mbf{b}_j)\pi(\mbf{b}_j,\mbf{b}_k)\\
-                    &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
-                    &= \exp\left(-4 k_h [1 - \cos(\psi/2) \cos(\alpha)]\right)
-                \end{aligned}
-            \end{equation}
-        \else
-            \begin{equation}
-            \label{eq:Uh}
-                \begin{aligned}
-                    \tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta)  &= \pi(\mbf{b}_i,\mbf{b}_j)\pi(\mbf{b}_j,\mbf{b}_k)\\
-                    &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
-                    &= \exp\left(-4k_h~b^2 [1 - \cos(\psi/2) \cos(\alpha)]\right)
-                \end{aligned}
-            \end{equation}
-        \fi
+           The total weight for the orientation $j$ is then calculated as \footnote{Note that a factor of 4 appears in the exponent in Eq. \eqref{eq:Uh} because $|{\mathbf b}_i - {\mathbf b}_j|^2 + |{\mathbf b}_j - {\mathbf b}_k|^2 = 4 (d_{AC}^2 + d_{BC}^2)$}:
+                    \ifkhExplicitP
+                        \begin{equation}
+                        \label{eq:Uh}
+                            \begin{aligned}
+                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
+                                &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                            \end{aligned}
+                        \end{equation}
+                    \else
+                        \begin{equation}
+                        \label{eq:Uh}
+                            \begin{aligned}
+                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
+                                &= \exp\left(-4k_h~b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                            \end{aligned}
+                        \end{equation}
+                    \fi
 
-        This expression is independent of $\beta$, so we can choose it at random, uniformly on $[0, 2\pi]$. For the special case of $\psi = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. To choose $\alpha$ for all other cases, we first normalize $\tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta) $ and evaluate a cumulative distribution function $C(\alpha)$ (Eq. \eqref{eq:cdf}), which we then invert to obtain an expression for $\alpha$ (see Appendix \ref{Appendix C} for mathematical details). Selection of $\alpha$ is then made by evaluating this expression with $C$ chosen at random, uniformly on [0,1] as :
-        \ifkhExplicitP
-            \begin{equation}
-            \label{eq:alpha}
-                \begin{aligned}
-                    \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
-                    \text{where}\:\:\: \kappa &= 4 \cos(\psi/2) k_h
-                \end{aligned}
-            \end{equation}
-        \else
-            \begin{equation}
-            \label{eq:alpha}
-                \begin{aligned}
-                    \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
-                    \text{where}\:\:\: \kappa &= 4 \cos(\psi/2) k_h~b^2
-                \end{aligned}
-            \end{equation}
-        \fi
+            This expression is independent of $\beta$, so we can choose it at random, uniformly on $[0, 2\pi]$. For the special case of $\psi_{i,k} = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. To choose $\alpha$ for all other cases, we first normalize $\tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) $ and evaluate a cumulative distribution function $C(\alpha)$ (Eq. \eqref{eq:cdf}), which we then invert to obtain an expression for $\alpha$ (see Appendix \ref{Appendix C} for mathematical details). Selection of $\alpha$ is then made by evaluating this expression with $C$ chosen at random, uniformly on [0,1] as :
+                    \ifkhExplicitP
+                        \begin{equation}
+                        \label{eq:alpha}
+                            \begin{aligned}
+                                %\alpha &= \cos^{-1} \left[ \frac{-\kappa + \ln\left(\exp[2\kappa] - C (\exp[2\kappa] - 1) \right)}{\kappa} \right],\\
+                                \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
+                                \kappa &= 4 \cos(\psi_{i,k}/2) k_h
+                            \end{aligned}
+                        \end{equation}
+                    \else
+                        \begin{equation}
+                        \label{eq:alpha}
+                            \begin{aligned}
+                                \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
+                                \kappa &= 4 \cos(\psi_{i,k}/2) k_h~b^2
+                            \end{aligned}
+                        \end{equation}
+                    \fi
 
-        We just explained how to choose an orientation for any image $j$ that is adjacent to images $i$ and $k$ (Note: $\tilde \pi (\mbf{b})$ is always equal to $\pi (\mbf{b})$ for this case). Before this step can be taken, $i$ and $k$ must have been placed in a similar fashion. These orientation images do not interact directly, but instead have an effective interaction that can be defined by integration over the $j$ orientation:
-        \ifkhExplicitP
-            \begin{equation}
-            \label{eq:piEff}
-                \begin{aligned}
-                    \pi^{\rm eff}(\mbf{b}_i,\mbf{b}_k)&= \sin(\psi)\int d\mbf{b}_j \: \: \tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta) \nonumber \\
-                    &=\frac{\pi b}{k_h}\left( e^{ - 8 k_h \sin^2 \left( \frac{\psi}{4}\right)} - e^{ - 8 k_h \cos^2 \left( \frac{\psi}{4} \right)} \right) \sin \left(\psi /2 \right)
-                \end{aligned}
-            \end{equation}
-        \else
-            \begin{equation}
-            \label{eq:piEff}
-                \begin{aligned}
-                    \pi^{\rm eff}(\mbf{b}_i,\mbf{b}_k)&= \sin(\psi)\int d\mbf{b}_j \: \: \tilde \pi(\mbf{b}_j: \mathbf{a}, \alpha, \beta) \nonumber \\
-                    &=\frac{\pi}{k_h~b}\left( e^{ - 8 k_h~b^2 \sin^2 \left( \frac{\psi}{4}\right)} - e^{ - 8 k_h~b^2 \cos^2 \left( \frac{\psi}{4} \right)} \right) \sin \left(\psi /2 \right)
-                \end{aligned}
-            \end{equation}
-        \fi
-        This effective interaction (as manifest via $\psi$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \pi^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi/2)$, to identify an effective harmonic interaction:
-        \begin{equation}
-            \begin{aligned}
-                k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
-                &\approx \frac{k_h}{2} \qquad (P \gg 1)\nonumber
-            \end{aligned}
-        \end{equation}
-        The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process. We summarize the bisection algorithm for choosing the image orientations as follows: (1) orient the first image by selecting a point randomly on a sphere; for the Boltzmann case, this represents the first and last image in the ring; for exchange, the last image would be directed opposite to this one; (2) using a value of $k_h$ for $P = 2$, place the next image by sampling as described by Eq.~\ref{eq:alpha} with $\psi = 0$ (Boltzmann) or $\psi = \pi$ (exchange); (3) double $k_h$ and place two more images between the ones set by steps (1) and (2), sampling according to Eq.~\ref{eq:alpha}; (4) repeat the process of doubling $k_h$ and inserting image orientations between the ones placed in the previous steps, until all image orientations are set. The resulting configuration is generated with probability density (see sec. \ref{Appendix C} for further details):
+                    We just explained how to choose an orientation for any image $j$ that is adjacent to images $i$ and $k$ ($\tau^\text{adj} ({\mathbf b})$ is always equal to $\pi ({\mathbf b})$ for this case). Before this step can be taken, $i$ and $k$ must have been placed in a similar fashion. These orientation images do not interact directly, but instead have an effective interaction that can be defined by integration over the $j$ orientation:
+\ifkhExplicitP
+\begin{equation}
+\begin{aligned}
+\label{eq:piEff}
+    \tau^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
+&=\frac{\pi b}{k_h}\left( {{e^{ - 8{k_h}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}
+\end{aligned}
+\end{equation}
+\else
+\begin{equation}
+\begin{aligned}
+\label{eq:piEff}
+\tau^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
+&=\frac{\pi}{k_h~b}\left( {{e^{ - 8{k_h~b^2}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h~b^2}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}
+\end{aligned}
+\end{equation}
+\fi
+This effective interaction (as manifest via $\psi_{i,k}$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \tau^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi_{i,k}/2)$, to identify an effective harmonic interaction:
+\begin{align}
+%k_h^{(1)} = \frac{1}{2}k_h^{(0)}\coth(4 k_h^{(0)}) - \frac{1}{8}
+k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
+&\approx \frac{k_h}{2}    {\hspace{0.3in}} (P \gg 1)\nonumber
+\end{align}
+The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process. 
+
+We summarize the bisection algorithm for choosing the image orientations as follows: (1) orient the first image by selecting a point randomly on a sphere; for the Boltzmann case, this represents the first and last image in the ring; for exchange, the last image would be directed opposite to this one; (2) using a value of $k_h$ for $P = 2$, place the next image by sampling as described by Eq.~\ref{eq:alpha} with $\psi_{i,k} = 0$ (Boltzmann) or $\psi_{i,k} = \pi$ (exchange); (3) double $k_h$ and place two more images between the ones set by steps (1) and (2), sampling according to Eq.~\ref{eq:alpha}; (4) repeat the process of doubling $k_h$ and inserting image orientations between the ones placed in the previous steps, until all image orientations are set. The resulting configuration is generated with probability density:
         \begin{equation}
         \label{eq:piTilde}
             \begin{aligned}
-                \tilde \pi(\mbf{b}) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi(\mbf{b}_j: \mbf{a}) \\
-                \tilde \pi(\mbf{b}_j: \mbf{a})  &=
+                \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \tau({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}) \\
+                \tilde \tau({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &= 
                 \begin{cases}
-                    \displaystyle\frac{\kappa \times \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi \ne \pi\\
-                    \displaystyle\frac{1}{2 \pi b} & \text{if} \qquad \psi = \pi\\
+                    \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
+                    \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi\\
                 \end{cases}
             \end{aligned}
         \end{equation}
-        It is straightforward to see that the ratio of the approximate and actual probability distribution of $\alpha$ will differ from unity the most for the first step, and gradually improve until the last step, where the two probabilities are equal (given the placement of the other orientations) . The overall percentage of moves accepted will be related to the product of such ratios. Hence, it can be clearly seen that the performance of the algorithm will decrease with increasing $P$ (the accuracy of the result is however unaffected by this).
+        where $\tilde \tau$ is the normalized version of $\tau^\text{adj}$ (see Sec. \ref{Appendix C} for further details) and $\kappa$ is as defined in Eq. \eqref{eq:alpha}.
+
+            It is straightforward to see that the ratio of the approximate and actual probability distribution of $\alpha$ will differ from unity the most for the first step, and gradually improve until the last step, where the two probabilities are equal (given the placement of the other orientations) . The overall percentage of moves accepted will be related to the product of such ratios. Hence, it can be clearly seen that the performance of the algorithm will decrease with increasing $P$ (the accuracy of the result is however unaffected by this).
+    
     \subsection{Bond Length Sampling Algorithm}
     \label{subsec:blMove}
         The method we use to generate configurations for flexible diatomics builds on the scheme described above for rigid molecules. In one type of MC trial, we generate the orientations of the images using the algorithm described above, leaving the bond lengths unchanged. However, that orientation-sampling method is developed assuming all bond lengths are equal, but in the case of flexible molecules, they of course differ. We examined different schemes to handle flexibility within the orientation move. The method we use is to average the bond lengths of images $i$ through $k$ before each orientation move and use this value for image $j$ when setting the new orientation. Although we generate orientations assuming a common bond length for images $i$ through $k$, none of the image bond-lengths are changed by the trial.
