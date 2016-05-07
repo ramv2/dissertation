@@ -434,7 +434,7 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \begin{equation}
                         \label{eq:Uh}
                             \begin{aligned}
-                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
                                 &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
                                 &= \exp\left(-4k_h~b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                             \end{aligned}
@@ -511,11 +511,11 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         \begin{equation}
             \begin{aligned}
                 \pi(\mathbf{b}) &= \displaystyle\prod\limits_{i=0}^{P-1} b_i^2 e^{-\beta u(b_i)/P} \pi(b_i,b_{i+1},\theta_{i,i+1}) \\
-                \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{ij}) \right)\right)\\
+                \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{i,j}) \right)\right)\\
             \end{aligned}
         \end{equation}
         where $\theta_{i,j}$ is the angle between orientations of images $i$ and $j$, with $\theta_{P-1,P}$ defined using the convention described above for Boltzmann versus exchange configurations.
-        We can clearly see that $\pi(\mathbf{b})$ is not Gaussian, and the $P$ $b$-values are coupled and hence not easy to sample directly. We formulate an approximate sampling scheme by introducing a Gaussian approximation, which through a normal-mode calculation we can sample directly (see Appendix \ref{Appendix B} for mathematical details). However, it would be unnecessarily expensive computationally to perform the normal-mode analysis before each bond length move, so instead we define the normal modes for a given $P$ using a single representative angle $\hat \theta$ for all $ij$ pairs. Then the normal-mode analysis need be performed only once, at the beginning of the simulation.
+        We can clearly see that $\pi(\mathbf{b})$ is not Gaussian, and the $P$ $b$-values are coupled and hence not easy to sample directly. We formulate an alternate sampling scheme by introducing a Gaussian approximation, which through a normal-mode calculation we can sample directly (see Appendix \ref{Appendix B} for mathematical details). However, it would be unnecessarily expensive computationally to perform the normal-mode analysis before each bond length move, so instead we define the normal modes for a given $P$ using a single representative angle $\hat \theta$ for all $ij$ pairs. Then the normal-mode analysis need be performed only once, at the beginning of the simulation.
 
         Let $\pi(\mathbf{b}) = $~$ \exp (-y)$, where $y$ can be defined as follows:-
         \begin{equation}

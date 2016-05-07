@@ -235,7 +235,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{PIMC - thermal density matrix}
             \begin{itemize}
                 \justifying
-                \item The paritition function is an important property in statistical mechanics:
+                \item The partition function is an important property in statistical mechanics:
                 \begin{equation*}
                     \begin{aligned}
                         P(x) &= \frac{1}{Z} \rho(x,x),\\
@@ -254,7 +254,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Important equations}
             \begin{itemize}
                 \justifying
-                \item A key property of the density matrix is that the product of two density matrices is also a density matrix. Hence the convlution\putCitation{Ceperley1995}:
+                \item A key property of the density matrix is that the product of two density matrices is also a density matrix. Hence the convolution\putCitation{Ceperley1995}:
                 \begin{equation*}\label{eq:dmProduct}
                     \rho (R_1, R_3 ; \beta_1 + \beta_2) = \displaystyle\int dR_2 \rho (R_1, R_2 ; \beta_1) \rho (R_2, R_3 ; \beta_2)
                 \end{equation*}
@@ -341,22 +341,13 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \begin{frame}
             \frametitle{Objectives}
             \begin{block}{Diatomic molecules}
-                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods.
+                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods for the rigid case.
             \end{block}
             \begin{alertblock}{Challenges}
                 Lack of efficient an sampling algorithm for orientations.
             \end{alertblock}
         \end{frame}
 
-        \begin{frame}
-            \frametitle{Objectives}
-            \begin{block}{Diatomic molecules}
-                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods for the rigid case.
-            \end{block}
-                \begin{alertblock}{Challenges}
-                    inability to include vibrational degrees of freedom under the assumption of rigid rotors.
-                \end{alertblock}
-        \end{frame}
         \subsection{Novel algorithms}
         \begin{frame}
             \frametitle{Orientation sampling}
@@ -395,11 +386,11 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     P_{\rm acc} = \text{Min} \left[1, \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)} \right]
                 \end{equation*}
                 where `$o$' and `$n$' denote the old and new configurations respectively.
-                \item We derive a simple and anlytic expression for $\tau (o \to n)$
+                \item We derive a simple and analytic expression for $\tau (o \to n)$
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Non-sequential algorithm}
+            \frametitle{Orientation sampling - bisection algorithm}
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
@@ -432,7 +423,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Parent $\to$ child}
+            \frametitle{Orientation sampling}
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
@@ -440,13 +431,13 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     \begin{equation*}
                     \label{eq:Uh}
                         \begin{aligned}
-                            & \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)\\
+                            & \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{i,k} \right)\\
                             &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
                             &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
                             &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                         \end{aligned}
                     \end{equation*}
-                \item The angle $\alpha$ can be calculated by choosing $C$ at random, uniformly on $[0,1]$.
+                    \item The angle $\alpha$ can be calculated by choosing $C$ at random, uniformly on $[0,1]$.
                     \begin{equation*}
                     \label{eq:alpha}
                         \begin{aligned}
@@ -467,10 +458,57 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
 
+        \begin{frame}
+            \frametitle{Objectives}
+            \begin{block}{Diatomic molecules}
+                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods for the flexible case.
+            \end{block}
+                \begin{alertblock}{Challenges}
+                    To include vibrational degrees of freedom.
+                \end{alertblock}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Bond-length sampling}
+            \begin{itemize}
+                \item Define $\pi$ in a similar fashion to the orientation sampling algorithm:
+                \begin{equation*}
+                    \begin{aligned}
+                        \pi(\mathbf{b}) &= \displaystyle\prod\limits_{i=0}^{P-1} b_i^2 e^{-\beta u(b_i)/P} \pi(b_i,b_{i+1},\theta_{i,i+1}) \\
+                        \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{i,j}) \right)\right)\\
+                    \end{aligned}
+                \end{equation*}
+                where $\theta_{i,j}$ is the angle between orientations of images $i$ and $j$.
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Bond-length sampling}
+            \begin{itemize}
+                \item Let $\pi(\mathbf{b}) = $~$ \exp (-y)$, where $y$ can be defined as follows:-
+                \begin{equation*}
+                \label{eq:y}
+                    y = \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}
+                \end{equation*}
+                \item We define $\tilde y \approx y$ such that: 
+                \begin{equation*}
+                \label{eq:ytilde}
+                    \tilde y = \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j \Big) - \frac{2  \log b_i}{P} + \frac{ \beta  u (b_i)}{P} \Bigg\}
+                \end{equation*}
+                \item We solve for the nominal $\cos (\hat \theta)$ value by:
+                \begin{equation*}
+                \label{eq:thetaHat}
+                    \frac{\partial y}{\partial b_i} = \frac{\partial \tilde y}{\partial b_i} \Rightarrow \cos (\hat \theta) = 1 - \frac{P-1}{P~k_h~b_i^2}
+                \end{equation*}
+                \item Using this nominal value in the expression for $y$, we find $b_m$ such that:
+                \begin{equation*}
+                \label{eq:bm}
+                    \displaystyle\frac{\partial y}{\partial b_i} \bigg|_{b_i = b_m} = 0 \qquad \forall i
+                \end{equation*}
+            \end{itemize}
+        \end{frame}
 	\section{Results}
 	\section{Summary}
-	\section*{Ackowledgements}
-
+	\section*{Acknowledgments}
+    \iffalse
 	\begin{frame}
 	\frametitle{PIMC - diatomic molecule}
 	\begin{itemize}
@@ -491,7 +529,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\item To form a closed ring of springs, the position of each bead needs to be chosen based on a Gaussian distribution. Hence, implementing PIMC is trivial for the monatomic case
 	\end{itemize}
 	\end{frame}
-	
+	\fi
 	\begin{frame}
 	\frametitle{PIMC results for Helium-4\putCitation{Shaul2012}}
 	\begin{figure}
@@ -499,7 +537,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\includegraphics[scale=0.2,keepaspectratio]{B4-Kate.png}
 	\end{figure}
 	\end{frame}
-
+    \iffalse
 	\begin{frame}
 	\frametitle{PIMC - rigid diatomic molecule}
 	\begin{itemize}
@@ -518,7 +556,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\end{figure}
 	\end{itemize}
 	\end{frame}
-	
+	\fi
 	\begin{frame}
 	%slide 8
 	\frametitle{A new orientational sampling algorithm}
@@ -637,7 +675,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\end{align*}
 	where $\psi_n$ is the angle between the orientations of $I_1 , I_2$
 	\item For the first pass alone, set $I_1 = 0, I_2 = 0$ and subsequent passes will have different sets of parents
-	\item Cummulative distribution function:
+	\item Cumulative distribution function:
 	\begin{align}
 	C(\alpha) = \frac{e^{2k_n^{eff}} - e^{k_n^{eff} (1 + cos \alpha)}}{e^{2k_n^{eff}} - 1}
 	\end{align}
@@ -709,7 +747,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\end{figure}
 	
 	\end{frame}
-
+    \iffalse
 	\begin{frame}
 	\frametitle{Bond length sampling - Introduction}
 	\begin{itemize}
@@ -730,7 +768,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\item Intra-molecular potential that we use in our calculations is from Mielke et al.\putCitation{Mielke2002}
 	\end{itemize}
 	\end{frame}
-
+    \fi
 	\begin{frame}
 	\frametitle{$\mathcal{P}$ - actual probability of a configuration}
 	\begin{itemize}
@@ -745,6 +783,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\end{itemize}
 	\end{frame}
 	
+    \iffalse
 	\begin{frame}
 	\frametitle{Normal mode analysis}
 	\begin{columns}[c]
@@ -758,7 +797,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\item Evaluate new bond lengths simultaneously
 	\end{itemize}
 	\end{column}
-
 	\begin{column}{4cm}
 	\begin{figure}
 	\centering
@@ -768,6 +806,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\end{column}
 	\end{columns}
 	\end{frame}
+    \fi
 
 	\begin{frame}
 	\frametitle{Bond length\putCitation{Garberoglio2014} - flexible}
