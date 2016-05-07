@@ -69,7 +69,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\fi
 	
 	\section{Introduction}
-	\subsection{Viral coefficients}
+	\subsection{Virial coefficients}
 		\begin{frame}
 			\frametitle{Virial equation of state (VEOS)}
                 \begin{block}{}
@@ -106,7 +106,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Main uses:}
 			\begin{itemize}
 				\justifying
-				\item To compute other thermodynamic properties like the joules-thomson coefficient, critical point etc.
+				\item To compute other thermodynamic properties like the Joule-Thomson coefficient, critical point etc.
                 \item To rank different potential models by comparing their virial coefficients to experimental results
 				\begin{figure}
 				\centering
@@ -132,7 +132,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 			\begin{itemize}
 				\justifying
 				\item Usually functions fitted to experimental data of bulk property measurement.
-				\item Represent the net effect of a variety of phenomenon taking place including 2 body interactions, multi-body interactions, nuclear quantum effects etc.
+				\item Represent the net effect of a variety of phenomena taking place including 2 body interactions, multi-body interactions, nuclear quantum effects etc.
 				\item As a result, fail to accurately represent interaction potential.
 				\item Interaction potentials that better represent condensed (high density) phase fail to predict accurate virial coefficients for the gas (low density) phase.
 			\end{itemize}
@@ -180,19 +180,9 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Classification of virial coefficients}
-            \begin{itemize}
-                \item Different levels of ``quantumness'', using $B_2$ as an example:
-            \end{itemize}
-            \begin{figure}
-            \centering
-            \includegraphics[scale=0.05,keepaspectratio]{quantumLevels.png}
-            \end{figure}
-        \end{frame}
-        \begin{frame}
             \frametitle{Nuclear quantum effects}
             \begin{itemize}
-                \item Importance of nuclear quantum effects\putCitation{Shaul2012}
+                \item Importance of nuclear quantum effects for $^4$He\putCitation{Shaul2012}
             \end{itemize}
             \begin{figure}
             \centering
@@ -224,7 +214,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \begin{equation*}
                     \label{eq:MSMCworking}
                     \begin{aligned}
-                        \Gamma (T) &= \Gamma_o \frac{{<\gamma/\pi>}_\pi / {<\gamma_{os}/\pi>}_\pi}{{<\gamma_o/\pi>}_{\pi_o} / {<\gamma_{os}/\pi_o>}_{\pi_o}}\\
+                        \Gamma (T) &= \Gamma_o \frac{{<\gamma/\pi>}_\pi / {<\gamma_{os}/\pi>}_\pi}{{<\gamma_o/\pi_o>}_{\pi_o} / {<\gamma_{os}/\pi_o>}_{\pi_o}}\\
                         \gamma_{os} &= \frac{|\gamma_o||\gamma|}{\alpha |\gamma_o| + |\gamma|}
                     \end{aligned}
                 \end{equation*}
@@ -235,19 +225,18 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{PIMC - thermal density matrix}
             \begin{itemize}
                 \justifying
-                \item The partition function is an important property in statistical mechanics:
+                \item The probability of starting at a state $x'$ and reaching state $x$ is proportional to $\rho (x', x) (T)$, the statistical thermal density matrix. The partition function is given as: 
                 \begin{equation*}
                     \begin{aligned}
                         P(x) &= \frac{1}{Z} \rho(x,x),\\
                         Z &= \int \rho(x,x) dx \equiv \text{trace} \{\rho\}.
                     \end{aligned}
                 \end{equation*}
-                where $\rho(x',x)$ is the statistical thermal density matrix at temperature T.
                 \item Richard Feynman\putCitation{Feynman} was able to connect it with quantum mechanics:
                 \begin{equation*}\label{eq:rho}
                     \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
                 \end{equation*}
-                where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature.
+                where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -281,8 +270,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     \label{eq:hDiatomic}
                         \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2)
                     \end{equation*}
-                    where $\hat{\mbf{p}}$ is the momentum operator conjugated to the COM separation, $\hat{\mbf{J}}_1$ and $\hat{\mbf{J}}_2$ are the angular momentum operators, $\hat{U}(r,\Omega_1,\Omega_2)$ is the intermolecular potential function in terms of the COM distance $r$ and the orientation vectors $\Omega_1$ and $\Omega_2$.
-
             \end{itemize}
         \end{frame}
 
@@ -299,7 +286,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                         &\qquad \alert<3>{\times \exp \left[-\beta j(j+1) \Upsilon/ P \right]}
                     \end{aligned}
                 \end{equation*}
-                where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$, $\mc{P}_j$ is the Legendre polynomial of order $j$ and $\Upsilon = \hbar^2/(2I)$.
             \end{block}
         \end{frame}
 
@@ -327,7 +313,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
             \begin{itemize}
                 \justifying
-                \item A closer look at the effective potential: 
+            \item A closer look at the effective potential: (Boltzmann and exchange type conformations)
                 \begin{equation*}
                     \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
                 \end{equation*}
@@ -353,9 +339,9 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Orientation sampling}
             \begin{itemize}
                 \item Idea proposed by Garberoglio et al. \putCitation{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously).
-                \item Leads to possibility of avoiding quantum chemistry calculations.
+                \item Leads to possibility of avoiding quantum mechanical calculations.
                 \item Sampling problem can be analyzed more mathematically, without having to worry about the physics of the rigid rotor.
-                \item Straightforward but non-trivial extension to multiatomic systems.
+                \item A more viable path to study multiatomic systems.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -381,7 +367,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Orientation sampling}
             \begin{itemize}
                 \item Define $\pi$ to be the $\mbf{b}$-dependent terms of the probability distribution $F$.
-                \item We sample from an approximate distribution $\tau (o \to n)$ and accept or reject based on:
+                \item We generate a trial configuration with probability $\tau (o \to n)$, based on an approximation fo $\pi$ denoted as $\tilde pi$, and accept or reject based on:
                 \begin{equation*}
                     \label{eq:Pacc}
                     P_{\rm acc} = \text{Min} \left[1, \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)} \right]
@@ -391,11 +377,11 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Orientation sampling - bisection algorithm}
+            \frametitle{Orientation sampling - bisection algorithm for Boltzmann type conformations}
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
-                    \item Angle between image 0 and image P is 0 for Boltzmann type and $\pi$ for exchange type conformations. The choice of orientation of image 0 is arbitrary
+                    \item The choice of orientation of image 0 is arbitrary
                     \item At every stage, we are given two images $\mbf{b}_i, \mbf{b}_k$ and we choose the orientation of image $j = (i + k)/2$.
                     \item We note that $\tau (o \to n)$ is exact for the last step of the algorithm. 
                     \column{3.4cm}
@@ -434,8 +420,8 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                         \begin{aligned}
                             & \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{i,k} \right)\\
                             &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
-                            &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
-                            &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                            &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
+                            &= \exp\left(-4 k_h b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                         \end{aligned}
                     \end{equation*}
                     \item The angle $\alpha$ can be calculated by choosing $C$ at random, uniformly on $[0,1]$.
@@ -474,14 +460,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \justifying
                 \item Instead of using ground state bond length ($r_0$) use average bond length at each temperature ($< r >_T$)\putCitation{Garberoglio2012}
                 \item Average the entire intermolecular potential ($<U>_T$) over internal degrees of freedom of each monomer, weighted by the appropriate wave function\putCitation{Garberoglio2014}:
-                \begin{equation*}
-                    <r>_T = \displaystyle\sum\limits_{n,J} p(n,J:T) < \chi_{nJ} | r | \chi_{nJ} >
-                \end{equation*}
-                where $n$ and $J$ are rotational and vibrational quantum numbers respectively, while $\chi_{nJ}$ denotes the corresponding wave-function.
-                \begin{equation*}
-                    p(n,J:T) = \frac{(2J + 1) \exp(-E(n,J)/T)}{\displaystyle\sum\limits_{n',J'} (2J' + 1) \exp(-E(n',J')/T)}
-                \end{equation*}
-                where $E(n',J')$ is the energy of the $(n',J')$ state.
+                \item Average the intermolecular potential over all four ring polymer configurations and two types of conformations to get an expression for the quantum virial coefficient including monomer flexibility.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -523,15 +502,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
 	\section{Results}
-        \begin{frame}
-            \frametitle{Computational details}
-            \begin{itemize}
-                \item A short equilibration simulation is performed at the beginning to determine $\alpha$ and to adjust MC move step sizes so that the acceptance of all the MC moves is 50\%.
-                \item Irrespective of their number, all MC moves are chosen with equal probability for both the systems within the simulation.
-                \item The total number of configuration samples is divided into blocks of 1000 samples each. We compute averages across all blocks for the four ratios and use standard error propagation formulas to arrive at the final result.
-                \item Error bars shown represent one standard deviation of the mean (68\% confidence interval).
-            \end{itemize}
-        \end{frame}
         \subsection{Hydrogen}
             \begin{frame}
                 \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$ - 10$^7$ configuration samples total}
@@ -578,6 +548,16 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 
 	\section{Summary}
 	\section*{Acknowledgments}
+    \section*{Appendix}
+        \begin{frame}
+            \frametitle{Computational details}
+            \begin{itemize}
+                \item A short equilibration simulation is performed at the beginning to determine $\alpha$ and to adjust MC move step sizes so that the acceptance of all the MC moves is 50\%.
+                \item Irrespective of their number, all MC moves are chosen with equal probability for both the systems within the simulation.
+                \item The total number of configuration samples is divided into blocks of 1000 samples each. We compute averages across all blocks for the four ratios and use standard error propagation formulas to arrive at the final result.
+                \item Error bars shown represent one standard deviation of the mean (68\% confidence interval).
+            \end{itemize}
+        \end{frame}
     \iffalse
 
 	\begin{frame}
