@@ -324,6 +324,21 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{block}
         \end{frame}
         \begin{frame}
+            \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
+            \begin{itemize}
+                \justifying
+                \item A closer look at the effective potential: 
+                \begin{equation*}
+                    \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+                \end{equation*}
+            \end{itemize}
+            \begin{figure}
+            \centering
+            \includegraphics[scale=0.3,keepaspectratio]{5beadsDimerVariableOrientation.png}
+            \end{figure}
+
+        \end{frame}
+        \begin{frame}
             \frametitle{Objectives}
             \begin{block}{Diatomic molecules}
                 Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials, MSMC and PIMC methods.
@@ -346,9 +361,109 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \begin{frame}
             \frametitle{Orientation sampling}
             \begin{itemize}
-                \item Idea proposed by Garberoglio et al. \cite{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously)
-                \item Calculate the probability distribution as:
-
+                \item Idea proposed by Garberoglio et al. \putCitation{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously)
+                \item Leads to possibility of avoiding quantum chemistry calculations
+                \item Look at the sampling more mathematically, without having to worry about the physics of the rigid rotor
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Orientation sampling}
+            \begin{itemize}
+                \item Instead of using Cartesian coordinates, we use the $P$ COM position vectors $\mbf{R}_i$ and the $P$ bead (or image) vectors $\mbf{b}_i$.
+                \item We consider both Boltzmann type as well as exchange type configurations.
+                \item Probability associated with a configuration $\mbf{Z} \equiv (\mbf{R},\mbf{b})$ is given as:
+                \begin{equation*}
+                \label{eq:PIProb}
+                    P_\sigma (\mbf{Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F(\mbf{R};2m) F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}
+                \end{equation*}
+                where $F$ is the path-integral weight, and $\bar u$ is the intramolecular potential energy averaged over all images:
+                \begin{equation*}
+                    \begin{aligned}
+                        F(\mbf{x};m) &= \left( \frac{P^{3/2}} {\Lambda _m^3} \right)^P \exp \left[ - \frac{\pi P}{\Lambda _m^2}\sum\limits_{i = 0}^{P-1} \left| \mbf{x}_{i + 1} - \mbf{x}_i \right|^2 \right]\\
+                        &\bar u(\mbf{b}) = \frac{1}{P}\sum\limits_{i=0}^{P-1} {u\left(b_i \right)}
+                    \end{aligned}
+                \end{equation*}
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Orientation sampling}
+            \begin{itemize}
+                \item Define $\pi$ to be the $\mbf{b}$-dependent terms of the probability distribution $F$.
+                \item We sample from an approximate distribution $\tau (o \to n)$ and accept or reject based on:
+                \begin{equation*}
+                    \label{eq:Pacc}
+                    P_{\rm acc} = \text{Min} \left[1, \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)} \right]
+                \end{equation*}
+                where `$o$' and `$n$' denote the old and new configurations respectively.
+                \item We derive a simple and anlytic expression for $\tau (o \to n)$
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Non-sequential algorithm}
+            \begin{itemize}
+                \begin{columns}[c]
+                    \column{6cm}
+                    \item Image 0 $\parallel$ image P and the angle between them is 0 for Boltzmann type and $\pi$ for exchange type. The choice of orientation of image 0 is arbitrary
+                    \item At every stage, we are given two images $\mbf{b}_i, \mbf{b}_k$ and we choose the orientation of image $j = (i + k)/2$.
+                    \item We note that $\tau (o \to n)$ is exact for the last step of the algorithm. 
+                    \column{3.4cm}
+                    \vspace{0cm}
+                    \begin{overlayarea}{3.5cm}{3.5cm}
+                        \begin{figure}[H]
+                            \only<1>{
+                            \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0.png}
+                            \caption{Example for P = 8}
+                            }
+                            \only<2>{
+                            \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns04.png}
+                            \caption{Example for P = 8}
+                            }
+                            \only<3>{
+                            \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0426.png}
+                            \caption{Example for P = 8}
+                            }
+                            \only<4>{
+                            \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{nsall.png}
+                            \caption{Example for P = 8}
+                            }
+                        \end{figure}
+                    \end{overlayarea}
+                \end{columns}
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Parent $\to$ child}
+            \begin{itemize}
+                \begin{columns}[c]
+                    \column{6cm}
+                    \item Adjacent image probability distribution: 
+                    \begin{equation*}
+                    \label{eq:Uh}
+                        \begin{aligned}
+                            & \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)\\
+                            &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                            &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
+                            &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                        \end{aligned}
+                    \end{equation*}
+                \item The angle $\alpha$ can be calculated by choosing $C$ at random, uniformly on $[0,1]$.
+                    \begin{equation*}
+                    \label{eq:alpha}
+                        \begin{aligned}
+                            \alert{\alpha} &= \alert{\cos^{-1} \big[1 +  (1/\kappa)}\\
+                            &\alert{\qquad \times \ln\left(1 - C (1-\exp[-2\kappa]) \right) \big]},\\
+                            \kappa &= 4 \cos(\psi_{i,k}/2) k_h~b^2
+                        \end{aligned}
+                    \end{equation*}
+                    \column{3.4cm}
+                    \begin{figure}[H]
+                        \centering
+                        \def\svgwidth{\columnwidth}
+                        \input{distanceNew1.pdf_tex}
+                        \caption{Simplified picture}
+                        \label{fig:simple}
+                    \end{figure}
+                \end{columns}
             \end{itemize}
         \end{frame}
 
@@ -425,7 +540,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 
 	\begin{frame}
 	\frametitle{Non-sequential algorithm}
-	%slide 9
 	\begin{itemize}%[<+->]
 	\begin{columns}[c]
 	\column{6cm}
