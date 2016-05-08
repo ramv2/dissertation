@@ -53,6 +53,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 
 
 \begin{document}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
 	{
 	\setbeamertemplate{headline}{}
 	\setbeamertemplate{footline}{}
@@ -91,12 +92,12 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 			\begin{itemize}
 				\justifying
 				\item Second and third order virial coefficients are given by:
-                \begin{equation}
+                \begin{equation*}
                     \begin{aligned}
                         B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
                         B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
                     \end{aligned}
-                \end{equation}
+                \end{equation*}
                 where $f(0,1) = \Big( \exp \big[ -\beta U_2(\mbf{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
             \item The number of such integrals to be summed\putCitation{Hansen} is: 3 for B$_4$, 10 for B$_5$, 56 for B$_6$, 468 for B$_7$.
 			\end{itemize}
@@ -169,8 +170,8 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Nuclear quantum effects}
             \begin{itemize}
                 \justifying
-                \item Consequence of uncertainty in the positions of atoms at low temperatures (Zero-point vibrational energy).
                 \item Have to be explicitly included in virial coefficient calculations as they are ignored in the development of \abinitio{} potentials.
+                \item Consequence of uncertainty in the positions of atoms at low temperatures (Zero-point vibrational energy).
                 \item Semi-classical routes to include quantum effects:
                     \begin{enumerate}
                         \item Computing first order quantum corrections.
@@ -182,7 +183,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \begin{frame}
             \frametitle{Nuclear quantum effects}
             \begin{itemize}
-                \item Importance of nuclear quantum effects for $^4$He\putCitation{Shaul2012}
+                \item Importance of nuclear quantum effects\putCitation{Shaul2012} for $^4$He.
             \end{itemize}
             \begin{figure}
             \centering
@@ -193,8 +194,14 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
     \section{Objectives}
         \begin{frame}
             \frametitle{Objective}
-            \begin{block}{Diatomic molecules}
-                Compute accurate virial coefficients using state-of-the-art \abinitio{} potentials and PIMC method.
+            \begin{block}{Previous work}
+                Monatomic molecules (helium-4 by Kate)
+            \end{block}
+            \begin{block}{Curent challenges}
+                \alert<2->{Diatomic molecules: compute accurate virial coefficients using state-of-the-art \abinitio{} potentials and PIMC method.}
+            \end{block}
+            \begin{block}{Future goals}
+                Multiatomic molecules: compute accurate virial coefficients using state-of-the-art \abinitio{} potentials and PIMC method.
             \end{block}
         \end{frame}
 	\section{Methods}
@@ -225,7 +232,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{PIMC - thermal density matrix}
             \begin{itemize}
                 \justifying
-                \item The probability of starting at a state $x'$ and reaching state $x$ is proportional to $\rho (x', x) (T)$, the statistical thermal density matrix. The partition function is given as: 
+                \item The probability of starting at a state $x'$ and reaching state $x$ is proportional to $\rho (x', x; \beta)$, the statistical thermal density matrix. The partition function is given as: 
                 \begin{equation*}
                     \begin{aligned}
                         P(x) &= \frac{1}{Z} \rho(x,x),\\
@@ -236,7 +243,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \begin{equation*}\label{eq:rho}
                     \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
                 \end{equation*}
-                where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -260,23 +266,46 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     }
             \end{itemize}
         \end{frame}
-
+        \begin{frame}
+            \frametitle{Brilliance of PIMC}
+            \begin{itemize}
+                \item What does the convolution mean?
+                \begin{align*}\label{eq:convolution}
+                    \rho (R_0, R_P; \beta) &= \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \beta/P)\\
+                    &\qquad \rho (R_1, R_2; \beta/P) \ldots \rho (R_{P-1}, R_P; \beta/P)
+                \end{align*}
+            \end{itemize}
+            \begin{center}
+                \begin{overlayarea}{8cm}{2cm}
+                    \begin{figure}[H]
+                        \only<1>{
+                        \includegraphics[width=8cm,height=2cm,keepaspectratio]{5beadsMonatomicVsT1.png}
+                        \caption{Increasing temperature from left to right.}
+                        }
+                        \only<2>{
+                        \includegraphics[width=8cm,height=2cm,keepaspectratio]{5beadsMonatomicVsT2.png}
+                        \caption{Increasing temperature from left to right.}
+                        }
+                        \only<3>{
+                        \includegraphics[width=8cm,height=2cm,keepaspectratio]{5beadsMonatomicVsT3.png}
+                        \caption{Increasing temperature from left to right.}
+                        }
+                        \only<4>{
+                        \includegraphics[width=8cm,height=2cm,keepaspectratio]{5beadsMonatomicVsT4.png}
+                        \caption{Increasing temperature from left to right.}
+                        }
+                    \end{figure}
+                \end{overlayarea}
+            \end{center}
+        \end{frame}
         \begin{frame}
             \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
             \begin{itemize}
-                \justifying
-                \item Let $m$ and $I$ denote the mass of the atom and moment of inertia of the rigid rotor respectively with $\Lambda_m = h/\sqrt{2\pi m k_B T}$. Its Hamiltonian is given by:
+                \item Let $m$ and $I$ denote the mass of the atom and moment of inertia of the rigid rotor respectively. Its Hamiltonian is given by:
                     \begin{equation*}
                     \label{eq:hDiatomic}
                         \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2)
                     \end{equation*}
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}
-            \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
-            \begin{itemize}
-                \item Use $\mbf{x}^i, \mbf{\Omega}_1^i, \mbf{\Omega}_2^i$ to denote the configuration of the $i^\text{th}$ rigid rotors,
             \end{itemize}
             \begin{block}{Matrix elements}
                 \begin{equation*}
@@ -313,16 +342,16 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Diatomic molecule - rigid rotor\putCitation{Patkowski2008}}
             \begin{itemize}
                 \justifying
-            \item A closer look at the effective potential: (Boltzmann and exchange type conformations)
+                \item A closer look at the effective potential:
                 \begin{equation*}
-                    \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+                    \exp [-\beta \bar{U} (|\mbf{r}|)] = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
                 \end{equation*}
             \end{itemize}
             \begin{figure}
-            \centering
-            \includegraphics[scale=0.3,keepaspectratio]{5beadsDimerVariableOrientation.png}
+                \centering
+                \includegraphics[scale=0.25,keepaspectratio]{BoltzmannXC.png}
+                \caption{Boltzmann- and exchange-type conformations shown on the left and right respectively.}
             \end{figure}
-
         \end{frame}
         \begin{frame}
             \frametitle{Objectives}
@@ -344,6 +373,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \item A more viable path to study multiatomic systems.
             \end{itemize}
         \end{frame}
+        \iffalse
         \begin{frame}
             \frametitle{Orientation sampling}
             \begin{itemize}
@@ -363,11 +393,17 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \end{equation*}
             \end{itemize}
         \end{frame}
+        \fi
         \begin{frame}
             \frametitle{Orientation sampling}
             \begin{itemize}
+                \item Probability associated with a configuration $\mbf{Z} \equiv (\mbf{R},\mbf{b})$ is given as:
+                \begin{equation*}
+                \label{eq:PIProb}
+                    P_\sigma (\mbf{Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F(\mbf{R};2m) F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}
+                \end{equation*}
                 \item Define $\pi$ to be the $\mbf{b}$-dependent terms of the probability distribution $F$.
-                \item We generate a trial configuration with probability $\tau (o \to n)$, based on an approximation fo $\pi$ denoted as $\tilde pi$, and accept or reject based on:
+                \item We generate a trial configuration with probability $\tau (o \to n)$, based on an approximation for $\pi$ denoted as $\tilde \pi$, and accept or reject based on:
                 \begin{equation*}
                     \label{eq:Pacc}
                     P_{\rm acc} = \text{Min} \left[1, \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)} \right]
@@ -377,32 +413,32 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Orientation sampling - bisection algorithm for Boltzmann type conformations}
+            \frametitle{Orientation sampling - bisection algorithm}
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
                     \item The choice of orientation of image 0 is arbitrary
                     \item At every stage, we are given two images $\mbf{b}_i, \mbf{b}_k$ and we choose the orientation of image $j = (i + k)/2$.
-                    \item We note that $\tau (o \to n)$ is exact for the last step of the algorithm. 
+                    \item We note that $\tilde \pi$ is exact for the last step of the algorithm. 
                     \column{3.4cm}
                     \vspace{0cm}
                     \begin{overlayarea}{3.5cm}{3.5cm}
                         \begin{figure}[H]
                             \only<1>{
                             \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0.png}
-                            \caption{Example for P = 8}
+                            \caption{Schematic for P = 8}
                             }
                             \only<2>{
                             \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns04.png}
-                            \caption{Example for P = 8}
+                            \caption{Schematic for P = 8}
                             }
                             \only<3>{
                             \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{ns0426.png}
-                            \caption{Example for P = 8}
+                            \caption{Schematic for P = 8}
                             }
                             \only<4>{
                             \includegraphics[width=3.5cm,height=3.5cm,keepaspectratio]{nsall.png}
-                            \caption{Example for P = 8}
+                            \caption{Schematic for P = 8}
                             }
                         \end{figure}
                     \end{overlayarea}
@@ -418,9 +454,9 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     \begin{equation*}
                     \label{eq:Uh}
                         \begin{aligned}
-                            & \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{i,k} \right)\\
+                            & \tilde \pi \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{i,k} \right)\\
                             &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
-                            &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
+                            &= \exp\left(-k_h [d_{AC}^2 + d_{BC}^2]\right)\\
                             &= \exp\left(-4 k_h b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                         \end{aligned}
                     \end{equation*}
@@ -458,9 +494,9 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Methods to handle flexibility}
             \begin{itemize}
                 \justifying
-                \item Instead of using ground state bond length ($r_0$) use average bond length at each temperature ($< r >_T$)\putCitation{Garberoglio2012}
-                \item Average the entire intermolecular potential ($<U>_T$) over internal degrees of freedom of each monomer, weighted by the appropriate wave function\putCitation{Garberoglio2014}:
-                \item Average the intermolecular potential over all four ring polymer configurations and two types of conformations to get an expression for the quantum virial coefficient including monomer flexibility.
+                \item Instead of using ground state bond length ($r_0$) use average bond length at each temperature ($< r >_T$)\putCitation{Garberoglio2012}.
+                \item Average the entire intermolecular potential ($<U>_T$) over internal degrees of freedom of each monomer, weighted by the appropriate wave function\putCitation{Garberoglio2014}.
+                \item Average the intermolecular potential over all four ring polymer configurations and two types of conformations to get an expression for the quantum virial coefficient including monomer flexibility\putCitation{Garberoglio2014}.
             \end{itemize}
         \end{frame}
         \begin{frame}
@@ -504,51 +540,59 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 	\section{Results}
         \subsection{Hydrogen}
             \begin{frame}
-                \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$ - 10$^7$ configuration samples total}
+                \frametitle{$B_2$ values for Hydrogen compared with Garberoglio et al.\putCitation{Garberoglio2014}.}
+                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^7$.\end{center}
                 \begin{figure}
                     \centering
                     \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
                 \end{figure}
             \end{frame}
             \begin{frame}
-                \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_T$ - 10$^7$ configuration samples total}
+                \frametitle{$B_2$ values for Hydrogen compared with Garberoglio et al.\putCitation{Garberoglio2014}.}
+                \begin{center}Bond length: $< r >_T$, total configuration samples: 10$^7$.\end{center}
                 \begin{figure}
                     \centering
                     \includegraphics[scale=0.18,keepaspectratio]{s2GarberoglioAll.png}
                 \end{figure}
             \end{frame}
             \begin{frame}
-                \frametitle{Performance of the orientation move}
+                \frametitle{Performance of the orientation move.}
                 \begin{figure}
                     \centering
                     \includegraphics[scale=0.18,keepaspectratio]{s12orAcc.png}
                 \end{figure}
             \end{frame}
             \begin{frame}
-                \frametitle{Bond length\putCitation{Garberoglio2014}- flexible bond-length - 10$^7$ configuration samples total}
+                \frametitle{$B_2$ values for Hydrogen compared with Garberoglio et al.\putCitation{Garberoglio2014}.}
+                \begin{center}Bond length: variable, total configuration samples: 10$^7$.\end{center}
                 \begin{figure}
                     \centering
                     \includegraphics[scale=0.18,keepaspectratio]{s3GarberoglioAll.png}
                 \end{figure}
             \end{frame}
-        \begin{frame}
-            \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$}
-            \begin{figure}
-                \centering
-                \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
-            \end{figure}
-        \end{frame}
-        \begin{frame}
-            \frametitle{Bond length\putCitation{Garberoglio2014}- $< r >_0$}
-            \begin{figure}
-                \centering
-                \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
-            \end{figure}
-        \end{frame}
+        \subsection{Nitrogen}
+            \begin{frame}
+                \frametitle{$B_2$ values for Nitrogen compared with Hellmann\putCitation{Hellmann2013}.}
+                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^9$ for cl, sc and 10$^8$ for all PI cases.\end{center}
+                \begin{figure}[!htbp]
+                    \centering
+                    \includegraphics[scale=0.15,keepaspectratio]{B2AllDiffPICB.png}
+                \end{figure}
+            \end{frame}
+        \subsection{Oxygen}
+            \begin{frame}
+                \frametitle{$B_2$ values for Oxygen compared with Bartolomei et al.\putCitation{Bartolomei2010}.}
+                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^8$ for cl and 10$^7$ for all PI cases. Experimental \putCitation{Dymond}, SC - Pergugia \putCitation{Aquilanti1999}.\end{center}
+                \begin{figure}[!htbp]
+                    \centering
+                    \includegraphics[scale=0.12,keepaspectratio]{B2O2AllDiffMRCI.png}
+                \end{figure}
+            \end{frame}
 
 	\section{Summary}
 	\section*{Acknowledgments}
     \section*{Appendix}
+    \iffalse
         \begin{frame}
             \frametitle{Computational details}
             \begin{itemize}
@@ -558,7 +602,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \item Error bars shown represent one standard deviation of the mean (68\% confidence interval).
             \end{itemize}
         \end{frame}
-    \iffalse
 
 	\begin{frame}
 	\frametitle{Bond length\putCitation{Garberoglio2014} - $< r >_T$}
