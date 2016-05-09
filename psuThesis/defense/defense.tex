@@ -12,7 +12,7 @@
 \usepackage{calc}
 \usepackage{tikz}
 \usepackage[T1]{fontenc}
-\usepackage[firstinits=true,backend=bibtex,bibstyle=numeric-comp,citestyle=authoryear-comp]{biblatex}
+\usepackage[firstinits=true,backend=bibtex,bibstyle=numeric-comp,citestyle=authoryear-icomp]{biblatex}
 \DeclareCiteCommand{\putCitation}[\mkbibfootnote]
 	{\usebibmacro{prenote}}
 	{\tiny{
@@ -37,9 +37,9 @@
 \title{Quantum Virial Coefficients via Path Integral Monte Carlo: Theory and Development of Novel Algorithms}
 \author{PhD dissertation defense by: Ramachandran Subramanian}
 \institute[UB]{
-    Committee: Prof. David A. Kofke (Chair),\\
+\large{Committee: Prof. David A. Kofke (Chair),\\
 Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
-}
+}}
 \date{May 9, 2016}
 
 
@@ -82,15 +82,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
 			\begin{itemize}
 				\justifying
 				\item $B_n$ - $n^{th}$ order virial coefficient represents the effect of interaction of $n$ molecules.
-				\item Depends only on temperature.
-				\item Works well for systems with low density (typically gases).
-			\end{itemize}
-		\end{frame}
-
-        \begin{frame}
-			\frametitle{Expressions for the virial coefficients}
-			\begin{itemize}
-				\justifying
 				\item Second and third order virial coefficients are given by:
                 \begin{equation*}
                     \begin{aligned}
@@ -99,7 +90,6 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     \end{aligned}
                 \end{equation*}
                 where $f(0,1) = \Big( \exp \big[ -\beta U_2(\mbf{r}) \big] - 1 \Big) $ and indices `1' and `2' denote the position and orientational degrees of freedom of molecules 1 and 2, respectively, with respect to molecule `0' at the origin.
-            \item The number of such integrals to be summed\putCitation{Hansen} is: 3 for B$_4$, 10 for B$_5$, 56 for B$_6$, 468 for B$_7$.
 			\end{itemize}
 		\end{frame}
 
@@ -170,12 +160,12 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Nuclear quantum effects}
             \begin{itemize}
                 \justifying
+                \item Can be explained by the zero-point vibrational energy and result in uncertainty in the positions of atoms at low temperatures.
                 \item Have to be explicitly included in virial coefficient calculations as they are ignored in the development of \abinitio{} potentials.
-                \item Consequence of uncertainty in the positions of atoms at low temperatures (Zero-point vibrational energy).
                 \item Semi-classical routes to include quantum effects:
                     \begin{enumerate}
                         \item Computing first order quantum corrections.
-                        \item Using an effective potential like the Quadratic Feynman-Hibbs\putCitation{Feynman}.
+                        \item Using an effective potential like the Quadratic Feynman-Hibbs (QFH)\putCitation{Feynman} or Takahashi-Imada (TI)\putCitation{Takahashi1984,Schenter2002}.
                     \end{enumerate}
                 \item Quantum route: path integral Monte Carlo (PIMC) (will be explained in detail later).
             \end{itemize}
@@ -183,7 +173,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \begin{frame}
             \frametitle{Nuclear quantum effects}
             \begin{itemize}
-                \item Importance of nuclear quantum effects\putCitation{Shaul2012} for $^4$He.
+                \item Importance of nuclear quantum effects\putCitation{Shaul2012} for helium-4.
             \end{itemize}
             \begin{figure}
             \centering
@@ -197,7 +187,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \begin{block}{Previous work}
                 Monatomic molecules (helium-4 by Kate)
             \end{block}
-            \begin{block}{Curent challenges}
+            \begin{block}{Current challenges}
                 \alert<2->{Diatomic molecules: compute accurate virial coefficients using state-of-the-art \abinitio{} potentials and PIMC method.}
             \end{block}
             \begin{block}{Future goals}
@@ -210,14 +200,12 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{Mayer Sampling Monte Carlo}
             \begin{itemize}
             \justifying
-                \item Second and third order virial coefficients are given by:
+                \item Quick recap of the VEOS:
                 \begin{equation*}
-                    \begin{aligned}
-                        B_2(T) &= -\frac{1}{2} \displaystyle\int d1 ~ f(0,1)\\
-                        B_3(T) &= -\frac{1}{3} \displaystyle\int \int d1~d2~f(0,1)~f(0,2)~f(1,2)
-                    \end{aligned}
+                    \frac{P}{\rho kT} = 1 + B_2(T) \rho + B_3(T) \rho^2 + \ldots
                 \end{equation*}
-                \item MSMC\putCitation{Singh2004} is a free energy perturbation technique to evaluate the integrals in the above equations indirectly.
+                \item The number of integrals to be summed\putCitation{Hansen} is: 3 for B$_4$, 10 for B$_5$, 56 for B$_6$, 468 for B$_7$.
+                \item MSMC\putCitation{Singh2004} is a free energy perturbation technique to evaluate the integrals in the above equations efficiently.
                 \begin{equation*}
                     \label{eq:MSMCworking}
                     \begin{aligned}
@@ -232,34 +220,37 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \frametitle{PIMC - thermal density matrix}
             \begin{itemize}
                 \justifying
-                \item The probability of starting at a state $x'$ and reaching state $x$ is proportional to $\rho (x', x; \beta)$, the statistical thermal density matrix. The partition function is given as: 
+                \item From statistical mechanics: the partition function is given as:
                 \begin{equation*}
                     \begin{aligned}
                         P(x) &= \frac{1}{Z} \rho(x,x),\\
                         Z &= \int \rho(x,x) dx \equiv \text{trace} \{\rho\}.
                     \end{aligned}
                 \end{equation*}
+                \item For the more general case: the probability of going from a state $x$ to $x'$ is proportional to $\rho (x, x'; \beta)$.
                 \item Richard Feynman\putCitation{Feynman} was able to connect it with quantum mechanics:
                 \begin{equation*}\label{eq:rho}
-                    \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
+                    \rho (R , R' ; \beta) = \alert<2>{< R | e^{- \beta \mc{H} } | R' >}
                 \end{equation*}
+                where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$
             \end{itemize}
         \end{frame}
         \begin{frame}
             \frametitle{Important equations}
             \begin{itemize}
                 \justifying
-                \item A key property of the density matrix is that the product of two density matrices is also a density matrix. Hence the convolution\putCitation{Ceperley1995}:
-                \begin{equation*}\label{eq:dmProduct}
-                    \rho (R_1, R_3 ; \beta_1 + \beta_2) = \displaystyle\int dR_2 \rho (R_1, R_2 ; \beta_1) \rho (R_2, R_3 ; \beta_2)
-                \end{equation*}
-                \visible<2->{\item As $\frac{\beta}{P} \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation'' is given by\putCitation{Cui1997}:
+                \item Product of two or more density matrices is also a density matrix\putCitation{Ceperley1995}:
+                \begin{align*}\label{eq:convolution}
+                    \rho (R_0, R_P; \beta) &= \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \beta/P)\\
+                    &\qquad \rho (R_1, R_2; \beta/P) \ldots \rho (R_{P-1}, R_P; \beta/P)
+                \end{align*}
+                \visible<2->{\item The ``primitive approximation'' is given by\putCitation{Cui1997}:
                 \begin{equation*}\label{eq:primitiveApprox}
                     e^{- \frac{\beta}{P} (\mc{T} + \mc{V})} \approx e^{- \frac{\beta}{P} \mc{T}} e^{- \frac{\beta}{P} \mc{V}}
                 \end{equation*}
                     }
                 \visible<3->{
-                \item The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
+                \item The Trotter formula\putCitation{Cui1997}:
                 \begin{equation*}\label{eq:trotter}
                     e^{- \beta (\mc{T} + \mc{V})} = \lim_{P \to \infty} \Big[ e^{- \frac{\beta}{P} \mc{T}} e^{- \frac{\beta}{P} \mc{V}} \Big]^P
                 \end{equation*}
@@ -267,13 +258,9 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \end{itemize}
         \end{frame}
         \begin{frame}
-            \frametitle{Brilliance of PIMC}
+            \frametitle{PIMC}
             \begin{itemize}
-                \item What does the convolution mean?
-                \begin{align*}\label{eq:convolution}
-                    \rho (R_0, R_P; \beta) &= \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \beta/P)\\
-                    &\qquad \rho (R_1, R_2; \beta/P) \ldots \rho (R_{P-1}, R_P; \beta/P)
-                \end{align*}
+                \item More the $P$, the finer the mapping of the quantum mechanical partition function onto the classical ring polymer.
             \end{itemize}
             \begin{center}
                 \begin{overlayarea}{8cm}{2cm}
@@ -324,7 +311,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \justifying
                 \item Defining $\mbf{r} \equiv \mbf{x}^{(1)}, \mbf{\Delta}^{(i)} \equiv \mbf{x}^{(i+1)} - \mbf{x}^{(i)}$,
                 \begin{equation*}
-                    \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+                    \exp [-\beta \bar{U} (|\mbf{r}|)] = \left< \exp \left[ -\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
                 \end{equation*}
                 \item Probability distributions:
                 \begin{align*}
@@ -369,7 +356,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \begin{itemize}
                 \item Idea proposed by Garberoglio et al. \putCitation{Garberoglio2014}: two independent atoms (vs. one rigid rotor previously).
                 \item Leads to possibility of avoiding quantum mechanical calculations.
-                \item Sampling problem can be analyzed more mathematically, without having to worry about the physics of the rigid rotor.
+                \item Sampling problem can be reduced to choosing a ring of beads on the surface of a sphere.
                 \item A more viable path to study multiatomic systems.
             \end{itemize}
         \end{frame}
@@ -402,7 +389,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \label{eq:PIProb}
                     P_\sigma (\mbf{Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F(\mbf{R};2m) F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}
                 \end{equation*}
-                \item Define $\pi$ to be the $\mbf{b}$-dependent terms of the probability distribution $F$.
+                \item Define $\pi$ to be the $\mbf{b}$-dependent terms of the path integral weight $F$.
                 \item We generate a trial configuration with probability $\tau (o \to n)$, based on an approximation for $\pi$ denoted as $\tilde \pi$, and accept or reject based on:
                 \begin{equation*}
                     \label{eq:Pacc}
@@ -419,7 +406,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                     \column{6cm}
                     \item The choice of orientation of image 0 is arbitrary
                     \item At every stage, we are given two images $\mbf{b}_i, \mbf{b}_k$ and we choose the orientation of image $j = (i + k)/2$.
-                    \item We note that $\tilde \pi$ is exact for the last step of the algorithm. 
+                    \item We note that $\tilde \pi$ is exact for the last step of the algorithm.
                     \column{3.4cm}
                     \vspace{0cm}
                     \begin{overlayarea}{3.5cm}{3.5cm}
@@ -450,7 +437,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
             \begin{itemize}
                 \begin{columns}[c]
                     \column{6cm}
-                    \item Adjacent image probability distribution: 
+                    \item Adjacent image probability distribution:
                     \begin{equation*}
                     \label{eq:Uh}
                         \begin{aligned}
@@ -520,7 +507,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \label{eq:y}
                     y = \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}
                 \end{equation*}
-                \item We define $\tilde y \approx y$ such that: 
+                \item We define $\tilde y \approx y$ such that:
                 \begin{equation*}
                 \label{eq:ytilde}
                     \tilde y = \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j \Big) - \frac{2  \log b_i}{P} + \frac{ \beta  u (b_i)}{P} \Bigg\}
@@ -545,6 +532,14 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
                 \begin{figure}
                     \centering
                     \includegraphics[scale=0.18,keepaspectratio]{s1GarberoglioAll.png}
+                \end{figure}
+            \end{frame}
+            \begin{frame}
+                \frametitle{$B_2$ values for Hydrogen compared with Goodwin et al.\putCitation{Goodwin1963}.}
+                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^7$.\end{center}
+                \begin{figure}
+                    \centering
+                    \includegraphics[scale=0.18,keepaspectratio]{s1GoodwinAll.png}
                 \end{figure}
             \end{frame}
             \begin{frame}
@@ -573,7 +568,7 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \subsection{Nitrogen}
             \begin{frame}
                 \frametitle{$B_2$ values for Nitrogen compared with Hellmann\putCitation{Hellmann2013}.}
-                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^9$ for cl, sc and 10$^8$ for all PI cases.\end{center}
+                \begin{center}Total configuration samples: 10$^9$ for cl, sc and 10$^8$ for all PI cases.\end{center}
                 \begin{figure}[!htbp]
                     \centering
                     \includegraphics[scale=0.15,keepaspectratio]{B2AllDiffPICB.png}
@@ -582,14 +577,54 @@ Prof. Jeffrey R. Errington, Prof. Johannes Hachmann, Dr. Andrew J. Schultz
         \subsection{Oxygen}
             \begin{frame}
                 \frametitle{$B_2$ values for Oxygen compared with Bartolomei et al.\putCitation{Bartolomei2010}.}
-                \begin{center}Bond length: $< r >_0$, total configuration samples: 10$^8$ for cl and 10$^7$ for all PI cases. Experimental \putCitation{Dymond}, SC - Pergugia \putCitation{Aquilanti1999}.\end{center}
+                \begin{center}PES: PT2, Total configuration samples: 10$^8$ for cl and 10$^7$ for all PI cases. Experimental\putCitation{Dymond}, SC - Perugia \putCitation{Aquilanti1999,Bartolomei2010}.\end{center}
                 \begin{figure}[!htbp]
                     \centering
-                    \includegraphics[scale=0.12,keepaspectratio]{B2O2AllDiffMRCI.png}
+                    \includegraphics[scale=0.12,keepaspectratio]{B2O2AllExpDiffPT2.png}
                 \end{figure}
             \end{frame}
 
 	\section{Summary}
+        \begin{frame}
+            \frametitle{Conclusion}
+            \begin{figure}[!htbp]
+                \centering
+                \includegraphics[scale=0.6,keepaspectratio]{thesis_defense.png}
+                \caption{\tiny{https://xkcd.com/1403/}}
+            \end{figure}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Summary}
+            \begin{itemize}
+                \item We have developed two direct sampling algorithms for orientations and bond-lengths of diatomic molecules.
+                \item Fundamental to both these algorithms is the idea of treating the two atoms independently as opposed to a rigid rotor.
+                \item Owing to the simple nature of the probability distributions, our algorithms are efficient.
+                \item We have tested these algorithms by computing quantum virial coefficients using PIMC method for three different diatomic systems.
+                \item We observed overall good agreement with literature values for the temperatures considered.
+                \item For nitrogen and oxygen, lower temperatures need to be considered for quantum effects to be significant. 
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+            \frametitle{Future direction of work}
+            \begin{block}{Analysis}
+                \begin{itemize}
+                    \item More detailed analysis to identify sources of inefficiency.
+                    \item A rigorous comparison of computational performance with existing algorithms could provide useful insight, or at the very least, lead to quantification of the effort saved.
+                \end{itemize}
+            \end{block}
+            \begin{block}{Application}
+                \begin{itemize}
+                    \item Isotopes of hydrogen - D$_2$, T$_2$, HD and HT.
+                    \item Mixtures of diatomic molecules - O$_2$ + N$_2$, O$_2$ + H$_2$.
+                \end{itemize}
+            \end{block}
+            \begin{block}{Development}
+                \begin{itemize}
+                    \item Extension of these algorithms to multiatomic systems. Linear multiatomics ,e.g., CO$_2$ could be a first step.
+                \end{itemize}
+            \end{block}
+        \end{frame}
+
 	\section*{Acknowledgments}
     \section*{Appendix}
     \iffalse

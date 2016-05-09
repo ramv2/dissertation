@@ -56,7 +56,7 @@
       <file>numeric-comp.bbx</file>
       <file>numeric.bbx</file>
       <file>standard.bbx</file>
-      <file>authoryear-comp.cbx</file>
+      <file>authoryear-icomp.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
     </requires>
