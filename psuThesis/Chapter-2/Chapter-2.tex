@@ -365,14 +365,14 @@
         \end{equation}
         for molecule 2, the ring constructed in this manner is then translated to its position specified by the larger Mayer-sampling process.
 
-        This leaves sampling of the intramolecular coordinates ${\mathbf b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u({\mathbf b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma({\mathbf b})$, defined as the ${\mathbf b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tau_\sigma({\mathbf b})$, constructed so it can be sampled directly. We use a configuration sampled on this distribution to generate a Monte Carlo trial, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
+        This leaves sampling of the intramolecular coordinates ${\mathbf b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u({\mathbf b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma({\mathbf b})$, defined as the ${\mathbf b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tilde \pi({\mathbf b})$, constructed so it can be sampled directly. We generate a configuration with probability $\tau (o \to n)$, based on the approximation $\tilde \pi$, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
         \begin{equation}
             \label{eq:Pacc}
             P_{\rm acc} = \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)}
         \end{equation}
         where `$o$' and `$n$' denote the old and new configurations respectively.
 
-        Notice that the above equation follows directly from detailed balance. The target distribution $\pi$ can be imagined to be a state function, dependent only on the initial($o$) and final($n$) states(configurations) of the system. The approximate distribution $\tau$, used to generate a configuration, can be imagined to be a path function, dependent on the algorithm of choice. Although one might be tempted to consider it as a state function for a stand-alone MC trial, $\tau$ is more appropriately, the transition probability of the system for the old and new configurations. Finally, this subtle difference is the reason why we need not worry about normalizing $\pi$ but much care should be taken for the proper normalization of $\tau$ for efficient sampling. This will be particularly important for the fully flexible calculations where both the orientation and bond length trials are allowed. 
+        Notice that the above equation follows directly from detailed balance. The target distribution $\pi$ can be imagined to be a state function, dependent only on the initial($o$) and final($n$) states(configurations) of the system. The probability of a configuration $\tau$, can be imagined to be a path function, dependent on the algorithm of choice. Although one might be tempted to consider it as a state function for a stand-alone MC trial, $\tau$ is more appropriately, the transition probability of the system for the old and new configurations. Finally, this subtle difference is the reason why we need not worry about normalizing $\pi$ but much care should be taken for the proper normalization of $\tau$ for efficient sampling. This will be particularly important for the fully flexible calculations where both the orientation and bond length trials are allowed. 
 
         We next describe an algorithm to generate configurations according to an approximate distribution $\tilde\pi(\mbf{b}^{(\sigma)})$. We do this first for the case of a rigid diatomic, with atoms separated by a fixed bond length, and then develop the approach for the case of a fully flexible diatomic.
     \subsection{Orientation Sampling Algorithm}
@@ -403,7 +403,7 @@ so that, in accord with Eq.~\ref{eq:PIProb} with the rigid bond constraint impos
 \pi({\mathbf b}^{(\sigma)}) = \prod_{i=0}^{P-1}\pi({\mathbf b}_i,{\mathbf b}_{i+1}).
 \end{equation}
 
-In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in terms of angles, consider the orientations of image $i$ and image $k$ as indicated by A and B respectively in Fig. \ref{fig:simple}, with $\angle \text{AOB} = \psi_{ik}$. Let ${\mathbf a}_j$ be the vector bisecting ${\mathbf b}_i$ and  ${\mathbf b}_k$. By $\tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{ik} \right)$ we denote the probability distribution centered around ${\mathbf a}_j$, of generating a configuration for orientation image $j$ which is adjacent to both $i$ and $k$ (indicated by C, and the angles $\alpha$ and $\beta$ in Fig. \ref{fig:simple}). Note that $\mathbf{a}_j$ and $\psi_{ik}$ are parameters whereas $\alpha$ and $\beta$ are the independent variables of the distribution $\tau^\text{adj}$.
+In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in terms of angles, consider the orientations of image $i$ and image $k$ as indicated by A and B respectively in Fig. \ref{fig:simple}, with $\angle \text{AOB} = \psi_{ik}$. Let ${\mathbf a}_j$ be the vector bisecting ${\mathbf b}_i$ and  ${\mathbf b}_k$. By $\pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{ik} \right)$ we denote the probability distribution centered around ${\mathbf a}_j$, of generating a configuration for orientation image $j$ which is adjacent to both $i$ and $k$ (indicated by C, and the angles $\alpha$ and $\beta$ in Fig. \ref{fig:simple}). Note that $\mathbf{a}_j$ and $\psi_{ik}$ are parameters whereas $\alpha$ and $\beta$ are the independent variables of the distribution $\pi^\text{adj}$.
             \begin{figure}[!htbp]
                 \centering
                 \def\svgwidth{0.25\columnwidth}
@@ -425,7 +425,7 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \begin{equation}
                         \label{eq:Uh}
                             \begin{aligned}
-                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
                                 &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
                                 &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                             \end{aligned}
@@ -434,14 +434,14 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \begin{equation}
                         \label{eq:Uh}
                             \begin{aligned}
-                                \tau^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
+                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
                                 &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
                                 &= \exp\left(-4k_h~b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
                             \end{aligned}
                         \end{equation}
                     \fi
 
-            This expression is independent of $\beta$, so we can choose it at random, uniformly on $[0, 2\pi]$. For the special case of $\psi_{i,k} = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. To choose $\alpha$ for all other cases, we first normalize $\tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) $ and evaluate a cumulative distribution function $C(\alpha)$ (Eq. \eqref{eq:cdf}), which we then invert to obtain an expression for $\alpha$ (see Appendix \ref{Appendix C} for mathematical details). Selection of $\alpha$ is then made by evaluating this expression with $C$ chosen at random, uniformly on [0,1] as :
+            This expression is independent of $\beta$, so we can choose it at random, uniformly on $[0, 2\pi]$. For the special case of $\psi_{i,k} = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. To choose $\alpha$ for all other cases, we first normalize $\pi^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) $ and evaluate a cumulative distribution function $C(\alpha)$ (Eq. \eqref{eq:cdf}), which we then invert to obtain an expression for $\alpha$ (see Appendix \ref{Appendix C} for mathematical details). Selection of $\alpha$ is then made by evaluating this expression with $C$ chosen at random, uniformly on [0,1] as :
                     \ifkhExplicitP
                         \begin{equation}
                         \label{eq:alpha}
@@ -461,12 +461,12 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \end{equation}
                     \fi
 
-                    We just explained how to choose an orientation for any image $j$ that is adjacent to images $i$ and $k$ ($\tau^\text{adj} ({\mathbf b})$ is always equal to $\pi ({\mathbf b})$ for this case). Before this step can be taken, $i$ and $k$ must have been placed in a similar fashion. These orientation images do not interact directly, but instead have an effective interaction that can be defined by integration over the $j$ orientation:
+                    We just explained how to choose an orientation for any image $j$ that is adjacent to images $i$ and $k$ ($\pi^\text{adj} ({\mathbf b})$ is always equal to $\pi ({\mathbf b})$ for this case). Before this step can be taken, $i$ and $k$ must have been placed in a similar fashion. These orientation images do not interact directly, but instead have an effective interaction that can be defined by integration over the $j$ orientation:
 \ifkhExplicitP
 \begin{equation}
 \begin{aligned}
 \label{eq:piEff}
-    \tau^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
+    \pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \pi^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
 &=\frac{\pi b}{k_h}\left( {{e^{ - 8{k_h}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}
 \end{aligned}
 \end{equation}
@@ -474,12 +474,12 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
 \begin{equation}
 \begin{aligned}
 \label{eq:piEff}
-\tau^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \tau^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
+\pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \pi^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
 &=\frac{\pi}{k_h~b}\left( {{e^{ - 8{k_h~b^2}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h~b^2}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}
 \end{aligned}
 \end{equation}
 \fi
-This effective interaction (as manifest via $\psi_{i,k}$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \tau^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi_{i,k}/2)$, to identify an effective harmonic interaction:
+This effective interaction (as manifest via $\psi_{i,k}$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \pi^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi_{i,k}/2)$, to identify an effective harmonic interaction:
 \begin{align}
 %k_h^{(1)} = \frac{1}{2}k_h^{(0)}\coth(4 k_h^{(0)}) - \frac{1}{8}
 k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
@@ -491,15 +491,15 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         \begin{equation}
         \label{eq:piTilde}
             \begin{aligned}
-                \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \tau({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}) \\
-                \tilde \tau({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &= 
+                \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}) \\
+                \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &= 
                 \begin{cases}
                     \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
                     \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi\\
                 \end{cases}
             \end{aligned}
         \end{equation}
-        where $\tilde \tau$ is the normalized version of $\tau^\text{adj}$ (see Sec. \ref{Appendix C} for further details) and $\kappa$ is as defined in Eq. \eqref{eq:alpha}.
+        where $\tilde \pi$ is the normalized version of $\pi^\text{adj}$ (see Sec. \ref{Appendix C} for further details) and $\kappa$ is as defined in Eq. \eqref{eq:alpha}.
 
             It is straightforward to see that the ratio of the approximate and actual probability distribution of $\alpha$ will differ from unity the most for the first step, and gradually improve until the last step, where the two probabilities are equal (given the placement of the other orientations) . The overall percentage of moves accepted will be related to the product of such ratios. Hence, it can be clearly seen that the performance of the algorithm will decrease with increasing $P$ (the accuracy of the result is however unaffected by this).
     

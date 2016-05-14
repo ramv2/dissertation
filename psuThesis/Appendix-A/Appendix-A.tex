@@ -104,47 +104,21 @@
         \end{equation}
     \section{Normalization of the Probability Distribution}
     \label{Appendix C}
-    The unnormalized probability of the angle $\alpha$, including the degeneracy (circumference of the shaded circle in fig. \ref{fig:simple}) and Eq. \eqref{eq:Uh} is then given by:
-    \ifkhExplicitP
-        \begin{equation}
-            \label{eq:piTildeAlpha}
-            \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})  = \pi b \sin(\alpha) \exp[-4k_h(1 - \cos(\psi_{i,k}/2) \cos(\alpha))]
-        \end{equation}
-    \else
-        \begin{equation}
-        \label{eq:piTildeAlpha}
-            \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})  = \pi b \sin(\alpha) \exp[-4k_h~b^2 (1 - \cos(\psi_{i,k}/2) \cos(\alpha))]
-        \end{equation}
-    \fi
+    The probability distribution centered around ${\mathbf a}$, for placing image $j$ is given as:
+    \begin{equation}
+    \label{eq:piTildeAlphaBeta}
+            \pi^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) = \exp[-4k_h~b^2 (1 - \cos(\psi_{i,k}/2) \cos(\alpha))]
+    \end{equation}
 
-    Since we choose angle $\beta$ uniformly, from fig.\ref{fig:simple} we can see that for a given $\alpha$, the probability of choosing a random $\beta$ is given by $\tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})  = 1/[\pi b \sin (\alpha)]$. The probability distribution centered around ${\mathbf a}$, for placing any image $j$ is given as:
-    \ifkhExplicitP
-        \begin{equation}
-        \label{eq:piTildeAlphaBeta}
-            \begin{aligned}
-                \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) &= \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})  \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})\\
-                &= \exp[-4k_h (1 - \cos(\psi_{i,k}/2) \cos(\alpha))]
-            \end{aligned}
-        \end{equation}
-    \else
-        \begin{equation}
-        \label{eq:piTildeAlphaBeta}
-            \begin{aligned}
-                \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) &= \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})  \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k})\\
-                &= \exp[-4k_h~b^2 (1 - \cos(\psi_{i,k}/2) \cos(\alpha))]
-            \end{aligned}
-        \end{equation}
-    \fi
-
-    Since we are generating points on the surface of a sphere, the area element $dA$ we use for normalization of Eq.\eqref{eq:piTildeAlphaBeta}) is the same as the area element in spherical coordinates given as $dA = (b/2) \sin(\alpha) d\alpha \, d\beta$. Note that because the distribution is centered around $a$, $dA$ is written in terms of $\alpha$ and $\beta$ and not in terms of the actual spherical coordinates $\phi_n$ and $\theta$ of image $n$. For the special case of $\psi_{i,k} = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. Therefore the normalized probability $\tilde \tau$ of placing any image $j$ is given as:
+    Since we are generating points on the surface of a sphere, the area element $dA$ we use for normalization of Eq.\eqref{eq:piTildeAlphaBeta}) is the same as the area element in spherical coordinates given as $dA = (b/2) \sin(\alpha) d\alpha \, d\beta$. Note that because the distribution is centered around $a$, $dA$ is written in terms of $\alpha$ and $\beta$ and not in terms of the actual spherical coordinates $\phi$ and $\theta$ of image $j$. For the special case of $\psi_{i,k} = \pi$ since the r.h.s. of Eq. \eqref{eq:Uh} becomes independent of $\alpha$, we can choose it just like $\beta$, i.e., at random, uniformly on $[0, 2\pi]$. Therefore the normalized probability $\tilde \pi$ of placing any image $j$ is given as:
     \begin{equation}
     \label{eq:piTildebj}
         \begin{aligned}
-            \tilde \tau(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) &= \frac{\tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) }{\displaystyle\int_{\alpha = 0}^\pi \int_{\beta = 0}^{2 \pi} \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}\\
+            \tilde \pi(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) &= \frac{\pi^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) }{\displaystyle\int_{\alpha = 0}^\pi \int_{\beta = 0}^{2 \pi} \pi^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}\\
             &=
             \begin{cases}
-                \displaystyle\frac{\kappa \times \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
-                \displaystyle\frac{1}{2 \pi b} & \text{if} \qquad \psi_{i,k} = \pi\\
+                \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
+                \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi\\
             \end{cases}
         \end{aligned}
     \end{equation}
@@ -158,7 +132,7 @@
     \begin{equation}
     \label{eq:cdf}
         \begin{aligned}
-            C(\alpha) &= \frac{\displaystyle\int_{\alpha = 0}^\alpha \int_{\beta = 0}^{2 \pi} \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}{\displaystyle\int_{\alpha = 0}^\pi \int_{\beta = 0}^{2 \pi} \tau^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}\\
+            C(\alpha) &= \frac{\displaystyle\int_{\alpha = 0}^\alpha \int_{\beta = 0}^{2 \pi} \pi^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}{\displaystyle\int_{\alpha = 0}^\pi \int_{\beta = 0}^{2 \pi} \pi^\text{adj}(\mbf{b}_j(\alpha, \beta);\mbf{a}_j,\psi_{i,k}) dA}\\
             &= \displaystyle\frac{1 - \exp \big[\kappa [1 - \cos (\alpha)] \big]}{1 - \exp [-2 \kappa]}
         \end{aligned}
     \end{equation}

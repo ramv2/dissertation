@@ -206,8 +206,22 @@
 \headcommand {\slideentry {5}{0}{5}{53/53}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {53}{53}}
-\headcommand {\beamer@partpages {1}{53}}
-\headcommand {\beamer@subsectionpages {54}{53}}
-\headcommand {\beamer@sectionpages {54}{53}}
-\headcommand {\beamer@documentpages {53}}
-\headcommand {\def \inserttotalframenumber {40}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {6}{Acknowledgments}{54}{Acknowledgments}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {50}{53}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {50}{53}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {6}{0}{6}{54/54}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {54}{54}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {6}{0}{7}{55/55}{}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\beamer@partpages {1}{55}}
+\headcommand {\beamer@subsectionpages {56}{55}}
+\headcommand {\beamer@sectionpages {56}{55}}
+\headcommand {\beamer@documentpages {55}}
+\headcommand {\def \inserttotalframenumber {42}}

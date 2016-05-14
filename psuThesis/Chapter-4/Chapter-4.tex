@@ -14,20 +14,20 @@
     \label{sec:Computational details}
 
         We performed calculations for three different models of H$_2$, differing primarily in their treatment of the intramolecular bond:
-       
+
         Model 1 : We use the rigid inter-molecular potential due to Patkowski et al.\cite{Patkowski2008} (denoted as V$_{pat}$), with the H-H bond length fixed at all temperatures to the ground state value $r_0 ( = $1.448736 bohrs, same as in \cite{Patkowski2008}). Due to nonphysical energies returned by V$_{pat}$ at small inter-molecular separations, an artificial spherical hard core (with a diameter $d = 1${\AA}) is used.
 
         Model 2 : We use the flexible inter-molecular potential due to Garberoglio et al.\cite{Garberoglio2012} (denoted as V$_{hp}$), with a fixed but temperature-dependent H-H bond length, computed at each temperature to its average value $\left< r \right>_T$ (see Ref. \cite{Garberoglio2012} for details). For V$_{hp}$, instead of an artificial spherical hard core, the potential is calculated with an inter-molecular distance $R$ which is the larger of ($R,\: 1.4${\AA}) and a bond length $b$ which is the smaller of ($b,\: 1.2${\AA}).
 
-        Model 3 : We use V$_{hp}$ and allow the bond length value to vary during the calculation. The intra-molecular potential that we use is due to Mielke et al.\cite{Mielke2002} who fitted the data of Kolos et al.\cite{Kolos1986} to obtain a ground state potential. 
-        
+        Model 3 : We use V$_{hp}$ and allow the bond length value to vary during the calculation. The intra-molecular potential that we use is due to Mielke et al.\cite{Mielke2002} who fitted the data of Kolos et al.\cite{Kolos1986} to obtain a ground state potential.
+
         Mayer sampling Monte Carlo was used to sample the intermolecular distance, while the direct methods described above were used to sample path-integral image position, orientations and (where appropriate) bond lengths. These different MC moves were chosen with equal probability within each simulation. We ran simulations at 33 temperatures going from $T =$ 15 K $\to$ 2000 K to compare our results for the three models against Garberoglio et al.\cite{Garberoglio2014}. We ran additional simulations at 53 temperatures going from $T =$ 16 K $\to$ 423.15 K for which experimental $B_2$ values were reported in Goodwin et al.\cite{Goodwin1963}. Although the $B_2$ values in \cite{Garberoglio2014} were calculated after choosing $P$ as a function of $T$, we ran calculations for $P = 8, 16, 32$ and $64$ for all temperatures considered because we wanted to assess the performance of the algorithms. For each value of $P$, we used a total of $10^7$ samples to evaluate the virial coefficient using the MSMC\cite{Singh2004} method. We divide the $10^7$ samples into $10^4$ blocks of $10^3$ samples each and compute block averages for the different quantities prescribed by MSMC. Using the $10^4$ block-averages, we calculate the overall averages and their standard error, and use error propagation formulas to arrive at the final uncertainties (reported here) of the virial coefficients. A reference hard sphere diameter of 3{\AA} was used for all simulations.
-        
-        Note that all simulations performed for the conditions mentioned above, were to compute the Boltzmann contribution to the virial coefficient using only Boltzmann-type configuration samples. Additionally, we also performed simulations, for each of the cases mentioned above, to compute the exchange contribution to the virial coefficient using only exchange-type configuration samples. We combine the two contributions according to their ratio as given in Fig. 2 of Garberoglio et al. \cite{Garberoglio2014} to compute the final virial coefficient values reported here. Since the ratio was zero for $T > 225$K, suggesting that exchange contributions were negligible at higher temperatures, we evaluated the exchange contributions only for temperatures $T \le 225K$. 
+
+        Note that all simulations performed for the conditions mentioned above, were to compute the Boltzmann contribution to the virial coefficient using only Boltzmann-type configuration samples. Additionally, we also performed simulations, for each of the cases mentioned above, to compute the exchange contribution to the virial coefficient using only exchange-type configuration samples. We combine the two contributions according to their ratio as given in Fig. 2 of Garberoglio et al. \cite{Garberoglio2014} to compute the final virial coefficient values reported here. Since the ratio was zero for $T > 225$K, suggesting that exchange contributions were negligible at higher temperatures, we evaluated the exchange contributions only for temperatures $T \le 225K$. In addition, we ran simulations for $P = 128$ for $T \le 100K$ and $P = 256$ for $T = 15K, 20K$ for the Boltzmann as well as exchange cases for Model 3.
 
     \section{Results and discussion}
     \label{sec:Results and discussion}
-        Presented below are the results of our calculation of the virial coefficients of \emph{para}-H$_2$ as a function of temperature. Garberoglio et al.\cite{Garberoglio2014} previously reported second virial coefficients using VEGAS\cite{Lepage1972} algorithm for the three models explained in the previous section, and this provides a suitable reference set of data for comparison. For other literature values and/or experimental data, the interested reader may see references\cite{Goodwin1963, Patkowski2008, Leachman2009, Sakoda2012, Garberoglio2012, Garberoglio2014}). Henceforth, by ``reference values", we mean the values reported in \cite{Garberoglio2014} under similar conditions.
+        Presented below are the results of our calculation of the virial coefficients of \emph{para}-H$_2$ as a function of temperature. Garberoglio et al.\cite{Garberoglio2014} previously reported second virial coefficients using VEGAS\cite{Lepage1972} algorithm for the three models explained in the previous section, and this provides a suitable reference set of data for comparison. For other literature values and/or experimental data, the interested reader may see references\cite{Goodwin1963, Patkowski2008, Leachman2009, Sakoda2012, Garberoglio2012, Garberoglio2014}). Henceforth, by ``reference values", we mean the values reported in \cite{Garberoglio2014} under similar conditions. All virial coefficient and other relevant values are tabulated at the end of this chapter.
 
         We also examine the performance in terms of percentage of moves accepted for both the orientation and the bond length algorithms, considered as a function of temperature for the different simulation options mentioned above.
 
@@ -38,7 +38,7 @@
                 P = 3600 \textrm{K}/T
             \end{equation}
 According to Eq. \eqref{eq:s1P} the temperature at which we require $P > 64$ to achieve converged results for Model 1 is 50 K. We also note that we have used a maximum of $P = 64$ images for all temperatures. Therefore we expect to see significant differences between our virial coefficient values for Model 1 and the corresponding reference values for $T \le 50 K$.
-            
+
             Similarly, we have for Model 2 \cite{Garberoglio2012}:
             \begin{equation}
             \label{eq:s2P}
@@ -55,7 +55,7 @@ According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to 
                     \label{fig:r0}
                 \end{figure}
                 In Fig. \ref{fig:r0} we show our $B_2$ values and the reference values for Model 1 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 50 K$ where our results using $P = 64$ images are sufficient to achieve convergence according to Eq. \eqref{eq:s1P}. For $T \le 50 K$, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values, and the magnitude of this deviation decreases with increasing $P$ and/or $T$. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s1P}.
-                
+
                 \begin{figure}[!htbp]
                     \centering
                     \includegraphics[scale=0.20,keepaspectratio]{Chapter-4/Figures/s1GoodwinAll.png}
@@ -156,9 +156,9 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
                     \caption{Fully quantum second virial coefficient ($B_2$) values compared against reference values \cite{Garberoglio2014}, for Model 3. Main figure is the difference between the values computed here and the reference values, while the inset shows the coefficients before differencing. The value of the number of path-integral beads is $P$, and the results for different $P$ are as indicated in the legend. Error bars represent one standard deviation of the mean (68\% confidence interval). Low-temperature values for $P = 8$ and 16 are off the bottom of the scale.}
                     \label{fig:variable}
                 \end{figure}
-                
-                In Fig. \ref{fig:variable} we show our $B_2$ values and the reference values for Model 3 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 100 K$ where our results using $P = 64$ images are sufficient enough to achieve convergence according to Eq. \eqref{eq:s3P}. For $T \le 100 K$, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values and the magnitude of this deviation decreases with increasing $P$ and/or $T$ and vice-versa. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s3P}.
-                
+
+                In Fig. \ref{fig:variable} we show our $B_2$ values and the reference values for Model 3 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 100 K$ where our results using $P = 64$ images are sufficient enough to achieve convergence according to Eq. \eqref{eq:s3P}. For $T \le 100 K$, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values and the magnitude of this deviation decreases with increasing $P$ and/or $T$ and vice-versa. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s3P}. The $P = 128$ and $256$ results show that upon systematically increasing the number of images, our values seem to approach the reference values.
+
             \subsubsection{Orientation algorithm performance}
                 \begin{figure}[!htbp]
                     \centering
@@ -182,3 +182,24 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
     \section{Conclusions}
         \label{sec:Conclusions and future work}
         We have demonstrated the algorithms developed in Secs. \ref{subsec:orMove} and \ref{subsec:blMove} by computing and comparing second virial coefficients for H$_2$ as a test case. We observed good agreement of our results with those available in literature for the three different cases explained in sec. \ref{sec:Computational details}. For lower temperatures ($T \le 100 K$), we concluded that a greater number of images $P$ were required to achieve results in better agreement with literature. We emphasize that the failure to converge using insufficient $P$ is an artifact of quantum mechanics and not the orientation sampling algorithm. Although such an analysis was not attempted for the case of the bond length trial for the test case of H$_2$, we suspect that these might become necessary in the future for other molecules, where the performance of the bond length sampling algorithm might not be considered satisfactory. Based on our observation, the orientation move always performs better than the bond length move and the presence of the bond length move always decreases the performance of the orientation move.
+
+    \section{Tabulated Results}
+    \label{sec:chap4-tables}
+        We report tabulated results for primarily the virial coefficients of hydrogen and other related quantities in this section.
+        \begin{table}
+            \caption{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using Fig. 2 in Ref \cite{Garberoglio2014}}
+            \label{table:ratioxcB}
+            \begin{center}
+                \pgfplotstabletypeset[
+                    columns/0/.style={
+                        column name={Temperature (\si{\kelvin})}
+                    },
+                    columns/1/.style={
+                        sci zerofill,
+                        column name=Ratio ($Q_1^\text{xc}/Q_1^\text{B}$)
+                    },
+                    every head row/.style={before row=\hline, after row=\hline}, 
+                    every last row/.style={after row=\hline}
+                ]{Chapter-4/Tables/xcBRatioFittedGarberoglioT.dat}
+            \end{center}
+        \end{table}
