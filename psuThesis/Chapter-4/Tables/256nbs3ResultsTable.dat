@@ -1,0 +1,4 @@
+temperature	 b2xc	 b2b	 b2tot
+Temperature(\si{\kelvin})	 B$^\text{xc}_2$(\si{cm^3/mol})	 B$^\text{B}_2$(\si{cm^3/mol})	 B$^\text{Tot}_2$(\si{cm^3/mol})
+15.00	 -216.0(8)	 -215.5(8)	 -215.8(6)
+20.00	 -141.8(17)	 -144.9(18)	 -143.3(12)

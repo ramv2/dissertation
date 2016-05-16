@@ -72,3 +72,264 @@
     \section{Conclusions}
     \label{sec:conclusion}
         We have calculated fully quantum virial coefficients for nitrogen dimers by explicitly including nuclear quantum effects via PIMC method. Additionally, we have calculated fully quantum virial coefficients for the nitrogen dimer using PIMC with semi-classical beads, an approach that was recently (cite:helium) introduced. Based on our results, we have concluded that for the purpose of quantum second virial coefficient calculations, the utilization of semi-classical beads does not provide any significant improvement over the classical beads in terms of faster convergence and better precision. We have also employed a new algorithm that we recently (cite:hydrogen) developed to sample orientations of diatomic molecules, in all our PIMC calculations. We have compared our PIMC results against the most accurate data available in literature and found excellent agreement. As a result of this work, the validity and robustness of the orientation sampling algorithm have been successfully tested.
+
+    \section{Tabulated Results}
+    \label{sec:chap5-tables}
+        We report tabulated results for the virial coefficients of nitrogen in this section.
+        \pgfplotstableset{
+            begin table=\begin{longtable},
+            end table=\end{longtable},
+        }
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2sc/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            columns/b3sca/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scna/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3sctot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Second and third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH})and the non-additive three body potential of Hellmann\cite{Hellmann2013}. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:9sSCResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/9sSCResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb8/.style={
+                string type,
+                column name=B$^{8}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb16/.style={
+                string type,
+                column name=B$^{16}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb32/.style={
+                string type,
+                column name=B$^{32}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb64/.style={
+                string type,
+                column name=B$^{64}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of nitrogen as a function of temperature using PIMC method and CB based approach. Here B$^P_2$ represents the second virial coefficient results using $P$ beads or images per ring. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8sB2PICBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/8sB2PICBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2scb8/.style={
+                string type,
+                column name=B$^{8}_2$(\si{cm^3/mol})
+            },
+            columns/b2scb16/.style={
+                string type,
+                column name=B$^{16}_2$(\si{cm^3/mol})
+            },
+            columns/b2scb32/.style={
+                string type,
+                column name=B$^{32}_2$(\si{cm^3/mol})
+            },
+            columns/b2scb64/.style={
+                string type,
+                column name=B$^{64}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of nitrogen as a function of temperature using PIMC method and SCB based approach. Here B$^P_2$ represents the second virial coefficient results using $P$ beads or images per ring. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8sB2PISCBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/8sB2PISCBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3cb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 8 and CB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8nb8sPICBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/8nb8sB3PICBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3cb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 16 and CB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:16nb8sPICBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/16nb8sB3PICBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3cb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 32 and CB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:32nb8sPICBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/32nb8sB3PICBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3cb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3cb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 64 and CB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:64nb8sPICBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/64nb8sB3PICBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3scb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 8 and SCB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8nb7sPISCBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/8nb7sB3PISCBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3scb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 16 and SCB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:16nb7sPISCBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/16nb7sB3PISCBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3scb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 32 and SCB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:32nb7sPISCBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/32nb7sB3PISCBResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b3scb8a/.style={
+                string type,
+                column name=B$^\text{A}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8na/.style={
+                string type,
+                column name=B$^\text{NA}_3$(\si{cm^6/mol^2})
+            },
+            columns/b3scb8tot/.style={
+                string type,
+                column name=B$^\text{Tot}_3$(\si{cm^6/mol^2})
+            },
+            every head row/.append style={before row={\caption{Third virial coefficients of nitrogen as a function of temperature using the semi-classical QFH effective potential (Eq. \eqref{eq:QFH}), the non-additive three body potential of Hellmann\cite{Hellmann2013}, PIMC method with $P$ = 64 and SCB approach. B$^\text{A}_3$ and B$^\text{NA}_3$ represent the additive and non-additive contributions respectively, to the third virial coefficient. B$^\text{Tot}_3$ represents the full third virial coefficient value obtained by summing the additive and non-additive contributions. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:64nb7sPISCBResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-5/Tables/64nb7sB3PISCBResultsTable.dat}

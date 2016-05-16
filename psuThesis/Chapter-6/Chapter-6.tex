@@ -5,6 +5,7 @@
 \section{Computational details}
     The \abinitio{} potentials for the different spin multiplicities (s = 0, 1 and 2) and using different levels of theory i.e. MRCI and PT2 were due to Bartolomei et al. \cite{Bartolomei2010}. As we can see, we have 6 different potential surfaces that were reported. The full dimer virial coefficients are obtained for each level of theory by combining the individual spin virial coefficient value according to the formula \cite{Aquilanti1999,Bartolomei2010}:
     \begin{equation}
+        \label{eq:o2combination}
         B_2 = \frac{B_2^0 + 3 B_2^1 + 5 B_2^2}{9}.
     \end{equation}
     where $B_2^s$ represents the second virial coefficient value computed using the appropriate potential based on the level of theory and the spin multiplicity $s$.
@@ -35,3 +36,218 @@
 
     \section{Conclusions}
         We have calculated fully quantum second virial coefficients for the oxygen dimer based on recent \abinitio{} \\PESs{} due to Bartolomei et al. \cite{Bartolomei2010}. We have implemented our orientation sampling algorithm in PIMC calculations. We observed good agreement with most accurate semi-classical values available in literature. These results add further confidence on the capabilities of the algorithm in combination with PIMC to predict accurate quantum virial coefficients.
+    
+    \section{Tabulated Results}
+    \label{sec:chap6-tables}
+        We report tabulated results for the virial coefficients of oxygen in this section.
+        \pgfplotstableset{
+            begin table=\begin{longtable},
+            end table=\end{longtable},
+        }
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 8 and MRCI potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using MRCI potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s8nbMRCIpotPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s8nbMRCIpotPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 16 and MRCI potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using MRCI potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s16nbMRCIpotPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s16nbMRCIpotPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 32 and MRCI potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using MRCI potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s32nbMRCIpotPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s32nbMRCIpotPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 64 and MRCI potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using MRCI potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s64nbMRCIpotPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s64nbMRCIpotPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 8 and PT2 potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using PT2 potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s8nbPT2potPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s8nbPT2potPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 16 and PT2 potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using PT2 potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s16nbPT2potPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s16nbPT2potPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 32 and PT2 potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using PT2 potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s32nbPT2potPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s32nbPT2potPIResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2cb0/.style={
+                string type,
+                column name=B$^{0}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb1/.style={
+                string type,
+                column name=B$^{1}_2$(\si{cm^3/mol})
+            },
+            columns/b2cb2/.style={
+                string type,
+                column name=B$^{2}_2$(\si{cm^3/mol})
+            },
+            columns/b2cbtot/.style={
+                string type,
+                column name=B$_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of oxygen as a function of temperature using PIMC method with $P$ = 64 and PT2 potential of Bartolomei et al.\cite{Bartolomei2010}. Here B$^s_2$ represents the second virial coefficients evaluated using PT2 potential with multiplicity $s$. B$_2$ represents the final value obtained according to Eq. \eqref{eq:o2combination}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:7s64nbPT2potPIResults}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-6/Tables/7s64nbPT2potPIResultsTable.dat}

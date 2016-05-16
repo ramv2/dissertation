@@ -196,38 +196,323 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
         sci generic={mantissa sep=\times,exponent={10^{#1}}}
         }
         \pgfplotstabletypeset[
-            columns/0/.style={
-                fixed,
-                zerofill,
-                precision=2,
-                column name={Temperature (\si{\kelvin})}
-            },
-            columns/1/.style={
-                zerofill,
-                precision=5,
-                column name=Ratio ($Q_1^\text{xc}/Q_1^\text{B}$)
-            },
-            every head row/.append style={before row={\caption{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using the values in Fig. 2 of Ref \cite{Garberoglio2014} that were fitted to different temperatures.}\\\toprule}, after row=\endfirsthead, before row={\caption[]{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using the values in Fig. 2 of Ref \cite{Garberoglio2014} that were fitted to different temperatures.}\\\toprule},after row=\midrule\endhead},
-            every last row/.style={after row=\bottomrule},
-        ]{Chapter-4/Tables/xcBRatioFittedAllT.dat}
-        
-		\pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
-                column name={Temperature (\si{\kelvin})}
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/ratio/.style={
+                string type,
+                column name=Ratio($Q_1^\text{xc}/Q_1^\text{B}$)
+            },
+            every head row/.append style={before row={\caption{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using the values in Fig. 2 of Ref \cite{Garberoglio2014} that were fitted to different temperatures.}\label{tab:xcBRatios}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/xcBRatios.e}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
             },
             columns/b2xc/.style={
                 string type,
-                column name=B$^\text{xc}_2$ (\si{cm^3/mol})
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
             },
             columns/b2b/.style={
                 string type,
-                column name=B$^\text{B}_2$ (\si{cm^3/mol})
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
             },
             columns/b2tot/.style={
                 string type,
-                column name=B$^\text{Tot}_2$ (\si{cm^3/mol})
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
             },
-            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 case and Model 1. Columns 2 and 3 represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. Column 4 represents the final value computed by combining the values in columns 2 and 3 according to the ratio from Table . Values in parantheses are standard uncertainties in the rightmost digit(s).}\\\toprule}, after row=\endfirsthead, before row={\caption[]{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 case and Model 1. Columns 2 and 3 represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. Column 4 represents the final value computed by combining the values in columns 2 and 3 according to the ratio from Table. Values in parantheses are standard uncertainties in the rightmost digit(s).}\\\toprule},after row=\midrule\endhead},
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 and Model 1. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8nbs1Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/8nbs1ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 16 and Model 1. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:16nbs1Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/16nbs1ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 32 and Model 1. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:32nbs1Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/32nbs1ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 64 and Model 1. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:64nbs1Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/64nbs1ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 and Model 2. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8nbs2Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/8nbs2ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 16 and Model 2. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:16nbs2Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/16nbs2ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 32 and Model 2. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:32nbs2Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/32nbs2ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 64 and Model 2. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:64nbs2Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/64nbs2ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:8nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/8nbs3ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 16 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:16nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/16nbs3ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 32 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:32nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/32nbs3ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 64 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:64nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/64nbs3ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 128 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:128nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/128nbs3ResultsTable.dat}
+        
+        \pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature(\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$(\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$(\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$(\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 256 and Model 3. B$_2^\text{xc}$ and B$^\text{B}_2$ represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. B$^\text{Tot}_2$ represents the final value for any temperature computed by combining the exchange and Boltzmann contributions according to the corresponding ratio from Table \ref{tab:xcBRatios}. Values in parantheses are standard uncertainties in the rightmost digit(s).}\label{tab:256nbs3Results}\\\toprule},after row=\midrule\endfirsthead},
+            every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/256nbs3ResultsTable.dat}
