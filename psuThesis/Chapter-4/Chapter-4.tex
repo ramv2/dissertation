@@ -186,20 +186,48 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
     \section{Tabulated Results}
     \label{sec:chap4-tables}
         We report tabulated results for primarily the virial coefficients of hydrogen and other related quantities in this section.
-        \begin{table}
-            \caption{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using Fig. 2 in Ref \cite{Garberoglio2014}}
-            \label{table:ratioxcB}
-            \begin{center}
-                \pgfplotstabletypeset[
-                    columns/0/.style={
-                        column name={Temperature (\si{\kelvin})}
-                    },
-                    columns/1/.style={
-                        sci zerofill,
-                        column name=Ratio ($Q_1^\text{xc}/Q_1^\text{B}$)
-                    },
-                    every head row/.style={before row=\hline, after row=\hline}, 
-                    every last row/.style={after row=\hline}
-                ]{Chapter-4/Tables/xcBRatioFittedGarberoglioT.dat}
-            \end{center}
-        \end{table}
+        \pgfplotstableset{
+            begin table=\begin{longtable},
+            end table=\end{longtable},
+        }
+        \pgfkeys{
+        /pgf/number format/.cd,
+        sci,
+        sci generic={mantissa sep=\times,exponent={10^{#1}}}
+        }
+        \pgfplotstabletypeset[
+            columns/0/.style={
+                fixed,
+                zerofill,
+                precision=2,
+                column name={Temperature (\si{\kelvin})}
+            },
+            columns/1/.style={
+                zerofill,
+                precision=5,
+                column name=Ratio ($Q_1^\text{xc}/Q_1^\text{B}$)
+            },
+            every head row/.append style={before row={\caption{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using the values in Fig. 2 of Ref \cite{Garberoglio2014} that were fitted to different temperatures.}\\\toprule}, after row=\endfirsthead, before row={\caption[]{Ratio of the partition function for exchange and Boltzmann type conformations used in virial coefficient calculations. These ratios were obtained using the values in Fig. 2 of Ref \cite{Garberoglio2014} that were fitted to different temperatures.}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/xcBRatioFittedAllT.dat}
+        
+		\pgfplotstabletypeset[
+            columns/temperature/.style={
+                string type,
+                column name={Temperature (\si{\kelvin})}
+            },
+            columns/b2xc/.style={
+                string type,
+                column name=B$^\text{xc}_2$ (\si{cm^3/mol})
+            },
+            columns/b2b/.style={
+                string type,
+                column name=B$^\text{B}_2$ (\si{cm^3/mol})
+            },
+            columns/b2tot/.style={
+                string type,
+                column name=B$^\text{Tot}_2$ (\si{cm^3/mol})
+            },
+            every head row/.append style={before row={\caption{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 case and Model 1. Columns 2 and 3 represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. Column 4 represents the final value computed by combining the values in columns 2 and 3 according to the ratio from Table . Values in parantheses are standard uncertainties in the rightmost digit(s).}\\\toprule}, after row=\endfirsthead, before row={\caption[]{Second virial coefficient of hydrogen as a function of temperature for $P$ = 8 case and Model 1. Columns 2 and 3 represent the exchange and Boltzmann contributions respectively, to the second virial coefficient. Column 4 represents the final value computed by combining the values in columns 2 and 3 according to the ratio from Table. Values in parantheses are standard uncertainties in the rightmost digit(s).}\\\toprule},after row=\midrule\endhead},
+            every last row/.style={after row=\bottomrule},
+        ]{Chapter-4/Tables/8nbs1ResultsTable.dat}
