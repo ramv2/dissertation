@@ -11,7 +11,7 @@
             U_2^{\rm QFH} = U_2^H + \displaystyle\frac{\hbar^2 \beta}{24 m} \Big[ \pmb{\nabla}^2 U_2^H + \frac{2}{r} \pmb{\nabla} U_2^H \Big].
         \end{equation}
 
-        This was done based on some preliminary calculations that we carried out where we failed to observe any significant improvement in the precision of the results while using the semi-classical TI version of $U_2^H$ (which was done by Hellmann). Therefore we expect significant differences while comparing our virial coefficient values for the semi-classical calculations against Hellmann's, especially at low temperatures. We have performed PIMC calculations using $P$ = 8, 16, 32 and 64 classical images for each of the temperatures reported by Hellmann and collected $10^8$ configuration samples each. Apart from the translation of the dimer, we also include MC trials to regrow the ring by translating the beads (see Sec. \ref{subsec:orMove}) and our recently developed orientation algorithm (cite:hydrogen) (explained in Sec. \ref{subsec:orMove}). We have performed PIMC calculations using semi-classical images and also the exact same conditions as PIMC with classical beads that are mentioned above. We note that for this calculation, we employed the TI propagator (Eq. \eqref{eq:TI}).
+        This was done based on some preliminary calculations that we carried out where we failed to observe any significant improvement in the precision of the results while using the semi-classical TI version of $U_2^H$ (which was done by Hellmann). Therefore we expect significant differences while comparing our virial coefficient values for the semi-classical calculations against Hellmann's, especially at low temperatures. We have performed PIMC calculations using $P$ = 8, 16, 32 and 64 classical images for each of the temperatures reported by Hellmann and collected $10^8$ configuration samples each. Apart from the translation of the dimer, we also include MC trials to regrow the ring by translating the beads (see Sec. \ref{subsec:orMove}) and our recently developed orientation algorithm \cite{hydrogen} (explained in Sec. \ref{subsec:orMove}). We have performed PIMC calculations using semi-classical images and also the exact same conditions as PIMC with classical beads that are mentioned above. We note that for this calculation, we employed the TI propagator (Eq. \eqref{eq:TI}).
 
     \subsection{Third virial coefficients}
         We repeated all the calculations under the same conditions (except the semi-classical additive as well as non-additive calculations for which we used $10^8$ configuration samples as opposed to $10^9$ for the second virial coefficient case) that were explained in Sec. \ref{subsubsec:b2n2} for computing the additive as well as non-additive contributions to the third virial coefficients. Note that we employed the non-additive 3-body potential that was also reported by Hellmann \cite{Hellmann2013} to compute the non-additive contributions. Also, we performed the semi-classical additive as well as non-additive simulations using the same QFH version of $U_2^H$ as in Eq. \eqref{eq:QFH}. We note that all the third virial coefficient simulations were performed at a set of 90 temperatures considered by Hellmann.
@@ -33,7 +33,7 @@
             \caption{Semi-classical second virial coefficient ($B_2$) values compared against Hellmann's values \cite{Hellmann2013}. Error bars are drawn at $\mu \pm \sigma$ where $\mu$ is the mean value and $\sigma$ is the standard error. It should be noted however, that the 95\% confidence interval is given by $\mu \pm 2\sigma$.}
             \label{fig:B2SCN2}
         \end{figure}
-        From Fig. \ref{fig:B2SCN2} and the argument made in Sec. \ref{subsubsec:b2n2}, we can clearly see that our semi-classical results are in excellent agreement with Hellmann's for temperatures $T \ge 100K$. The deviation observed for lower temperatures can be explained by the use of a different semi-classical form of the intermolecular function, i.e., whereas we have used the semi-classical QFH version (Eq. \eqref{eq:QFH}) , Hellmann used the semi-classical TI version (Eq. \eqref{eq:TI}) of the \abinitio{} potential. From Fig. \ref{fig:B2SCN2} one can also make the observation that the semi-classical QFH and the TI versions of the \abinitio{} PES produce similar results until about $T = 100K$ where we start noticing significant deviations.
+        From Fig. \ref{fig:B2SCN2} and the argument made in Sec. \ref{subsubsec:b2n2}, we can clearly see that our semi-classical results are in excellent agreement with Hellmann's for temperatures $T \ge 100$K. The deviation observed for lower temperatures can be explained by the use of a different semi-classical form of the intermolecular function, i.e., whereas we have used the semi-classical QFH version (Eq. \eqref{eq:QFH}) , Hellmann used the semi-classical TI version (Eq. \eqref{eq:TI}) of the \abinitio{} potential. From Fig. \ref{fig:B2SCN2} one can also make the observation that the semi-classical QFH and the TI versions of the \abinitio{} PES produce similar results until about $T = 100$K where we start noticing significant deviations.
 
         In Fig. \ref{fig:B2AllDiffPICB} we plot the differences between the quantum virial coefficient values computed using classical beads and the case of semi-classical beads with $P$ = 64. Under the reasonable assumption that the PI-SCB approach with $P$ = 64 yields the most accurate value, we compare the values computed using PI-CB approaches for different $P$. From Fig. \ref{fig:B2AllDiffPICB}, we can see that there is not much noticeable improvement for the PI-SCB approach over the PI-CB approaches, suggesting that for the purpose quantum virial calculations, we need not resort to PI-SCB approaches.
         \begin{figure}[!htbp]
@@ -59,8 +59,8 @@
             \label{fig:B3SCN2}
         \end{figure}
 
-        From Fig. \ref{fig:B3CLN2}, we see that our classical $B_3$ results agree quite well with Hellmann's for the entire range of temperatures considered (except a few outliers). The standard error of our results seem to be decreasing with increasing temperature and this is to be expected because any system approaches classical behavior at high enough temperatures. From Fig. \ref{fig:B3SCN2}, we can see that there is quite a bit of deviation of our semi-classical results from Hellmann's corresponding results for $T \le 300K$. As explained earlier, this might be attributed to the use of a different semi-classical form of the \abinitio{} potential. It can also be seen that the deviations become less significant for $T > 300K$. 
-        
+        From Fig. \ref{fig:B3CLN2}, we see that our classical $B_3$ results agree quite well with Hellmann's for the entire range of temperatures considered (except a few outliers). The standard error of our results seem to be decreasing with increasing temperature and this is to be expected because any system approaches classical behavior at high enough temperatures. From Fig. \ref{fig:B3SCN2}, we can see that there is quite a bit of deviation of our semi-classical results from Hellmann's corresponding results for $T \le 300$K. As explained earlier, this might be attributed to the use of a different semi-classical form of the \abinitio{} potential. It can also be seen that the deviations become less significant for $T > 300$K.
+
         In Fig. \ref{fig:B3AllDiffPICB} we plot the differences between the quantum virial coefficient values computed using classical beads and the case of semi-classical beads with $P$ = 64. Under the reasonable assumption that the PI-SCB approach with $P$ = 64 yields the most accurate value, we compare the values computed using PI-CB approaches for different $P$. From Fig. \ref{fig:B3AllDiffPICB}, we can see that there is not much noticeable improvement for the PI-SCB approach over the PI-CB approaches, suggesting that for the purpose quantum virial calculations, we need not resort to PI-SCB approaches.
         \begin{figure}[!htbp]
             \centering
@@ -68,10 +68,10 @@
             \caption{Difference between second virial coefficients computed with PI using CB approaches and PI using SCB approach with $P$ = 64 images.}
             \label{fig:B3AllDiffPICB}
         \end{figure}
-    
+
     \section{Conclusions}
     \label{sec:conclusion}
-        We have calculated fully quantum virial coefficients for nitrogen dimers by explicitly including nuclear quantum effects via PIMC method. Additionally, we have calculated fully quantum virial coefficients for the nitrogen dimer using PIMC with semi-classical beads, an approach that was recently (cite:helium) introduced. Based on our results, we have concluded that for the purpose of quantum second virial coefficient calculations, the utilization of semi-classical beads does not provide any significant improvement over the classical beads in terms of faster convergence and better precision. We have also employed a new algorithm that we recently (cite:hydrogen) developed to sample orientations of diatomic molecules, in all our PIMC calculations. We have compared our PIMC results against the most accurate data available in literature and found excellent agreement. As a result of this work, the validity and robustness of the orientation sampling algorithm have been successfully tested.
+        We have calculated fully quantum virial coefficients for nitrogen dimers by explicitly including nuclear quantum effects via PIMC method. Additionally, we have calculated fully quantum virial coefficients for the nitrogen dimer using PIMC with semi-classical beads, an approach that was recently \cite{Fomms2016} introduced. Based on our results, we have concluded that for the purpose of quantum second virial coefficient calculations, the utilization of semi-classical beads does not provide any significant improvement over the classical beads in terms of faster convergence and better precision. We have also employed a new algorithm that we recently \cite{hydrogen} developed to sample orientations of diatomic molecules, in all our PIMC calculations. We have compared our PIMC results against the most accurate data available in literature and found excellent agreement. As a result of this work, the validity and robustness of the orientation sampling algorithm have been successfully tested.
 
     \section{Tabulated Results}
     \label{sec:chap5-tables}
@@ -105,7 +105,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/9sSCResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -131,7 +131,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/8sB2PICBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -157,7 +157,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/8sB2PISCBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -179,7 +179,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/8nb8sB3PICBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -201,7 +201,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/16nb8sB3PICBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -223,7 +223,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/32nb8sB3PICBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -245,7 +245,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/64nb8sB3PICBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -267,7 +267,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/8nb7sB3PISCBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -289,7 +289,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/16nb7sB3PISCBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -311,7 +311,7 @@
             every first row/.append style={before row={\multicolumn{4}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-5/Tables/32nb7sB3PISCBResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,

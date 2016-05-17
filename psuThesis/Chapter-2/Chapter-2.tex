@@ -33,6 +33,8 @@
 
         Note that in Eq. \eqref{eq:MSMCworking}, ${<\gamma/\pi>}_\pi$ and ${<\gamma_{os}/\pi>}_\pi$ are called the target average and target-overlap average respectively. The corresponding terms for the reference system are called the reference average and the reference-overlap average respectively. In all MSMC simulations and for each system, molecule 0 always remains fixed at the origin and all MC trials generate configurations of the other molecules present in the system. A short equilibration simulation is performed at the beginning to determine $\alpha$ (Eq. \eqref{eq:MSMCworking}) and to adjust MC move step sizes so that the acceptance of all the MC moves is 50\%. Irrespective of their number, all MC moves are chosen with equal probability for both the systems within the simulation. After the equilibration period, we start collecting values of the reference, target, reference-overlap and target-overlap averages. The total number of configuration samples is divided into blocks of 1000 samples each. We compute averages of these four quantities and their standard deviation for each block. We then combine the averages across all blocks and use standard error formulas to estimate the overall value along with its standard deviations. The final values of virial coefficients and their standard deviations reported throughout this work are then obtained by using the reference, target, reference-overlap and target-overlap averages computed as mentioned above, Eq. \eqref{eq:MSMCworking} and simple error propagation formulas.
 
+        Note: All simulations in this work were performed using MSMC and Etomica \cite{Schultz2015Etomica} package to compute virial coefficients.
+
 \section{Path Integrals}
     \subsection{Introduction}
     In this section we introduce the formalism developed by Richard Feynman \cite{Feynman} which provides guidelines for accounting nuclear quantum effects in quantum mechanical calculations. We do not attempt a fully rigorous mathematical re-derivation here but rather highlight some of they key aspects and formulas (from Feynman's book \cite{Feynman}) which are useful for the purpose of quantum virial coefficient calculations. For further details, the interested reader may refer Refs. \cite{Fosdick:1966vh,Ceperley1995,Muser1996,Marx1999,Cui1997,Diep2000,Patkowski2008}. Primarily, the purpose of this section is to establish a relationship between the thermal density matrix which is derived from statistical mechanics and the kernel of the wave function derived from the \Schrodinger{} equation. Thus creating the important link between microscopic states and macroscopic observables.
@@ -78,7 +80,7 @@
                 & \qquad K[i+1,i] \ldots K[1,a]\,dx_1\,dx_2\ldots dx_{N-1}
             \end{aligned}
         \end{equation}
-        
+
         \subsubsection{Kernel of the Wave Function}
             Assume that the amplitude to arrive at any point $b = (x,t)$ irrespective of the starting point $a$, to be given by $\psi (x,t)$. It can be shown that $\psi (x,t)$ also has the same probability characteristics as the kernel, i.e., $P = |\psi (x,t)|^2$ and we call $\psi (x,t)$ the wave function. Based on this definition, we could compute the wavefunction exactly at any future point if we know its exact value at any time $t$.
 
@@ -106,7 +108,7 @@
                     Z &= \displaystyle\sum\limits_n e^{-\beta E_n}.
                 \end{aligned}
             \end{equation}
-            
+
             Suppose 'A' is some property of interest, its mean value in the $n^{th}$ energy state and the corresponding statistical average for the whole system are computed as:
             \begin{equation}
                 \begin{aligned}
@@ -116,7 +118,7 @@
             \end{equation}
             where $\Gamma$ denotes the configuration space and integral over $\Gamma$, the configurational integral.
 
-            If the system exists in a single state defined by the wavefunction $\phi_n(x)$, the probability of observing it and the expectation value can be calculated as: 
+            If the system exists in a single state defined by the wavefunction $\phi_n(x)$, the probability of observing it and the expectation value can be calculated as:
             \begin{equation}
                 \label{eq:prob stat mech}
                 \begin{aligned}
@@ -130,7 +132,7 @@
                 \label{eq:rho stat mech}
                 \rho(x',x) = \displaystyle \sum\limits_n \phi_n(x') \phi_n^*(x) e^{-\beta E_n}
             \end{equation}
-            
+
             From Eqs. \eqref{eq:prob stat mech} and \eqref{eq:rho stat mech}, we can write down the expression for the partition function $Z$ as:
             \begin{equation}
                 \begin{aligned}
@@ -139,13 +141,13 @@
                 \end{aligned}
             \end{equation}
             where $\rho(x',x)$ is called the statistical thermal density matrix at temperature T.
-            
+
             Comparing the expressions for the kernel (Eq. \eqref{eq:kpsi}) and the density matrix (Eq. \eqref{eq:rho stat mech}), we see that if we replace `$t_b - t_a$' of Eq. \eqref{eq:kpsi} with `$-i \beta \hbar$' , the resulting expressions are identical. Therefore we can write:
             \begin{equation}
                 \rho (x_b, x_a; \tau) = \displaystyle \int exp \left\{ - \frac{1}{\hbar} \: \int_0^{\tau} \left[ \frac{m}{2} {\dot{x}(u)}^2 + V(x(u)) \right] du \right\} \mc{D}x(u)
             \end{equation}
-            where $\tau = \beta \hbar$, has units of time and this led to the often used expression `imaginary-time' path integrals. 
-            
+            where $\tau = \beta \hbar$, has units of time and this led to the often used expression `imaginary-time' path integrals.
+
     \subsection{Path Integral Monte Carlo}
         The thermal density matrix $\rho$ plays a key role in Feynman's imaginary-time PI formalism and its application in Monte Carlo (MC) algorithms to compute physical properties of interest. In position space, it is given by \cite{Feynman,Ceperley1995,Cui1997}:
         \begin{equation}\label{eq:rho}
@@ -213,7 +215,7 @@
                 \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|) \right] \right>_F
             \end{equation}
             where $<\cdots>_F$ denotes the ensemble average over ring polymer conformations $\mbf{\Delta}$ sampled according to the distribution $F$ (Eq. \eqref{eq:fRingDiatomic}).
-            
+
             The fully quantum second virial coefficient based on $\bar{U} (r)$ (Eq. \eqref{eq:uBarMonatomic}), for a monatomic molecule is given by:
             \begin{equation}
             \label{eq:b2Monatomic}
@@ -249,7 +251,7 @@
         Janke and Sauer~\cite{Janke1992} showed that by adopting a slightly modified version of the Trotter formula (Eq.~\eqref{eq:trotter}), they could systematically decrease the variance of the propagator. By decomposing the Hamiltonian to include more and more components of the kinetic- and potential-energy operators, they observed that the variance of the propagator improved.
 
         Suzuki \cite{Suzuki1995} suggested new schemes for the exponential product formulas along with a basic theorem for a generalized decomposition that results in the propagator having error of the order $O(1/P^4)$. Yamamoto \cite{Yamamoto2005} showed that using a finite-difference based approach (instead of computing derivatives involved with the use of TI and Suzuki propagators) helped improve the variance further.
-        
+
         Apart from the propagators mentioned above, statistical estimators of the total energy with low variances have also been developed. We mention them here in passing without going into too much detail. The Barker or the thermodynamic estimator\cite{Barker1979} ($\epsilon_T$) is obtained by the direct differentiation of the partition function with temperature. It can be easily derived starting from a Hamiltonian of the form given in Eq. \eqref{eq:h} and is given as:
         \begin{equation}\label{eT}
             \begin{aligned}
@@ -278,7 +280,7 @@
             \includegraphics[scale=0.087,keepaspectratio]{quantumLevels.png}
             \caption{Different levels of ``quantumness'' of a $B_2$ calculation going from classical virial coefficients that are calculated assuming point masses to fully quantum virial coefficients with semi-classical beads. The different sphere sizes here are for illustrative purposes only and no quantitative inference should be made.} \label{quantumness}
         \end{figure}
-        
+
         We summarize here the equations pertaining to PIMC calculations with semi-classical beads (SCB) based approach using the TI propagator.
         The fully quantum second virial coefficient expression using SCB-TI approach is given by:
         \begin{equation}
@@ -372,7 +374,7 @@
         \end{equation}
         where `$o$' and `$n$' denote the old and new configurations respectively.
 
-        Notice that the above equation follows directly from detailed balance. The target distribution $\pi$ can be imagined to be a state function, dependent only on the initial($o$) and final($n$) states(configurations) of the system. The probability of a configuration $\tau$, can be imagined to be a path function, dependent on the algorithm of choice. Although one might be tempted to consider it as a state function for a stand-alone MC trial, $\tau$ is more appropriately, the transition probability of the system for the old and new configurations. Finally, this subtle difference is the reason why we need not worry about normalizing $\pi$ but much care should be taken for the proper normalization of $\tau$ for efficient sampling. This will be particularly important for the fully flexible calculations where both the orientation and bond length trials are allowed. 
+        Notice that the above equation follows directly from detailed balance. The target distribution $\pi$ can be imagined to be a state function, dependent only on the initial($o$) and final($n$) states(configurations) of the system. The probability of a configuration $\tau$, can be imagined to be a path function, dependent on the algorithm of choice. Although one might be tempted to consider it as a state function for a stand-alone MC trial, $\tau$ is more appropriately, the transition probability of the system for the old and new configurations. Finally, this subtle difference is the reason why we need not worry about normalizing $\pi$ but much care should be taken for the proper normalization of $\tau$ for efficient sampling. This will be particularly important for the fully flexible calculations where both the orientation and bond length trials are allowed.
 
         We next describe an algorithm to generate configurations according to an approximate distribution $\tilde\pi(\mbf{b}^{(\sigma)})$. We do this first for the case of a rigid diatomic, with atoms separated by a fixed bond length, and then develop the approach for the case of a fully flexible diatomic.
     \subsection{Orientation Sampling Algorithm}
@@ -485,14 +487,14 @@ This effective interaction (as manifest via $\psi_{i,k}$) obviously is not a sim
 k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
 &\approx \frac{k_h}{2}    {\hspace{0.3in}} (P \gg 1)\nonumber
 \end{align}
-The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process. 
+The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process.
 
 We summarize the bisection algorithm for choosing the image orientations as follows: (1) orient the first image by selecting a point randomly on a sphere; for the Boltzmann case, this represents the first and last image in the ring; for exchange, the last image would be directed opposite to this one; (2) using a value of $k_h$ for $P = 2$, place the next image by sampling as described by Eq.~\ref{eq:alpha} with $\psi_{i,k} = 0$ (Boltzmann) or $\psi_{i,k} = \pi$ (exchange); (3) double $k_h$ and place two more images between the ones set by steps (1) and (2), sampling according to Eq.~\ref{eq:alpha}; (4) repeat the process of doubling $k_h$ and inserting image orientations between the ones placed in the previous steps, until all image orientations are set. The resulting configuration is generated with probability density:
         \begin{equation}
         \label{eq:piTilde}
             \begin{aligned}
                 \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}) \\
-                \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &= 
+                \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &=
                 \begin{cases}
                     \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
                     \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi\\
@@ -502,7 +504,7 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         where $\tilde \pi$ is the normalized version of $\pi^\text{adj}$ (see Sec. \ref{Appendix C} for further details) and $\kappa$ is as defined in Eq. \eqref{eq:alpha}.
 
             It is straightforward to see that the ratio of the approximate and actual probability distribution of $\alpha$ will differ from unity the most for the first step, and gradually improve until the last step, where the two probabilities are equal (given the placement of the other orientations) . The overall percentage of moves accepted will be related to the product of such ratios. Hence, it can be clearly seen that the performance of the algorithm will decrease with increasing $P$ (the accuracy of the result is however unaffected by this).
-    
+
     \subsection{Bond Length Sampling Algorithm}
     \label{subsec:blMove}
         The method we use to generate configurations for flexible diatomics builds on the scheme described above for rigid molecules. In one type of MC trial, we generate the orientations of the images using the algorithm described above, leaving the bond lengths unchanged. However, that orientation-sampling method is developed assuming all bond lengths are equal, but in the case of flexible molecules, they of course differ. We examined different schemes to handle flexibility within the orientation move. The method we use is to average the bond lengths of images $i$ through $k$ before each orientation move and use this value for image $j$ when setting the new orientation. Although we generate orientations assuming a common bond length for images $i$ through $k$, none of the image bond-lengths are changed by the trial.

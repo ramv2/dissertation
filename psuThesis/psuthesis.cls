@@ -802,6 +802,13 @@ The following page is the Signature Page. The Signature Page needs to be given t
 \pagenumbering{arabic}
 }
 
+\iffalse
+\newcommand{\thesispublications}[1]{%
+\pagestyle{plain}
+\chapter{List of Publications}
+\input{#1}
+}
+\fi
 
 \renewcommand{\contentsname}{Table of Contents}
 \setcounter{secnumdepth}{10}
@@ -869,6 +876,7 @@ The following page is the Signature Page. The Signature Page needs to be given t
 %\addcontentsline{toc}{chapter}{Acknowledgments}
 \input{#1}
 }
+
 
 \newcommand{\thesisdedication}[2]{%
 %\addcontentsline{toc}{chapter}{Dedication}

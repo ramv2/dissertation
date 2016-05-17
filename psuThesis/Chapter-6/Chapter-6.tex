@@ -10,33 +10,33 @@
     \end{equation}
     where $B_2^s$ represents the second virial coefficient value computed using the appropriate potential based on the level of theory and the spin multiplicity $s$.
 
-    We have performed classical and PIMC virial coefficient simulations at both levels of theory, all the spin multiplicities and set of 15 temperatures reported. For each type of classical simulation, we have collected $10^8$ configuration samples that were generated using two types of MC trials 1) translation and 2) rotation of the dimer. The PIMC simulations involved $P$ = 8, 16, 32 and 64 images for each condition mentioned above and we collected $10^7$ configuration samples per PIMC simulation. Apart from the translation of the dimer, we also include MC trials to regrow the ring by translating the beads (see Sec. \ref{subsec:orMove}) and our recently developed orientation algorithm (cite:hydrogen) (explained in Sec. \ref{subsec:orMove}).
+    We have performed classical and PIMC virial coefficient simulations at both levels of theory, all the spin multiplicities and set of 15 temperatures reported. For each type of classical simulation, we have collected $10^8$ configuration samples that were generated using two types of MC trials 1) translation and 2) rotation of the dimer. The PIMC simulations involved $P$ = 8, 16, 32 and 64 images for each condition mentioned above and we collected $10^7$ configuration samples per PIMC simulation. Apart from the translation of the dimer, we also include MC trials to regrow the ring by translating the beads (see Sec. \ref{subsec:orMove}) and our recently developed orientation algorithm \cite{hydrogen} (explained in Sec. \ref{subsec:orMove}).
 
     To avoid nonphysical values of the intermolecular energy for oxygen dimers, an artificial hard core with a diameter of 4.5 Bohr was used in all virial coefficient calculations. All the oxygen MSMC simulations involved a Hard Sphere reference with a diameter of 4.5 \AA.
 \section{Results and discussion}
-    We have computed classical as well as quantum virial coefficients using PIMC with $P$ = 8, 16, 32 and 64 images for both the MRCI and the PT2 \PESs{}. In general, our classical and PIMC results agree well with those of Bartolomei et al. \cite{Bartolomei2010} for the, albeit small range of, temperatures considered. In Fig. \ref{fig:B2O2AllDiffMRCI} we plot the difference between various second virial coefficient values and our most accurate PIMC results ($P$ = 64), for the MRCI \PESs{}, as a function of temperature. Note that the range of the $y$-axis was chosen to highlight the differences over the whole range of temperatures considered and as a result we did not include some data points (whose $B_2$ value was lesser than -5 cm$^3$ mol$^{-1}$), especially for low temperatures. 
+    We have computed classical as well as quantum virial coefficients using PIMC with $P$ = 8, 16, 32 and 64 images for both the MRCI and the PT2 \PESs{}. In general, our classical and PIMC results agree well with those of Bartolomei et al. \cite{Bartolomei2010} for the range of temperatures considered. In Fig. \ref{fig:B2O2AllExpDiffMRCI} we plot the difference between various second virial coefficient values calculated using the MRCI \PESs{} and experimental results, as a function of temperature.
     \begin{figure}[!htbp]
         \centering
-        \includegraphics[scale=0.20,keepaspectratio]{Chapter-6/Figures/B2O2AllDiffMRCI.png}
-        \caption{Difference between various second virial coefficient ($B_2$) values compared against our most accurate PIMC results ($P$ = 64). Experimental results are from Refs. \cite{Bartolomei2010,Dymond}; SC - MRCI and SC - Perugia are from semi-classical results of Bartolomei et al. \cite{Bartolomei2010} by using the MRCI and Perugia \PESs{} \cite{Aquilanti1999} respectively; CL - MRCI and PI - MRCI are our classical and PIMC results respectively using the MRCI \PESs{}.}
-        \label{fig:B2O2AllDiffMRCI}
+        \includegraphics[scale=0.20,keepaspectratio]{Chapter-6/Figures/B2O2AllExpDiffMRCI.png}
+        \caption{Difference between various second virial coefficient ($B_2$) values of oxygen computed using the MRCI \PESs{} and experimental results reported in Refs. \cite{Bartolomei2010,Dymond}. SC - MRCI and SC - Perugia represent semi-classical results of Bartolomei et al. \cite{Bartolomei2010} by using the MRCI and Perugia \PESs{} \cite{Aquilanti1999} respectively; CL - MRCI and PI - MRCI are our classical and PIMC results respectively.}
+        \label{fig:B2O2AllExpDiffMRCI}
     \end{figure}
 
-    From Fig. \ref{fig:B2O2AllDiffMRCI}, it can be seen that the semi-classical MRCI calculations performed by Bartolomei et al. \cite{Bartolomei2010} agrees with our PIMC calculations for the same \PESs{}, better than other semi-classical or classical calculations. Additionally, our PIMC calculations have converged for almost all temperatures investigated. Also, the experimental and the SC-Perugia values deviate the largest. For SC-Perugia calculations, this can be explained by the fact that their values are outdated and also because the use of different \PESs{} than ours. Finally, we can see that our classical values start to deviate significantly from the PIMC results for temperatures $T \le 200K$.
-    
-    In Fig. \ref{fig:B2O2AllDiffPT2} we plot the difference between various second virial coefficient values and our most accurate PIMC results ($P$ = 64), for the PT2 \PESs{}, as a function of temperature. Note that the range of the $y$-axis was chosen to highlight the differences over the whole range of temperatures considered and as a result we did not include some data points (whose $B_2$ value was lesser than -5 cm$^3$ mol$^{-1}$), especially for low temperatures. 
+    From Fig. \ref{fig:B2O2AllExpDiffMRCI}, it can be seen that the semi-classical MRCI calculations performed by Bartolomei et al. \cite{Bartolomei2010} agrees with our PIMC calculations for the same \PESs{}, better than other semi-classical or classical calculations. We observe significant deviations from the experimental results even at temperatures as high as 400K. This can be attributed to the quality of the MRCI potential. We note that Bartolomei et al. \cite{Bartolomei2010} achieved better agreement with experiments after modifying isotropic parameters of the spherical harmonic function to match those of the Perugia group \cite{Aquilanti1999}. These modified parameters were however, not used by us and hence, the cause of such large deviations at temperatures lower than 400K. Also, we observe that our classical results using the MRCI \PESs{} start to deviate from our corresponding $P$ = 64 results using PIMC for temperatures $T \le 200$K and the semi-classical results of Bartolomei et al. \cite{Bartolomei2010} agree well with all our PIMC results for the temperatures $T > 250$K. This suggests quantum effects are well accounted for by the semi-classical calculations using the MRCI \PESs{} for $T > 200$K and we need to investigate lower temperatures in order to notice a significant difference between the semi-classical treatment and PIMC method.
+
+    In Fig. \ref{fig:B2O2AllExpDiffPT2} we plot the difference between various second virial coefficient values calculated using the PT2 \PESs{} and experimental results, as a function of temperature.
     \begin{figure}[!htbp]
         \centering
-        \includegraphics[scale=0.20,keepaspectratio]{Chapter-6/Figures/B2O2AllDiffPT2.png}
-        \caption{Difference between various second virial coefficient ($B_2$) values compared against our most accurate PIMC results ($P$ = 64). Experimental results are from Refs. \cite{Bartolomei2010,Dymond}; SC - PT2 and SC - Perugia are from semi-classical results of Bartolomei et al. \cite{Bartolomei2010} by using the PT2 and Perugia \PESs{} \cite{Aquilanti1999} respectively; CL - PT2 and PI - PT2 are our classical and PIMC results respectively using the PT2 \PESs{}.}
-        \label{fig:B2O2AllDiffPT2}
+        \includegraphics[scale=0.20,keepaspectratio]{Chapter-6/Figures/B2O2AllExpDiffPT2.png}
+        \caption{Difference between various second virial coefficient ($B_2$) values of oxygen computed using the PT2 \PESs{} and experimental results reported in Refs. \cite{Bartolomei2010,Dymond}. SC - PT2 and SC - Perugia represent the semi-classical results of Bartolomei et al. \cite{Bartolomei2010} by using the PT2 and Perugia \PESs{} \cite{Aquilanti1999} respectively; CL - PT2 and PI - PT2 are our classical and PIMC results respectively.}
+        \label{fig:B2O2AllExpDiffPT2}
     \end{figure}
 
-    From Fig. \ref{fig:B2O2AllDiffPT2}, we observe a trend very similar to that of Fig. \ref{fig:B2O2AllDiffMRCI}. Here too, it can be seen that the semi-classical PT2 calculations performed by Bartolomei et al. \cite{Bartolomei2010} agrees with our PIMC calculations for the same \PESs{}, better than other semi-classical or classical calculations. Our PIMC calculations have converged for all temperatures investigated. Also, the experimental and the SC-Perugia values deviate the largest. For SC-Perugia calculations, this can be explained by the fact that their values are outdated and also because the use of different \PESs{} than ours. Finally, we can see that our classical values start to deviate significantly from the PIMC results for temperatures $T \le 300K$.
+    From Fig. \ref{fig:B2O2AllExpDiffPT2}, we observe a trend very similar to that of Fig. \ref{fig:B2O2AllExpDiffMRCI}. Here too, it can be seen that the semi-classical PT2 calculations performed by Bartolomei et al. \cite{Bartolomei2010} agrees with our PIMC calculations for the same \PESs{}, better than other semi-classical or classical calculations. The deviations observed from experimental results can be explained by the achievement of better agreement by Bartolomei et al. \cite{Bartolomei2010} with experiments upon modification of certain terms of their PT2 \PESs{}. Also, we observe that our classical results using the PT2 \PESs{} start to deviate from our corresponding $P$ = 64 results using PIMC for temperatures $T \le 275$K and the semi-classical results of Bartolomei et al. \cite{Bartolomei2010} agree with all our PIMC results for the temperatures considered. This suggests quantum effects are well accounted for by the semi-classical calculations using the PT2 \PESs{} for the temperatures considered and we need to investigate lower temperatures in order to notice a significant difference between the semi-classical treatment and PIMC method. We note that the agreement of the Perugia PES is consistently better than the MRCI or PT2 \PESs{}. This suggests that we might achieve more accurate results by the use of the Perugia \cite{Aquilanti1999} PES.
 
     \section{Conclusions}
-        We have calculated fully quantum second virial coefficients for the oxygen dimer based on recent \abinitio{} \\PESs{} due to Bartolomei et al. \cite{Bartolomei2010}. We have implemented our orientation sampling algorithm in PIMC calculations. We observed good agreement with most accurate semi-classical values available in literature. These results add further confidence on the capabilities of the algorithm in combination with PIMC to predict accurate quantum virial coefficients.
-    
+        We have calculated fully quantum second virial coefficients for the oxygen dimer based on recent \abinitio{} \PESs{} due to Bartolomei et al. \cite{Bartolomei2010}. We have implemented the orientation sampling algorithm that was recently developed \cite{hydrogen} in PIMC calculations. We observed good agreement with most accurate semi-classical values available in literature. These results add further confidence on the capabilities of the algorithm in combination with PIMC to predict accurate quantum virial coefficients. The agreement with experimental results was found to be poor for PIMC results using both the MRCI and PT2 \PESs{}. This was attributed to inaccuracies in the reported \PESs{}. Quantum effects were found to be significant for $T \le 200$K using the MRCI potential whereas the semi-classical calculations of Bartolomei et al. \cite{Bartolomei2010} using the PT2 \PESs{} were found to be sufficient for all temperatures considered.
+
     \section{Tabulated Results}
     \label{sec:chap6-tables}
         We report tabulated results for the virial coefficients of oxygen in this section.
@@ -69,7 +69,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s8nbMRCIpotPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -95,7 +95,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s16nbMRCIpotPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -121,7 +121,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s32nbMRCIpotPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -147,7 +147,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s64nbMRCIpotPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -173,7 +173,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s8nbPT2potPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -199,7 +199,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s16nbPT2potPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -225,7 +225,7 @@
             every first row/.append style={before row={\multicolumn{5}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-6/Tables/7s32nbPT2potPIResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,

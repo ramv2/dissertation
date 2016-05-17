@@ -124,6 +124,8 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{colortbl}
+%\usepackage{bibentry}
+%\makeatletter\let\saved@bibitem\@bibitem\makeatother
 \usepackage{siunitx}
 %\def\citeapos#1{\citeauthor{#1}'s \citeyear{#1}}
 \newenvironment{my_enumerate}
@@ -163,6 +165,7 @@
     linkcolor=black,
     citecolor=blue,
 }
+%\makeatletter\let\@bibitem\saved@bibitem\makeatother
 %
 % Note that you should also uncomment the following line:
 \renewcommand{\theHchapter}{\thepart.\thechapter}
@@ -324,6 +327,10 @@ Appendix-B/Appendix-B%
 % Generates the List of Figures
 \thesislistoffigures
 
+% Generates the List of Publications. The argument should point to
+% the file containing your List of Publications.
+%\thesispublications{SupplementaryMaterial/Publications}
+
 % Generates the List of Symbols. The argument should point to
 % the file containing your List of Symbols.
 %\thesislistofsymbols{SupplementaryMaterial/ListOfSymbols}
@@ -331,7 +338,6 @@ Appendix-B/Appendix-B%
 % Generates the abstract. The argument should point to the
 % file containing your abstract.
 \thesisabstract{SupplementaryMaterial/Abstract}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This command is needed to get the main part of the %

@@ -23,7 +23,7 @@
 
         Mayer sampling Monte Carlo was used to sample the intermolecular distance, while the direct methods described above were used to sample path-integral image position, orientations and (where appropriate) bond lengths. These different MC moves were chosen with equal probability within each simulation. We ran simulations at 33 temperatures going from $T =$ 15 K $\to$ 2000 K to compare our results for the three models against Garberoglio et al.\cite{Garberoglio2014}. We ran additional simulations at 53 temperatures going from $T =$ 16 K $\to$ 423.15 K for which experimental $B_2$ values were reported in Goodwin et al.\cite{Goodwin1963}. Although the $B_2$ values in \cite{Garberoglio2014} were calculated after choosing $P$ as a function of $T$, we ran calculations for $P = 8, 16, 32$ and $64$ for all temperatures considered because we wanted to assess the performance of the algorithms. For each value of $P$, we used a total of $10^7$ samples to evaluate the virial coefficient using the MSMC\cite{Singh2004} method. We divide the $10^7$ samples into $10^4$ blocks of $10^3$ samples each and compute block averages for the different quantities prescribed by MSMC. Using the $10^4$ block-averages, we calculate the overall averages and their standard error, and use error propagation formulas to arrive at the final uncertainties (reported here) of the virial coefficients. A reference hard sphere diameter of 3{\AA} was used for all simulations.
 
-        Note that all simulations performed for the conditions mentioned above, were to compute the Boltzmann contribution to the virial coefficient using only Boltzmann-type configuration samples. Additionally, we also performed simulations, for each of the cases mentioned above, to compute the exchange contribution to the virial coefficient using only exchange-type configuration samples. We combine the two contributions according to their ratio as given in Fig. 2 of Garberoglio et al. \cite{Garberoglio2014} to compute the final virial coefficient values reported here. Since the ratio was zero for $T > 225$K, suggesting that exchange contributions were negligible at higher temperatures, we evaluated the exchange contributions only for temperatures $T \le 225K$. In addition, we ran simulations for $P = 128$ for $T \le 100K$ and $P = 256$ for $T = 15K, 20K$ for the Boltzmann as well as exchange cases for Model 3.
+        Note that all simulations performed for the conditions mentioned above, were to compute the Boltzmann contribution to the virial coefficient using only Boltzmann-type configuration samples. Additionally, we also performed simulations, for each of the cases mentioned above, to compute the exchange contribution to the virial coefficient using only exchange-type configuration samples. We combine the two contributions according to their ratio as given in Fig. 2 of Garberoglio et al. \cite{Garberoglio2014} to compute the final virial coefficient values reported here. Since the ratio was zero for $T > 225$K, suggesting that exchange contributions were negligible at higher temperatures, we evaluated the exchange contributions only for temperatures $T \le 225$K. In addition, we ran simulations for $P = 128$ for $T \le 100$K and $P = 256$ for $T = 15K, 20$K for the Boltzmann as well as exchange cases for Model 3.
 
     \section{Results and discussion}
     \label{sec:Results and discussion}
@@ -37,7 +37,7 @@
             \label{eq:s1P}
                 P = 3600 \textrm{K}/T
             \end{equation}
-According to Eq. \eqref{eq:s1P} the temperature at which we require $P > 64$ to achieve converged results for Model 1 is 50 K. We also note that we have used a maximum of $P = 64$ images for all temperatures. Therefore we expect to see significant differences between our virial coefficient values for Model 1 and the corresponding reference values for $T \le 50 K$.
+According to Eq. \eqref{eq:s1P} the temperature at which we require $P > 64$ to achieve converged results for Model 1 is 50 K. We also note that we have used a maximum of $P = 64$ images for all temperatures. Therefore we expect to see significant differences between our virial coefficient values for Model 1 and the corresponding reference values for $T \le 50 $K.
 
             Similarly, we have for Model 2 \cite{Garberoglio2012}:
             \begin{equation}
@@ -45,7 +45,7 @@ According to Eq. \eqref{eq:s1P} the temperature at which we require $P > 64$ to 
                 P = \lceil 2500 \textrm{K}/T + 7 \rceil
             \end{equation}
             where $\lceil x \rceil$ denotes the smallest integer larger than $x$.
-According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to achieve converged results for Model 2 is 40 K. Therefore we expect to see significant differences between our virial coefficient values for Model 2 and the corresponding reference values for $T \le 40 K$. Although for a given temperature $T$, Eqs. \eqref{eq:s1P} and \eqref{eq:s2P} provide a good estimate of $P$ required for achieving converged results, in practice, one might be able to achieve convergence with fewer $P$ as well.
+According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to achieve converged results for Model 2 is 40 K. Therefore we expect to see significant differences between our virial coefficient values for Model 2 and the corresponding reference values for $T \le 40 $K. Although for a given temperature $T$, Eqs. \eqref{eq:s1P} and \eqref{eq:s2P} provide a good estimate of $P$ required for achieving converged results, in practice, one might be able to achieve convergence with fewer $P$ as well.
 
             \subsubsection{$B_2$ values}
                 \begin{figure}[!htbp]
@@ -54,7 +54,7 @@ According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to 
                     \caption{Fully quantum second virial coefficient ($B_2$) values compared against reference values \cite{Garberoglio2014}, for Model 1. Main figure is the difference between the values computed here and the reference values, while the inset shows the coefficients before differencing. The value of the number of path-integral beads is $P$, and the results for different $P$ are as indicated in the legend. Error bars represent one standard deviation of the mean (68\% confidence interval). Low-temperature values for $P = 8$ and 16 are off the bottom of the scale.}
                     \label{fig:r0}
                 \end{figure}
-                In Fig. \ref{fig:r0} we show our $B_2$ values and the reference values for Model 1 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 50 K$ where our results using $P = 64$ images are sufficient to achieve convergence according to Eq. \eqref{eq:s1P}. For $T \le 50 K$, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values, and the magnitude of this deviation decreases with increasing $P$ and/or $T$. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s1P}.
+                In Fig. \ref{fig:r0} we show our $B_2$ values and the reference values for Model 1 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 50 $K where our results using $P = 64$ images are sufficient to achieve convergence according to Eq. \eqref{eq:s1P}. For $T \le 50 $K, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values, and the magnitude of this deviation decreases with increasing $P$ and/or $T$. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s1P}.
 
                 \begin{figure}[!htbp]
                     \centering
@@ -62,7 +62,7 @@ According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to 
                     \caption{Same as Fig. \ref{fig:r0}, but with comparison made to experimental data of Goodwin et al.\cite{Goodwin1963} rather than computed values from \cite{Garberoglio2014}. Low-temperature values for $P = 8$ and 16 are off the bottom of the scale.}
                     \label{fig:r0Goodwin}
                 \end{figure}
-                In Fig. \ref{fig:r0Goodwin} we compare our $B_2$ values for Model 1 against experimental results of Goodwin et al.\cite{Goodwin1963}. We observe particularly good agreement in two ranges of temperatures, $24 K \le T \le 50 K$ and $ 248.15 K \le T \le 423.15 K$, and significant deviations for other temperatures. Since we expect our results to have not converged for $T \le 50 K$, we consider the agreement in the range $24 K \le T \le 50 K$ to be fortuitous. At the higher temperature range where our results are converged according to Eq. \eqref{eq:s1P}, the agreement is of course expected. One possible reason for the disagreement observed at higher temperatures could be due to poor quality of the function fitted to experimental data at these temperatures. The disagreement observed at lower temperatures can be attributed to calculations involving insufficient $P$.
+                In Fig. \ref{fig:r0Goodwin} we compare our $B_2$ values for Model 1 against experimental results of Goodwin et al.\cite{Goodwin1963}. We observe particularly good agreement in two ranges of temperatures, $24 K \le T \le 50 $K and $ 248.15 K \le T \le 423.15 $K, and significant deviations for other temperatures. Since we expect our results to have not converged for $T \le 50 $K, we consider the agreement in the range $24 K \le T \le 50 $K to be fortuitous. At the higher temperature range where our results are converged according to Eq. \eqref{eq:s1P}, the agreement is of course expected. One possible reason for the disagreement observed at higher temperatures could be due to poor quality of the function fitted to experimental data at these temperatures. The disagreement observed at lower temperatures can be attributed to calculations involving insufficient $P$.
 
                 \begin{figure}[!htbp]
                     \centering
@@ -147,7 +147,7 @@ According to Eq. \eqref{eq:s2P} the temperature at which we require $P > 64$ to 
                 P = \lceil 7000 K/T + 8 \rceil
             \end{equation}
             where $\lceil x \rceil$ denotes the smallest integer larger than $x$.
-According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to achieve converged results for Model 3 is 100 K. Therefore we expect to see significant differences between our virial coefficient values for Model 3 and the corresponding reference values for $T \le 100 K$. Although for a given temperature $T$, Eq. \eqref{eq:s3P} provides a good estimate of $P$ required for achieving converged results, in practice, one might be able to achieve convergence with fewer $P$ as well.
+According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to achieve converged results for Model 3 is 100 K. Therefore we expect to see significant differences between our virial coefficient values for Model 3 and the corresponding reference values for $T \le 100 $K. Although for a given temperature $T$, Eq. \eqref{eq:s3P} provides a good estimate of $P$ required for achieving converged results, in practice, one might be able to achieve convergence with fewer $P$ as well.
 
             \subsubsection{$B_2$ values}
                 \begin{figure}[!htbp]
@@ -157,7 +157,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
                     \label{fig:variable}
                 \end{figure}
 
-                In Fig. \ref{fig:variable} we show our $B_2$ values and the reference values for Model 3 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 100 K$ where our results using $P = 64$ images are sufficient enough to achieve convergence according to Eq. \eqref{eq:s3P}. For $T \le 100 K$, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values and the magnitude of this deviation decreases with increasing $P$ and/or $T$ and vice-versa. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s3P}. The $P = 128$ and $256$ results show that upon systematically increasing the number of images, our values seem to approach the reference values.
+                In Fig. \ref{fig:variable} we show our $B_2$ values and the reference values for Model 3 as a function of temperature. It can be seen that the agreement between reference values and our results is generally good over the wide range of temperatures considered (15 K to 2000 K). The agreement is particularly good for $T > 100 $K where our results using $P = 64$ images are sufficient enough to achieve convergence according to Eq. \eqref{eq:s3P}. For $T \le 100 $K, we observe statistically significant disagreement between our results (for all $P$ considered) and reference values and the magnitude of this deviation decreases with increasing $P$ and/or $T$ and vice-versa. As explained earlier, this behavior is expected because the number of images we use is not sufficient for convergence according to Eq. \eqref{eq:s3P}. The $P = 128$ and $256$ results show that upon systematically increasing the number of images, our values seem to approach the reference values.
 
             \subsubsection{Orientation algorithm performance}
                 \begin{figure}[!htbp]
@@ -181,7 +181,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
 
     \section{Conclusions}
         \label{sec:Conclusions and future work}
-        We have demonstrated the algorithms developed in Secs. \ref{subsec:orMove} and \ref{subsec:blMove} by computing and comparing second virial coefficients for H$_2$ as a test case. We observed good agreement of our results with those available in literature for the three different cases explained in sec. \ref{sec:Computational details}. For lower temperatures ($T \le 100 K$), we concluded that a greater number of images $P$ were required to achieve results in better agreement with literature. We emphasize that the failure to converge using insufficient $P$ is an artifact of quantum mechanics and not the orientation sampling algorithm. Although such an analysis was not attempted for the case of the bond length trial for the test case of H$_2$, we suspect that these might become necessary in the future for other molecules, where the performance of the bond length sampling algorithm might not be considered satisfactory. Based on our observation, the orientation move always performs better than the bond length move and the presence of the bond length move always decreases the performance of the orientation move.
+        We have demonstrated the algorithms developed in Secs. \ref{subsec:orMove} and \ref{subsec:blMove} by computing and comparing second virial coefficients for H$_2$ as a test case. We observed good agreement of our results with those available in literature for the three different cases explained in sec. \ref{sec:Computational details}. For lower temperatures ($T \le 100 $K), we concluded that a greater number of images $P$ were required to achieve results in better agreement with literature. We emphasize that the failure to converge using insufficient $P$ is an artifact of quantum mechanics and not the orientation sampling algorithm. Although such an analysis was not attempted for the case of the bond length trial for the test case of H$_2$, we suspect that these might become necessary in the future for other molecules, where the performance of the bond length sampling algorithm might not be considered satisfactory. Based on our observation, the orientation move always performs better than the bond length move and the presence of the bond length move always decreases the performance of the orientation move.
 
     \section{Tabulated Results}
     \label{sec:chap4-tables}
@@ -208,7 +208,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/xcBRatios.e}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -230,7 +230,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/8nbs1ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -252,7 +252,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/16nbs1ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -274,7 +274,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/32nbs1ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -296,7 +296,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/64nbs1ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -318,7 +318,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/8nbs2ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -340,7 +340,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/16nbs2ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -362,7 +362,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/32nbs2ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -384,7 +384,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/64nbs2ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -406,7 +406,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/8nbs3ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -428,7 +428,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/16nbs3ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -450,7 +450,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/32nbs3ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -472,7 +472,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/64nbs3ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
@@ -494,7 +494,7 @@ According to Eq. \eqref{eq:s3P} the temperature at which we require $P > 64$ to 
             every first row/.append style={before row={\multicolumn{2}{c}{\tablename\ \thetable{} -- Continued from previous page.}\\\toprule},after row=\midrule\endhead},
             every last row/.style={after row=\bottomrule},
         ]{Chapter-4/Tables/128nbs3ResultsTable.dat}
-        
+
         \pgfplotstabletypeset[
             columns/temperature/.style={
                 string type,
