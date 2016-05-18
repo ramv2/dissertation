@@ -12,8 +12,8 @@
     \begin{equation}
         \label{eq:MSMCworking}
         \begin{aligned}
-            \Gamma (T) &= \Gamma_o \frac{{<\gamma/\pi>}_\pi / {<\gamma_{os}/\pi>}_\pi}{{<\gamma_o/\pi>}_{\pi_o} / {<\gamma_{os}/\pi_o>}_{\pi_o}}\\
-            \gamma_{os} &= \frac{|\gamma_o||\gamma|}{\alpha |\gamma_o| + |\gamma|}
+            \Gamma (T) &= \Gamma_o \frac{{<\gamma/\pi>}_\pi / {<\gamma_{os}/\pi>}_\pi}{{<\gamma_o/\pi>}_{\pi_o} / {<\gamma_{os}/\pi_o>}_{\pi_o}},\\
+            \gamma_{os} &= \frac{|\gamma_o||\gamma|}{\alpha |\gamma_o| + |\gamma|},
         \end{aligned}
     \end{equation}
     where $\Gamma (T)$ is the target integral, $\gamma$ is the target integrand, $\pi$ is the sampling weight of the target integrand, the subscript `$o$' denotes the corresponding quantities for the reference integral and integrands respectively, $\alpha$ is Bennett's \cite{Bennett1976} optimization parameter, and angular brackets $<\ldots>$ represent ensemble-averages.
@@ -27,7 +27,7 @@
         A typical MSMC simulation consists of two types of systems `target' and `reference'. Configurations are generated via MC trials for each system and are accepted/rejected with a probability $P_{\text{acc}}$:
         \begin{equation}
             \label{eq:MCacceptance}
-            P_{\text{acc}} = \text{Min} \left(1, \displaystyle\frac{\pi^{\text{new}}}{\pi^{\text{old}}} \right)
+            P_{\text{acc}} = \text{Min} \left(1, \displaystyle\frac{\pi^{\text{new}}}{\pi^{\text{old}}} \right),
         \end{equation}
         where $\pi$ is the sampling weight for that particular system, superscripts old and new are used to denote the old and new configurations respectively.
 
@@ -56,7 +56,7 @@
             \begin{aligned}
                 \phi(x,t) &= \text{const.} e^{iS[x(t)]/\hbar},\\
                 \Rightarrow K[b,a] &= \displaystyle\sum\limits_{\text{all paths}} \phi[x(t)],\\
-                P(b,a) &= {|K[b,a]|}^2.
+                P(b,a) &= {|K[b,a]|}^2,
             \end{aligned}
         \end{equation}
         where $K[b,a]$ is the kernel.
@@ -77,7 +77,7 @@
         \begin{equation}
             \begin{aligned}
                 K[b,a] = \int_{x_{N-1}}\,\cdots\,\int_{x_2}\,\int_{x_1} &K[b,N-1]K[N-1,N-2]\,\ldots\\
-                & \qquad K[i+1,i] \ldots K[1,a]\,dx_1\,dx_2\ldots dx_{N-1}
+                & \qquad K[i+1,i] \ldots K[1,a]\,dx_1\,dx_2\ldots dx_{N-1}.
             \end{aligned}
         \end{equation}
 
@@ -96,7 +96,7 @@
             Using orthonormal basis functions to represent $\psi(x,t)$ and given $t_b > t_a$, the kernel is given by:
             \begin{equation}
                 \label{eq:kpsi}
-                K[x_b,t_b;x_a,t_a] = \displaystyle\sum\limits_{n = 1}^\infty \phi_n(x_b){\phi^*_n(x_a)} e^{(-i/\hbar)E_n(t_b - t_a)}
+                K[x_b,t_b;x_a,t_a] = \displaystyle\sum\limits_{n = 1}^\infty \phi_n(x_b){\phi^*_n(x_a)} e^{(-i/\hbar)E_n(t_b - t_a)},
             \end{equation}
             where $\phi^*(x)$ denotes the complex conjugate of the $\phi(x)$ and $E_n$ are the eigenvalues of Eq. \eqref{eq:psi}. It can be shown that the kernel in Eq. \eqref{eq:kpsi} also satisfies the \Schrodinger{} equation.
 
@@ -113,7 +113,7 @@
             \begin{equation}
                 \begin{aligned}
                     A_n &= \displaystyle\int \phi_n^* A \phi_n d\Gamma,\\
-                    \bar{A} &= \displaystyle\sum\limits_n p_n A_n = \frac{1}{Z} \displaystyle\sum\limits_n A_n e^{-\beta E_n}.
+                    \bar{A} &= \displaystyle\sum\limits_n p_n A_n = \frac{1}{Z} \displaystyle\sum\limits_n A_n e^{-\beta E_n},
                 \end{aligned}
             \end{equation}
             where $\Gamma$ denotes the configuration space and integral over $\Gamma$, the configurational integral.
@@ -122,52 +122,52 @@
             \begin{equation}
                 \label{eq:prob stat mech}
                 \begin{aligned}
-                    P(x) &= \displaystyle\sum\limits_n \phi_n^*(x) \phi_n(x) e^{-\beta E_n}\\
-                    \bar{A} &= \displaystyle \frac{1}{Z} \displaystyle\sum\limits_n A_n e^{-\beta E_n} = \frac{1}{Z} \displaystyle\sum\limits_n \int \phi_n^*(x) A \phi_n(x)\: e^{-\beta E_n} dx
+                    P(x) &= \displaystyle\sum\limits_n \phi_n^*(x) \phi_n(x) e^{-\beta E_n},\\
+                    \bar{A} &= \displaystyle \frac{1}{Z} \displaystyle\sum\limits_n A_n e^{-\beta E_n} = \frac{1}{Z} \displaystyle\sum\limits_n \int \phi_n^*(x) A \phi_n(x)\: e^{-\beta E_n} dx.
                 \end{aligned}
             \end{equation}
 
             We can calculate the expected value of any quantity A using if we know the function:
             \begin{equation}
                 \label{eq:rho stat mech}
-                \rho(x',x) = \displaystyle \sum\limits_n \phi_n(x') \phi_n^*(x) e^{-\beta E_n}
+                \rho(x',x) = \displaystyle \sum\limits_n \phi_n(x') \phi_n^*(x) e^{-\beta E_n}.
             \end{equation}
 
             From Eqs. \eqref{eq:prob stat mech} and \eqref{eq:rho stat mech}, we can write down the expression for the partition function $Z$ as:
             \begin{equation}
                 \begin{aligned}
                     P(x) &= \frac{1}{Z} \rho(x,x),\\
-                    Z &= \int \rho(x,x) dx \equiv \text{trace} \{\rho\}.
+                    Z &= \int \rho(x,x) dx \equiv \text{trace} \{\rho\},
                 \end{aligned}
             \end{equation}
             where $\rho(x',x)$ is called the statistical thermal density matrix at temperature T.
 
             Comparing the expressions for the kernel (Eq. \eqref{eq:kpsi}) and the density matrix (Eq. \eqref{eq:rho stat mech}), we see that if we replace `$t_b - t_a$' of Eq. \eqref{eq:kpsi} with `$-i \beta \hbar$' , the resulting expressions are identical. Therefore we can write:
             \begin{equation}
-                \rho (x_b, x_a; \tau) = \displaystyle \int exp \left\{ - \frac{1}{\hbar} \: \int_0^{\tau} \left[ \frac{m}{2} {\dot{x}(u)}^2 + V(x(u)) \right] du \right\} \mc{D}x(u)
+                \rho (x_b, x_a; \tau) = \displaystyle \int exp \left\{ - \frac{1}{\hbar} \: \int_0^{\tau} \left[ \frac{m}{2} {\dot{x}(u)}^2 + V(x(u)) \right] du \right\} \mc{D}x(u),
             \end{equation}
             where $\tau = \beta \hbar$, has units of time and this led to the often used expression `imaginary-time' path integrals.
 
     \subsection{Path Integral Monte Carlo}
         The thermal density matrix $\rho$ plays a key role in Feynman's imaginary-time PI formalism and its application in Monte Carlo (MC) algorithms to compute physical properties of interest. In position space, it is given by \cite{Feynman,Ceperley1995,Cui1997}:
         \begin{equation}\label{eq:rho}
-            \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >
+            \rho (R , R' ; \beta) = < R | e^{- \beta \mc{H} } | R' >,
         \end{equation}
         where $R = \{\bm{r}_1, \bm{r}_2, \ldots \bm{r}_n\}$ and $\beta = 1/k_{\rm B}T$, with $k_{\rm B}$ Boltzmann's constant and $T$ the temperature. A key property of the density matrix is that the product of two density matrices is also a density matrix:
         \begin{equation}\label{eq:dmProduct}
-            \rho (R, R'; \beta_1) \times \rho (R, R'; \beta_2) = \rho (R, R'; \beta_1 + \beta_2)
+            \rho (R, R'; \beta_1) \times \rho (R, R'; \beta_2) = \rho (R, R'; \beta_1 + \beta_2).
         \end{equation}
         This is because any operator (specifically the Hamiltonian operator $\mc{H}$ here) is commutative with any scalar multiple of itself. This exact property allows us to write down the following $(P-1)$-fold convolution:
         \begin{equation}\label{eq:convolution}
-            \rho (R_0, R_P; \beta) = \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \tau) \rho (R_1, R_2; \tau) \ldots \rho (R_{P-1}, R_P; \tau)
+            \rho (R_0, R_P; \beta) = \displaystyle\int \cdots \int dR_1 \, dR_2 \, \ldots \, dR_{P-1} \: \rho (R_0, R_1; \tau) \rho (R_1, R_2; \tau) \ldots \rho (R_{P-1}, R_P; \tau),
         \end{equation}
         where $\tau = \beta/P$. Note that even though the above expression is exact, one needs to make approximations to the thermal density matrix in order to compute the convolution efficiently. The simplest of the approximations is to assume that the kinetic-energy operator ($\mc{T}$) and the potential-energy operator ($\mc{V}$) in the Hamiltonian commute with each other. As $\tau \to 0$ or equivalently as $PT \to \infty$, the ``primitive approximation'' is given by:
         \begin{equation}\label{eq:primitiveApprox}
-            e^{- \tau (\mc{T} + \mc{V})} \approx e^{- \tau \mc{T}} e^{- \tau \mc{V}}
+            e^{- \tau (\mc{T} + \mc{V})} \approx e^{- \tau \mc{T}} e^{- \tau \mc{V}}.
         \end{equation}
         The Trotter formula proves that this approximation does converge to the right result in the $P \to \infty$ limit and is given by:
         \begin{equation}\label{eq:trotter}
-            e^{- \beta (\mc{T} + \mc{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \mc{T}} e^{- \tau \mc{V}} \Big]^P
+            e^{- \beta (\mc{T} + \mc{V})} = \lim_{P \to \infty} \Big[ e^{- \tau \mc{T}} e^{- \tau \mc{V}} \Big]^P.
         \end{equation}
 
         \subsubsection{Fully Quantum Second Virial Coefficients}
@@ -176,15 +176,15 @@
             Let $m$ and $I$ denote the mass of the atom and moment of inertia of the rigid rotor respectively with $\Lambda_m = h/\sqrt{2\pi m k_B T}$. Its Hamiltonian is given by:
             \begin{equation}
             \label{eq:hDiatomic}
-                \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2)
+                \hat{h}_2 = \displaystyle\frac{\hat{\mbf{p}}^2}{2m} + \frac{\hat{\mbf{J}}_1^2}{2I} + \frac{\hat{\mbf{J}}_2^2}{2I} + \hat{U}(r,\Omega_1,\Omega_2),
             \end{equation}
             where $\hat{\mbf{p}}$ is the momentum operator conjugated to the COM separation, $\hat{\mbf{J}}_1$ and $\hat{\mbf{J}}_2$ are the angular momentum operators, $\hat{U}(r,\Omega_1,\Omega_2)$ is the intermolecular potential function in terms of the COM distance $r$ and the orientation vectors $\Omega_1$ and $\Omega_2$.
 
             Note that because the momentum operator is conjugated to the COM separation, we can use the set of vectors $\mbf{x}^i,\mbf{\Omega}_1^i, \mbf{\Omega}_2^i$ to denote the configuration of the two $i^\text{th}$ rigid rotors. Employing the primitive approximation (Eq. \eqref{eq:primitiveApprox}) to the diatomic Hamiltonian and using the Trotter formula \ref{eq:trotter}, we get \cite{Cui1997}:
             \begin{equation}
                 \begin{aligned}
-                    \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \displaystyle\frac{P^{3/2}}{\Lambda_m^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right)\\
-                    \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))\exp \left[-\beta j(j+1) \Upsilon/ P \right]
+                    \left< \mbf{x}^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{p}}^2}{2 m P} \right) \right| \mbf{x}^{i+1} \right> &= \displaystyle\frac{P^{3/2}}{\Lambda_m^3} \exp \left(-\displaystyle\frac{\pi P (\mbf{x}^i - \mbf{x}^{i+1})^2}{\Lambda_m^2}\right),\\
+                    \left< \Omega^i \left| \exp \left(-\displaystyle\frac{\beta \hat{\mbf{J}}^2}{2IP} \right) \right| \Omega^{i+1} \right> &= \displaystyle\sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1}))\exp \left[-\beta j(j+1) \Upsilon/ P \right],
                 \end{aligned}
             \end{equation}
             where $j$ is the angular quantum number, $\theta_{i,i+1}$ is the angle between bead orientation vectors $\Omega_i, \Omega_{i+1}$, $\mc{P}_j$ is the Legendre polynomial of order $j$ and $\Upsilon = \displaystyle\frac{\hbar^2}{2I}$.
@@ -192,34 +192,34 @@
             Defining $\mbf{r} \equiv \mbf{x}^{(1)}, \mbf{\Delta}^{(i)} \equiv \mbf{x}^{(i+1)} - \mbf{x}^{(i)}$ and $\bar{U}$ as:
             \begin{equation}
                 \label{eq:uBarDiatomic}
-                \exp [-\beta \bar{U} (|\mbf{r}|)] = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+                \exp [-\beta \bar{U} (|\mbf{r}|)] = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho},
             \end{equation}
             where $<\cdots>_{F,\varrho}$ denotes the ensemble average over ring polymer conformations $\mbf{\Delta}$ and rotor orientations $\mbf{\Omega}_1$ and $\mbf{\Omega}_2$ sampled according to the distributions $F$ and $\varrho$ defined below:
             \begin{subequations}
                 \begin{align}
-                    F(\mbf{\Delta}) &= \Lambda_m^3 { \left( \frac{P^{3/2}}{\Lambda_m^3} \right)}^P \exp \left( - \frac{\pi P}{\Lambda_m^2} \displaystyle\sum\limits_{i=1}^P {|\mbf{\Delta}^{(i)}|}^2 \right)\label{eq:fRingDiatomic}\\
+                    F(\mbf{\Delta}) &= \Lambda_m^3 { \left( \frac{P^{3/2}}{\Lambda_m^3} \right)}^P \exp \left( - \frac{\pi P}{\Lambda_m^2} \displaystyle\sum\limits_{i=1}^P {|\mbf{\Delta}^{(i)}|}^2 \right)\label{eq:fRingDiatomic},\\
                     \varrho(\mbf{\Omega}) &= \frac{1}{q_{rot}} \displaystyle\prod_{i=1}^P \sum_{j=0}^\infty \frac{2j+1}{4 \pi} \mc{P}_j (cos (\theta_{i,i+1})) \exp \left[-\beta j(j+1) \Upsilon/ P \right],\label{eq:rhoDiatomic}\\
-                    q_{rot} &= \displaystyle\sum_{l} (2l + 1) \exp \left[-\beta \Upsilon l (l+1) \right],\nonumber
+                    q_{rot} &= \displaystyle\sum_{l} (2l + 1) \exp \left[-\beta \Upsilon l (l+1) \right]. \nonumber
                 \end{align}
             \end{subequations}
 
             The fully quantum second virial coefficient based on $\bar{U} (r)$ (Eq. \eqref{eq:uBarDiatomic}), for a diatomic molecule is given by:
             \begin{equation}
             \label{eq:b2Diatomic}
-                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1).
             \end{equation}
 
             To obtain the the expression for the case of the monatomic molecule, we simply ignore all the orientation related terms to obtain:
             \begin{equation}
                 \label{eq:uBarMonatomic}
-                \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|) \right] \right>_F
+                \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P U (|\mbf{x}^i|) \right] \right>_F,
             \end{equation}
             where $<\cdots>_F$ denotes the ensemble average over ring polymer conformations $\mbf{\Delta}$ sampled according to the distribution $F$ (Eq. \eqref{eq:fRingDiatomic}).
 
             The fully quantum second virial coefficient based on $\bar{U} (r)$ (Eq. \eqref{eq:uBarMonatomic}), for a monatomic molecule is given by:
             \begin{equation}
             \label{eq:b2Monatomic}
-                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+                B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1).
             \end{equation}
 
             Note that the distribution $F$ (Eq. \eqref{eq:fRingDiatomic}) for sampling $\mbf{\Delta}$ conformations or equivalently the internal bead positions, is the same for both the diatomic as well as the monatomic cases.
@@ -255,17 +255,17 @@
         Apart from the propagators mentioned above, statistical estimators of the total energy with low variances have also been developed. We mention them here in passing without going into too much detail. The Barker or the thermodynamic estimator\cite{Barker1979} ($\epsilon_T$) is obtained by the direct differentiation of the partition function with temperature. It can be easily derived starting from a Hamiltonian of the form given in Eq. \eqref{eq:h} and is given as:
         \begin{equation}\label{eT}
             \begin{aligned}
-                E(\beta) &= - \displaystyle\frac{1}{Z(\beta)} \frac{\partial Z(\beta)}{\partial \beta} \approx <\epsilon_T>\\
-                \epsilon_T &= \displaystyle\frac{3P}{2\beta} - \frac{mP}{2\hbar^2 \beta^2} \sum\limits_{s=1}^P (x_s - x_{s-1})^2 + \frac{1}{P} \sum\limits_{s=1}^P V(x_s)
+                E(\beta) &= - \displaystyle\frac{1}{Z(\beta)} \frac{\partial Z(\beta)}{\partial \beta} \approx <\epsilon_T>,\\
+                \epsilon_T &= \displaystyle\frac{3P}{2\beta} - \frac{mP}{2\hbar^2 \beta^2} \sum\limits_{s=1}^P (x_s - x_{s-1})^2 + \frac{1}{P} \sum\limits_{s=1}^P V(x_s).
             \end{aligned}
         \end{equation}
 
         The Berne virial estimator\cite{Cao1989} ($\epsilon_V$) is a modification of the Barker estimator that eliminates ill-behaved terms  as $P \to \infty$. $\epsilon_V$ is given as:
         \begin{equation}\label{eV}
             \begin{aligned}
-                \epsilon_V &= \displaystyle\frac{3g}{2\beta} + \frac{1}{P} \sum\limits_{s=1}^P \bigg[ V(x_s) + \frac{1}{2} (x_s - x^*) \frac{\partial V(x_s)}{\partial x_s} \bigg]\\
-                x^* &= 0\: \: \text{or}\:\: x_P \: \:\text{or} \:\: x_C\\
-                g &= 0 ~\text{if}~ x^* = 0~ \text{else}~ g = 1
+                \epsilon_V &= \displaystyle\frac{3g}{2\beta} + \frac{1}{P} \sum\limits_{s=1}^P \bigg[ V(x_s) + \frac{1}{2} (x_s - x^*) \frac{\partial V(x_s)}{\partial x_s} \bigg],\\
+                x^* &= 0\: \: \text{or}\:\: x_P \: \:\text{or} \:\: x_C,\\
+                g &= 0 ~\text{if}~ x^* = 0~ \text{else}~ g = 1,
             \end{aligned}
         \end{equation}
         where $\epsilon_V$ is called the origin-, bead- and centroid-reference virial estimator for $x^* = 0, x_P$ and $x_C$ respectively.
@@ -285,22 +285,22 @@
         The fully quantum second virial coefficient expression using SCB-TI approach is given by:
         \begin{equation}
         \label{eq:b2SCBTI}
-            B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1)
+            B_2 (T) = -2 \pi \displaystyle\int dr~ r^2 (e^{-\beta \bar{U} (r)} - 1),
         \end{equation}
         where $\bar {U} (r)$ is defined for the monatomic case as:
         \begin{equation}
             \label{eq:uBarMonatomicSCBTI}
-            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|) \right] \right>_F
+            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|) \right] \right>_F,
         \end{equation}
         and for the diatomic case as:
         \begin{equation}
             \label{eq:uBarDiatomicSCBTI}
-            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho}
+            \exp [-\beta \bar{U} (|\mbf{r}|) = \left< \exp \left[ -\displaystyle\frac{\beta}{P} \sum_{i=1}^P \mc{V'} (|\mbf{x}^i|,\Omega_1^i,\Omega_2^i) \right] \right>_{F,\varrho},
         \end{equation}
         where
         \begin{equation}
         \tag{\eqref{eq:TIworking} revisited}
-            \mc{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2,
+            \mc{V'} = V (\bm{r}_1, \ldots ,\bm{r}_N) + \frac{\hbar^2}{24m} \bigg(\frac{\beta}{P} \bigg)^2 \displaystyle\sum\limits_{i=1}^N \big|\pmb{\nabla}_i V (\bm{r}_1, \ldots ,\bm{r}_N) \big|^2.
         \end{equation}
 
     \section{Development of Novel Algorithms}
@@ -324,7 +324,7 @@
         $\Pi_\sigma(\mbf{Z}^{(i)})$ is the ideal-gas weight for molecule $i$ in configuration $\mbf{Z}^{(i)}$:
         \begin{equation}
         \label{eq:weight}
-            \Pi _\sigma (\mbf{Z}) = \frac{\delta _{\sigma ,{\rm B}} Q_1^{({\rm B})} P_B (\mbf{Z}) + \delta _{\sigma ,{\rm xc}} Q_1^{({\rm xc})} P_{\rm xc} (\mbf{Z})} { Q_1^{({\rm B})} + Q_1^{({\rm xc})}}
+            \Pi _\sigma (\mbf{Z}) = \frac{\delta _{\sigma ,{\rm B}} Q_1^{({\rm B})} P_B (\mbf{Z}) + \delta _{\sigma ,{\rm xc}} Q_1^{({\rm xc})} P_{\rm xc} (\mbf{Z})} { Q_1^{({\rm B})} + Q_1^{({\rm xc})}}.
         \end{equation}
         The subscript $\sigma$ indicates whether the beads are in a Boltzmann (``B'') or exchange (``xc'') conformation; intermolecular exchange is neglected. Whereas in Ref. \citenum{Garberoglio2014} the atom positions were represented by their respective Cartesian coordinates, in the present work we represent them in terms of their $P$ molecule centers $\mbf{R}$ and $P$ atom-separation vectors $\mbf{b}$, such that the positions of the two atoms on molecule $i$ are $\mbf{R}_i+\mbf{b}_i/2$ and $\mbf{R}_i-\mbf{b}_i/2$, respectively; thus, $\mbf{Z} = (\mbf{R},\mbf{b})$.
 
@@ -333,29 +333,29 @@
         In Eq.~\ref{eq:weight}, ${P_\sigma}(\mbf{Z})$ is the probability of configuration $\mbf{Z}$ given that the ring is in a Boltzmann or exchange arrangement, respectively:
         \begin{equation}
         \label{eq:PIProb}
-            P_\sigma (\mbf{Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F(\mbf{R};2m) F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}
+            P_\sigma (\mbf{Z}) = \frac{1}{Q_1^{{\rm (\sigma)}}} F(\mbf{R};2m) F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})},
         \end{equation}
         where $F$ is the path-integral weight, and $\bar u$ is the intramolecular potential energy averaged over all images:
         \begin{equation}
             \begin{aligned}
-                F(\mbf{x};m) &= \left( \frac{P^{3/2}} {\Lambda _m^3} \right)^P \exp \left[ - \frac{\pi P}{\Lambda _m^2}\sum\limits_{i = 0}^{P-1} \left| \mbf{x}_{i + 1} - \mbf{x}_i \right|^2 \right]\\
-                &\bar u(\mbf{b}) = \frac{1}{P}\sum\limits_{i=0}^{P-1} {u\left(b_i \right)} \nonumber\\
-                &\Lambda_m=\frac{h}{\sqrt{2\pi m k_{\rm B}T}}\nonumber
+                F(\mbf{x};m) &= \left( \frac{P^{3/2}} {\Lambda _m^3} \right)^P \exp \left[ - \frac{\pi P}{\Lambda _m^2}\sum\limits_{i = 0}^{P-1} \left| \mbf{x}_{i + 1} - \mbf{x}_i \right|^2 \right],\\
+                &\bar u(\mbf{b}) = \frac{1}{P}\sum\limits_{i=0}^{P-1} {u\left(b_i \right)}, \nonumber\\
+                &\Lambda_m=\frac{h}{\sqrt{2\pi m k_{\rm B}T}},\nonumber
             \end{aligned}
         \end{equation}
         where $b_i \equiv \left| \mbf{b}_i \right|$. We also have in Eqs. \ref{eq:weight} and \ref{eq:PIProb} the 1-molecule partition function for the Boltzmann and exchange cases:
         \begin{equation}
         \label{eq:Q1}
             \begin{aligned}
-                Q_1^{({\rm \sigma})} &= \int d\mbf{Z} F(\mbf{R};2m)F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}\nonumber\\
-                &=\frac{1}{\Lambda_{2m}^3}\int d\mbf{b}F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}
+                Q_1^{({\rm \sigma})} &= \int d\mbf{Z} F(\mbf{R};2m)F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})},\nonumber\\
+                &=\frac{1}{\Lambda_{2m}^3}\int d\mbf{b}F(\mbf{b}^{(\sigma)};m/2) e^{ - \beta \bar u(\mbf{b})}.
             \end{aligned}
         \end{equation}
         As discussed in \cite{Garberoglio2014}, the integrals defining $Q_1$ are taken over all $2P$ atom bead coordinates except one, which is fixed at the origin. Likewise, the coordinates of one of the $4P$ atom bead coordinates in the integral for $B_2$ in Eq.~\ref{eq:B2} is fixed, and defines the origin. With these stipulations, terms proportional to the system volume $V$ cancel each other (assuming $V$ is large), and the coefficient $B_2$ is volume-independent.
 
         Finally, in Eq.~\ref{eq:B2} there is $\bar U$, the intermolecular potential energy averaged over all $P$ interacting images:
         \begin{equation}
-            \bar U\left( \mbf{Z}^{(1)}, \mbf{Z}^{(2)} \right) = \frac{1}{P}\sum\limits_{i = 0}^{P-1} U\left( \mbf{Z}_i^{(1)},\mbf{Z}_i^{(2)} \right)
+            \bar U\left( \mbf{Z}^{(1)}, \mbf{Z}^{(2)} \right) = \frac{1}{P}\sum\limits_{i = 0}^{P-1} U\left( \mbf{Z}_i^{(1)},\mbf{Z}_i^{(2)} \right).
         \end{equation}
 
         \noindent The general approach taken to the calculation of $B_2$ is to sample the position of molecule 2 using a Mayer-sampling scheme \cite{Singh2004}, while sampling of orientations and internal conformations of the path-integral rings of both molecules is accomplished through direct sampling of each dimer independently. With knowledge of the ratio $Q_1^{\rm (xc)}/Q_1^{\rm (B)}$ it is a simple matter to sample the exchange-versus-Boltzmann coordinate $\sigma$. For each case, the target distribution for the ring conformation, $P_\sigma(\mbf{Z})$, factors cleanly into a component that depends on only the molecule-center coordinates $\mbf{R}$, and another depending only on the intramolecular coordinates $\mbf{b}$. The molecule-center distribution is just a ring of Gaussians in 3D space, and these can be sampled directly. Specifically, with $\mbf{R}_1$ at the origin, each image coordinate $\mbf{R}_i$ is sampled in sequence from a Gaussian of standard deviation $\sigma_i$ in each dimension centered at a position $\mbf{R}_i'$, such that \cite{Shaul2012}
@@ -370,7 +370,7 @@
         This leaves sampling of the intramolecular coordinates ${\mathbf b}$. These coordinates are also distributed as a ring (for Boltzmann) or chain (for exchange) of Gaussians, but constrained by the intramolecular potential $\bar u({\mathbf b})$, which makes the problem of exact direct sampling intractable in general. For a target distribution $\pi_\sigma({\mathbf b})$, defined as the ${\mathbf b}$-dependent terms in Eq.~\ref{eq:PIProb} for $P_\sigma$, we can instead sample according to an approximate distribution $\tilde \pi({\mathbf b})$, constructed so it can be sampled directly. We generate a configuration with probability $\tau (o \to n)$, based on the approximation $\tilde \pi$, which we accept or reject based on the acceptance probability $P_{\rm acc}$ as:
         \begin{equation}
             \label{eq:Pacc}
-            P_{\rm acc} = \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)}
+            P_{\rm acc} = \frac{\pi(n)/\pi(o)}{\tau (o \to n)/\tau (n \to o)},
         \end{equation}
         where `$o$' and `$n$' denote the old and new configurations respectively.
 
@@ -386,16 +386,16 @@ Let us first examine the end case, in which an image orientation is selected, gi
 \begin{equation}
 \begin{aligned}
 \label{eq:piRigid}
-\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2/b^2\right)\\
-k_h &=\frac{\pi P b^2}{\Lambda^2_{m/2}}\nonumber
+\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2/b^2\right),\\
+k_h &=\frac{\pi P b^2}{\Lambda^2_{m/2}},\nonumber
 \end{aligned}
 \end{equation}
 \else
 \begin{equation}
 \begin{aligned}
 \label{eq:piRigid}
-\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2\right)\\
-k_h &=\frac{\pi P}{\Lambda^2_{m/2}}\nonumber
+\pi({\mathbf b}_i,{\mathbf b}_j) &= \exp\left(-k_h |{\mathbf b}_i - {\mathbf b}_j|^2\right),\\
+k_h &=\frac{\pi P}{\Lambda^2_{m/2}},\nonumber
 \end{aligned}
 \end{equation}
 \fi
@@ -417,8 +417,8 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
             \begin{equation}
             \label{eq:deltax}
                 \begin{aligned}
-                    d_{AC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) + \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)]\\
-                    d_{BC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) - \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)]
+                    d_{AC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) + \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)],\\
+                    d_{BC}^2 &= \frac{b^2}{2} [1 - \cos(\psi_{i,k}/2) \cos(\alpha) - \sin(\psi_{i,k}/2) \sin(\alpha) \cos(\beta)].
                 \end{aligned}
             \end{equation}
 
@@ -427,18 +427,18 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \begin{equation}
                         \label{eq:Uh}
                             \begin{aligned}
-                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
-                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right)\\
-                                &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta): \mathbf{a}_j, \psi_{ik} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k),\\
+                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]/b^2\right),\\
+                                &= \exp\left(-4 k_h [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right).
                             \end{aligned}
                         \end{equation}
                     \else
                         \begin{equation}
                         \label{eq:Uh}
                             \begin{aligned}
-                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k)\\
-                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right)\\
-                                &= \exp\left(-4k_h~b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right)
+                                \pi^\text{adj} \left( {\mathbf b}_j (\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right)  &= \pi({\mathbf b}_i,{\mathbf b}_j)\pi({\mathbf b}_j,{\mathbf b}_k),\\
+                                &= \exp\left(-4 k_h [d_{AC}^2 + d_{BC}^2]\right),\\
+                                &= \exp\left(-4k_h~b^2 [1 - \cos(\psi_{i,k}/2) \cos(\alpha)]\right).
                             \end{aligned}
                         \end{equation}
                     \fi
@@ -458,7 +458,7 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
                         \label{eq:alpha}
                             \begin{aligned}
                                 \alpha &= \cos^{-1} \left[1 +  (1/\kappa)\ln\left(1 - C (1-\exp[-2\kappa]) \right) \right],\\
-                                \kappa &= 4 \cos(\psi_{i,k}/2) k_h~b^2
+                                \kappa &= 4 \cos(\psi_{i,k}/2) k_h~b^2.
                             \end{aligned}
                         \end{equation}
                     \fi
@@ -476,16 +476,16 @@ In order to express $b^2_{ij} \equiv |{\mathbf b}_i - {\mathbf b}_{j}|^2$ in ter
 \begin{equation}
 \begin{aligned}
 \label{eq:piEff}
-\pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \pi^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber \\
-&=\frac{\pi}{k_h~b}\left( {{e^{ - 8{k_h~b^2}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h~b^2}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}
+\pi^{\rm eff}({\mathbf b}_i,{\mathbf b}_k)&= \sin(\psi_{i,k})\int d{\mathbf b}_j \pi^\text{adj} \left( {\mathbf b}_j(\alpha, \beta); \mathbf{a}_j, \psi_{i,k} \right) \nonumber, \\
+&=\frac{\pi}{k_h~b}\left( {{e^{ - 8{k_h~b^2}{{\sin }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}} - {e^{ - 8{k_h~b^2}{{\cos }^2}\left( {\frac{\psi_{i,k} }{4}} \right)}}} \right){{\sin \left( {\psi_{i,k} /2} \right)}}.
 \end{aligned}
 \end{equation}
 \fi
 This effective interaction (as manifest via $\psi_{i,k}$) obviously is not a simple harmonic, so  it is difficult to proceed in an exact analytic manner as we did for the adjacent-image case. However, we can perform a second-order series expansion of $\ln \pi^{\rm eff}$ in terms of the $ik$ distance $d_{ik} = 2b\sin(\psi_{i,k}/2)$, to identify an effective harmonic interaction:
 \begin{align}
 %k_h^{(1)} = \frac{1}{2}k_h^{(0)}\coth(4 k_h^{(0)}) - \frac{1}{8}
-k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h)\\
-&\approx \frac{k_h}{2}    {\hspace{0.3in}} (P \gg 1)\nonumber
+k_h^{\rm eff} &= \frac{1}{2}k_h\coth(4 k_h),\\
+&\approx \frac{k_h}{2}    {\hspace{0.3in}} (P \gg 1).\nonumber
 \end{align}
 The approximate value here is the spring constant for the case where $P$ is half of the value used in placing $j$. Equivalently, this is the spring constant used if the number of images were such that $i$ and $k$ were actually the end cases in the process. We can repeat this prescription all the way back through the bisection process.
 
@@ -493,11 +493,11 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         \begin{equation}
         \label{eq:piTilde}
             \begin{aligned}
-                \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}) \\
+                \tau (o \to n) &= \displaystyle\prod_{j=1}^{P-1} \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k}), \\
                 \tilde \pi({\mathbf b}_j (\alpha, \beta); {\mathbf a}_j, \psi_{i,k})  &=
                 \begin{cases}
-                    \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi\\
-                    \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi\\
+                    \displaystyle\frac{\kappa \exp[\kappa \cos (\alpha)]}{\exp[\kappa] - \exp[-\kappa]} & \text{if} \qquad \psi_{i,k} \ne \pi,\\
+                    \displaystyle\frac{1}{2} & \text{if} \qquad \psi_{i,k} = \pi,\\
                 \end{cases}
             \end{aligned}
         \end{equation}
@@ -512,8 +512,8 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         A separate MC trial is used to change the bond lengths, which is performed all at once for all images. With the orientations set, the distribution of bond lengths can be written
         \begin{equation}
             \begin{aligned}
-                \pi(\mathbf{b}) &= \displaystyle\prod\limits_{i=0}^{P-1} b_i^2 e^{-\beta u(b_i)/P} \pi(b_i,b_{i+1},\theta_{i,i+1}) \\
-                \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{i,j}) \right)\right)\\
+                \pi(\mathbf{b}) &= \displaystyle\prod\limits_{i=0}^{P-1} b_i^2 e^{-\beta u(b_i)/P} \pi(b_i,b_{i+1},\theta_{i,i+1}), \\
+                \pi(b_i,b_j,\theta_{i,j}) &= \exp\left(-\frac{1}{2}  k_h  \left( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{i,j}) \right)\right),\\
             \end{aligned}
         \end{equation}
         where $\theta_{i,j}$ is the angle between orientations of images $i$ and $j$, with $\theta_{P-1,P}$ defined using the convention described above for Boltzmann versus exchange configurations.
@@ -523,9 +523,9 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         \begin{equation}
         \label{eq:y}
             \begin{aligned}
-                y &= -\ln \pi(\mathbf{b})\\
-                y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ \frac{1}{2}  k_h  \Big( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}\\
-                &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}
+                y &= -\ln \pi(\mathbf{b}),\\
+                y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ \frac{1}{2}  k_h  \Big( b_i^2 + b_j^2 - 2  b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\},\\
+                &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j  \cos (\theta_{ij}) \Big) - 2  \log b_i + \frac{ \beta  u (b_i)}{P} \Bigg\}.
             \end{aligned}
         \end{equation}
 
@@ -533,24 +533,24 @@ We summarize the bisection algorithm for choosing the image orientations as foll
         \begin{equation}
         \label{eq:ytilde}
             \begin{aligned}
-                \tilde y &\approx y\\
-                \tilde y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j \Big) - \frac{2  \log b_i}{P} + \frac{ \beta  u (b_i)}{P} \Bigg\}
+                \tilde y &\approx y,\\
+                \tilde y &= \displaystyle\sum\limits_{i=0}^{P-1} \Bigg\{ k_h  \Big( b_i^2 - b_i  b_j \Big) - \frac{2  \log b_i}{P} + \frac{ \beta  u (b_i)}{P} \Bigg\}.
             \end{aligned}
         \end{equation}
 
         Note that the term $b_i^{2/P}$ has no physical meaning whatsoever and it was artificially introduced solely to account for different images having different orientations (see sec. \ref{sec:blPerformance} for justification of this approach). We solve for the nominal $\cos (\hat \theta)$ value by setting the first derivatives of $y$ and $\tilde y$ equal and get:
         \begin{equation}
         \label{eq:thetaHat}
-            \cos (\hat \theta) = 1 - \frac{P-1}{P~k_h~b_i^2}
+            \cos (\hat \theta) = 1 - \frac{P-1}{P~k_h~b_i^2}.
         \end{equation}
 
         Using this nominal value in Eq. \eqref{eq:y}, we find $b_m$ such that:
         \begin{equation}
         \label{eq:bm}
-            \displaystyle\frac{\partial y}{\partial b_i} \bigg|_{b_i = b_m} = 0 \qquad \forall i
+            \displaystyle\frac{\partial y}{\partial b_i} \bigg|_{b_i = b_m} = 0 \qquad \forall i.
         \end{equation}
 
-        We employ Newton-Raphson method to compute $b_m$ and use it to perform the normal mode analysis only once for a simulation. It is worth noting that here too, like the orientation move, we have used an approximate distribution function to choose the different bond lengths. Therefore, much like the orientation move, the performance of the algorithm is expected to decrease with increasing $P$.
+        We employ Newton-Raphson method to compute $b_m$ and use it to perform the normal mode analysis only once for a simulation. It is worth noting that here too, like the orientation move, we have used an approximate distribution function to choose the different bond lengths. Therefore, much like the orientation move, the performance of the algorithm is expected to decrease with increasing $P$. We note that for calculations involving only exchange-type ring conformations, the nominal angle is set to a constant value , i.e., $\hat \theta = \pi/P$. This is a reasonable choice because it naturally leads to an angle of $\pi$ between images 0 and $P$.
 
         \section{Closing Remarks}
             We have developed direct orientation and bond length sampling algorithms for diatomic molecules by treating each molecule as two independent atoms as opposed to one rigid rotor. This description proves to be advantageous as it not only saves time, but also provides a straightforward route for extending the algorithms to multiatomic molecules. The algorithms involve simple and analytic expressions for probability distributions that are approximations to the actual distributions. The nature of different assumptions made for both algorithms cause an adverse effect on the efficiency for large $P$ (typically at low temperatures) but, due to the use of the Monte Carlo sampling algorithm, the assumptions made to estimate the probability distribution does not impact the accuracy of the calculations. A possible route to improvement in efficiency for higher $P$, applicable to both rigid and flexible cases, is be to regrow only parts of the ring in a Monte Carlo trial. Also, more efficient ways to handle the possibility of different images having different bond lengths within the orientation move, and different images having different orientations within the bond length move, could further improve the performance of these algorithms. One could do more analysis (as was done in sec. \ref{sec:orPerformance}) using actual simulation parameters to gain a better understanding of the nature of difference between the approximate and actual distributions. In the next chapters, we present results for various systems where the methods developed in this chapter are applied, to compute virial coefficients.
